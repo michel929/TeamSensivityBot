@@ -11,7 +11,7 @@ Zudem brauchst du die [Java Discord API](https://github.com/DV8FromTheWorld/JDA)
 ### Schritt 2:
 Du fügst die JDA Plugin Datei als Modul hinzu.
 
-![image](https://github.com/Team-Sensivity/TeamSensivityBot/blob/Version-2.0/pluginsystem/module.png)
+![image](https://github.com/Team-Sensivity/TeamSensivityBot/blob/main/pluginsystem/module.png)
 
 ### Schritt 3:
 Jetzt erstelle deine MainClasse, welche wie folgt aussehen sollte:
