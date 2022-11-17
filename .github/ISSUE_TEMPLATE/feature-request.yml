@@ -15,7 +15,7 @@ body:
     options:
       - label: I have checked for similar issues on the Issue-tracker.
         required: true
-      - label: I have updated to the [latest JDA version](https://ci.dv8tion.net/job/JDA/lastSuccessfulBuild/)
+      - label: I have updated to the [latest Bot version](https://ci.dv8tion.net/job/JDA/lastSuccessfulBuild/)
         required: true
       - label: I have checked the branches or the maintainers' PRs for upcoming features.
         required: true
@@ -23,15 +23,6 @@ body:
   attributes:
     label: "Feature Request"
     description: "Provide a small description of the feature you want to have added."
-    placeholder: "JDA should get ..."
+    placeholder: "The Bot should get ..."
   validations:
     required: true
-- type: textarea
-  attributes:
-    label: "Example Use-Case"
-    description: |-
-      Provide some code or describe a possible use-case for this feature.
-      
-      The provided text will be rendered as Java code, so you don't have to provide a Code block for it.
-    placeholder: "public void newAwesomeMethod(){}"
-    render: java
