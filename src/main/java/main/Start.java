@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -118,7 +119,10 @@ public class Start {
         api.upsertCommand("login", "Hiermit kannst du dich im Dashboard anmelden.").queue();
         api.upsertCommand("swf", "Hiermit kannst du eine SWF erstellen").addOption(OptionType.USER, "player2", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player3", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player4", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).queue();
         api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
-        api.upsertCommand("play", "").addOption(OptionType.STRING, "url", "", true).queue();
+
+        api.upsertCommand("play", "Hiermit kannst du Musik abspielen.").addOption(OptionType.STRING, "song", "Damit der Bot weiß was für ein Lied du hören möchtest...", true).queue();
+        api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
+        api.upsertCommand("stop", "Hiermit kannst du den aktuellen Song stoppen.").queue();
     }
 
     public JDA getApi() {

@@ -9,9 +9,10 @@ import java.util.concurrent.TimeUnit;
 public class SlashCommand extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        event.reply("*Befehl wird ausgeführt...*").queue((message) -> message.deleteOriginal().queueAfter(10, TimeUnit.SECONDS));
         if (!Start.INSTANCE.getSlashMan().perform(event.getName(), event)) {
             event.reply("Unbekannter Command").queue();
+        }else{
+            event.reply("*Befehl wird ausgeführt...*").queue((message) -> message.deleteOriginal().queueAfter(10, TimeUnit.SECONDS));
         }
     }
 }
