@@ -1,6 +1,7 @@
 package main;
 
 import commands.DBDProfile;
+import commands.ResetCommand;
 import commands.UpdateCommand;
 import commands.forum.Maintenance;
 import commands.types.PrivateCommand;
@@ -23,6 +24,7 @@ public class CommandManager {
         commandsp.put("update", new UpdateCommand());
         commands.put("dbdp", new DBDProfile());
         commands.put("wartung", new Maintenance());
+        commands.put("reset", new ResetCommand());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){

@@ -118,6 +118,7 @@ public class Start {
         api.upsertCommand("login", "Hiermit kannst du dich im Dashboard anmelden.").queue();
         api.upsertCommand("swf", "Hiermit kannst du eine SWF erstellen").addOption(OptionType.USER, "player2", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player3", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player4", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).queue();
         api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
+        api.upsertCommand("play", "").addOption(OptionType.STRING, "url", "", true).queue();
     }
 
     public JDA getApi() {
