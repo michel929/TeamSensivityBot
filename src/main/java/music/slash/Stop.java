@@ -14,19 +14,21 @@ public class Stop implements ServerSlash{
 
     @Override
     public void performCommand(SlashCommandInteractionEvent event) {
-        PlayerManager.getINSTANCE().getMusicManager(event.getGuild()).audioPlayer.stopTrack();
-        final AudioManager audioManager = event.getGuild().getAudioManager();
+        if(BotInfos.getBotInfos("cmd_music_on").equals("1")) {
+            PlayerManager.getINSTANCE().getMusicManager(event.getGuild()).audioPlayer.stopTrack();
+            final AudioManager audioManager = event.getGuild().getAudioManager();
 
-        audioManager.closeAudioConnection();
+            audioManager.closeAudioConnection();
 
-        EmbedBuilder builder = new EmbedBuilder();
-        builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-        builder.setColor(Color.decode("#2ecc71"));
-        builder.setTitle("Song wurde gestoppt");
-        builder.setDescription("Du hast erfolgreich den Song gestoppt.");
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+            builder.setColor(Color.decode("#2ecc71"));
+            builder.setTitle("Song wurde gestoppt");
+            builder.setDescription("Du hast erfolgreich den Song gestoppt.");
 
-        event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-            message.delete().queueAfter(10, TimeUnit.SECONDS);
-        });
+            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                message.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
+        }
     }
 }

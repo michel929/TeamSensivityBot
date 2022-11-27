@@ -14,7 +14,7 @@ public class PlayerJoin extends ListenerAdapter {
         Role r = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getRoleById(BotInfos.getBotInfos("discord_role"));
         Role re = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getRoleById(BotInfos.getBotInfos("game_role"));
 
-        m.getRoles().add(r);
-        m.getRoles().add(re);
+        event.getGuild().addRoleToMember(m, r).queue();
+        event.getGuild().addRoleToMember(m, re).queue();
     }
 }

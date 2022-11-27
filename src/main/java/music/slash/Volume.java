@@ -12,30 +12,32 @@ import java.util.concurrent.TimeUnit;
 public class Volume implements ServerSlash {
     @Override
     public void performCommand(SlashCommandInteractionEvent event) {
-        int volume = event.getOption("volume").getAsInt();
+        if(BotInfos.getBotInfos("cmd_music_on").equals("1")) {
+            int volume = event.getOption("volume").getAsInt();
 
-        if(volume <= 100 && volume >= 0) {
-            PlayerManager.getINSTANCE().getMusicManager(event.getGuild()).audioPlayer.setVolume(volume);
+            if (volume <= 100 && volume >= 0) {
+                PlayerManager.getINSTANCE().getMusicManager(event.getGuild()).audioPlayer.setVolume(volume);
 
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setColor(Color.decode("#2ecc71"));
-            builder.setTitle("Volume auf " + volume + "% gesetzt");
-            builder.setDescription("Du hast erfolgreich die Lautstärke angepasst.");
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                builder.setColor(Color.decode("#2ecc71"));
+                builder.setTitle("Volume auf " + volume + "% gesetzt");
+                builder.setDescription("Du hast erfolgreich die Lautstärke angepasst.");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
-        }else {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(Color.red);
-            builder.setDescription("Volume muss zwischen 0 und 100 liegen.");
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setTitle("Fehler beim benutzen des Commands");
+                event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                    message.delete().queueAfter(10, TimeUnit.SECONDS);
+                });
+            } else {
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.setColor(Color.red);
+                builder.setDescription("Volume muss zwischen 0 und 100 liegen.");
+                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                builder.setTitle("Fehler beim benutzen des Commands");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+                event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                    message.delete().queueAfter(10, TimeUnit.SECONDS);
+                });
+            }
         }
     }
 }

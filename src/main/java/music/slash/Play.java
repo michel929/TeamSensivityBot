@@ -18,32 +18,34 @@ import java.util.concurrent.TimeUnit;
 public class Play implements ServerSlash {
     @Override
     public void performCommand(SlashCommandInteractionEvent event) {
-        Guild guild = event.getGuild();
+        if(BotInfos.getBotInfos("cmd_music_on").equals("1")) {
+            Guild guild = event.getGuild();
 
-        if(event.getMember().getVoiceState().inAudioChannel()) {
-            final AudioManager audioManager = guild.getAudioManager();
-            final VoiceChannel memberChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
+            if (event.getMember().getVoiceState().inAudioChannel()) {
+                final AudioManager audioManager = guild.getAudioManager();
+                final VoiceChannel memberChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
 
-            audioManager.openAudioConnection(memberChannel);
-        }else {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(Color.red);
-            builder.setDescription("Du musst in einem SprachChannel sein um diesen Command zu benutzen.");
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setTitle("Fehler beim benutzen des Commands.");
+                audioManager.openAudioConnection(memberChannel);
+            } else {
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.setColor(Color.red);
+                builder.setDescription("Du musst in einem SprachChannel sein um diesen Command zu benutzen.");
+                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                builder.setTitle("Fehler beim benutzen des Commands.");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+                event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                    message.delete().queueAfter(10, TimeUnit.SECONDS);
+                });
+            }
+
+            String u = event.getOption("song").getAsString();
+
+            if (!isUrl(u)) {
+                u = "ytsearch:" + u + " audio";
+            }
+
+            PlayerManager.getINSTANCE().loadAndPlay((TextChannel) event.getChannel(), u);
         }
-
-        String u = event.getOption("song").getAsString();
-
-        if(!isUrl(u)){
-            u = "ytsearch:" + u + " audio";
-        }
-
-        PlayerManager.getINSTANCE().loadAndPlay((TextChannel) event.getChannel(), u);
     }
 
     public boolean isUrl(String url){

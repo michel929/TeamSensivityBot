@@ -19,16 +19,20 @@ public class ResetCommand implements ServerCommand {
             List<Member> members = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getMembers();
             int i = 1;
             for (Member member: members) {
-                member.modifyNickname(member.getEffectiveName()).queue();
-                if(members.size() == i){
-                    EmbedBuilder builder = new EmbedBuilder();
-                    builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-                    builder.setColor(Color.decode("#2ecc71"));
-                    builder.setTitle("Reset erfolgreich!");
-                    builder.setDescription("Alle Nicknames wurden erfolgreich zurückgesetzt.");
-                }
+                if(!member.getId().equals("422148236875137059")) {
+                    member.modifyNickname(member.getUser().getName()).complete();
+                    if (members.size() == i) {
+                        EmbedBuilder builder = new EmbedBuilder();
+                        builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                        builder.setColor(Color.decode("#2ecc71"));
+                        builder.setTitle("Reset erfolgreich!");
+                        builder.setDescription("Alle Nicknames wurden erfolgreich zurückgesetzt.");
+                    }
 
-                i++;
+                    i++;
+
+                    System.out.println(member.getEffectiveName());
+                }
             }
         }
     }
