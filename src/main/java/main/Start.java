@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -93,6 +92,7 @@ public class Start {
         api.addEventListener(new SelectionMenu());
         api.addEventListener(new ButtonListener());
         api.addEventListener(new ChannelRemove());
+        api.addEventListener(new BotAddToGuild());
 
         api.addEventListener(new PlayerJoin());
         api.addEventListener(new PlayerLeave());
