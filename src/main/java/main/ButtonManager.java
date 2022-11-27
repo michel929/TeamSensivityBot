@@ -1,8 +1,8 @@
 package main;
 
-import buttons.SWFJoin;
-import buttons.SWFLeave;
-import buttons.SWFYes;
+import dbd.swf.buttons.SWFJoin;
+import dbd.swf.buttons.SWFLeave;
+import dbd.swf.buttons.SWFYes;
 import buttons.types.ServerButton;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 

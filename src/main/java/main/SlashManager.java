@@ -5,7 +5,7 @@ import music.slash.Volume;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import slash.Connect;
 import slash.Login;
-import slash.SWF;
+import dbd.swf.slash.SWF;
 import slash.Token;
 import slash.types.ServerSlash;
 

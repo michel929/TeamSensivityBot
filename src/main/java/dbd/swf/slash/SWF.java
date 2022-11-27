@@ -1,5 +1,6 @@
-package slash;
+package dbd.swf.slash;
 
+import dbd.swf.Functions;
 import functions.CreateImage;
 import functions.DBD_Chars;
 import main.Start;
@@ -7,6 +8,7 @@ import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
@@ -114,13 +116,12 @@ public class SWF implements ServerSlash {
                         try {
                             CreateImage.createImage(images);
                             img = new File("/home/michel929/TeamSensivity/findyourswf.png");
-                            builder.setImage("attachment://FindYourSWF.png");
+                            builder.setImage("attachment://FindYourSWF" + Functions.getI() + ".png");
                             builder.setTitle("Find Your SWF");
                             builder.setColor(Color.decode("#2ecc71"));
                             builder.setAuthor(m.getEffectiveName(), "https://sensivity.team", m.getEffectiveAvatarUrl());
                             builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
-                            event.getChannel().sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF.png")).setActionRow(Button.success("swfjoin" + uuid, "Join SWF"), Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
-
+                            event.getChannel().sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + Functions.getI() + ".png")).setActionRow(net.dv8tion.jda.api.interactions.components.buttons.Button.success("swfjoin" + uuid, "Join SWF"), net.dv8tion.jda.api.interactions.components.buttons.Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
                                 if (members.size() == 1) {
                                     mysql.SWF.createSWF(uuid, m.getId(), message.getId());
                                 } else if (members.size() == 2) {
@@ -131,6 +132,7 @@ public class SWF implements ServerSlash {
                                     mysql.SWF.createSWF(uuid, m.getId(), members.get(1).getId(), members.get(2).getId(), members.get(3).getId(), message.getId());
                                 }
                             });
+                            Functions.addI();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

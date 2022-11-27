@@ -1,16 +1,19 @@
-package buttons;
+package dbd.swf;
 
-import buttons.types.ServerButton;
 import functions.CreateImage;
 import functions.DBD_Chars;
 import main.Start;
 import mysql.BotInfos;
 import mysql.SWF;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.entities.channel.Channel;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
+import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.FileUpload;
 
@@ -21,26 +24,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class SWFYes implements ServerButton {
-    private File img;
+public class Functions {
+    private static File img;
+    private static int i = 0;
 
-    @Override
-    public void performCommand(ButtonInteractionEvent event) {
-        String uuid = event.getComponent().getId().replace("swfyes", "");
-
+    public static void createImage(Member member, String uuid, Channel c){
         List<Member> members = new ArrayList<>();
         List<Member> reserviert = SWF.getReserviert(uuid);
 
-        if(reserviert.contains(event.getMember())){
-            reserviert.remove(event.getMember());
+        if(reserviert.contains(member)){
+            reserviert.remove(member);
         }
 
-        members.add(Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getMemberById(event.getUser().getId()));
+        members.add(member);
+
         boolean fool = false;
 
         for (String mem : SWF.getPlayer(uuid)) {
             if(mem != null) {
-                if(mem.equals(event.getUser().getId())){
+                if(mem.equals(member.getId())){
                     fool = true;
                 }
                 members.add(Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getMemberById(mem));
@@ -54,7 +56,7 @@ public class SWFYes implements ServerButton {
         }
 
         if(!fool) {
-            if (SWF.isFree(uuid, event.getUser().getId())) {
+            if (SWF.isFree(uuid, member.getId())) {
 
                 java.util.List<String> images = new ArrayList<>();
                 images.add("https://sensivity.team/bot/img/dbd_logo.png");
@@ -121,7 +123,7 @@ public class SWFYes implements ServerButton {
                     try {
                         CreateImage.createImage(images);
                         img = new File("/home/michel929/TeamSensivity/findyourswf.png");
-                        builder.setImage("attachment://FindYourSWF" + SWFJoin.getI() + ".png");
+                        builder.setImage("attachment://FindYourSWF" + i + ".png");
                         builder.setTitle("Find Your SWF");
                         builder.setColor(Color.decode("#2ecc71"));
                         builder.setAuthor(m.getEffectiveName(), "https://sensivity.team", m.getEffectiveAvatarUrl());
@@ -144,18 +146,25 @@ public class SWFYes implements ServerButton {
                         embedBuilder.setTitle("Erfolgreich beigetreten");
                         embedBuilder.setDescription("Du bist der SWF erfolgreich beigetreten. Mehr Infos zur SWF findest du entweder Wenn du unten dem Link folgst oder auf unserem Server in den Channel #find_your_swf gehst.");
                         embedBuilder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
-                        event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
+
+                        if(c.getType() == ChannelType.TEXT) {
+                            TextChannel textChannel = (TextChannel) c;
+                            textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
+                        }else {
+                            PrivateChannel textChannel = (PrivateChannel) c;
+                            textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
+                        }
 
                         if (members.size() == 4) {
-                            ((MessageChannel) channel).sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + SWFJoin.getI() + ".png")).setActionRow(Button.success("swfjoin" + uuid, "Join SWF").asDisabled(), Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
+                            ((MessageChannel) channel).sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + i + ".png")).setActionRow(net.dv8tion.jda.api.interactions.components.buttons.Button.success("swfjoin" + uuid, "Join SWF").asDisabled(), net.dv8tion.jda.api.interactions.components.buttons.Button.danger("swfleave" + uuid, "Leave SWF"), net.dv8tion.jda.api.interactions.components.buttons.Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
                                 SWF.updateMessageID(uuid, message.getId());
                             });
                         } else {
-                            ((MessageChannel) channel).sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + SWFJoin.getI() + ".png")).setActionRow(Button.success("swfjoin" + uuid, "Join SWF"), Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
+                            ((MessageChannel) channel).sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + i + ".png")).setActionRow(net.dv8tion.jda.api.interactions.components.buttons.Button.success("swfjoin" + uuid, "Join SWF"), net.dv8tion.jda.api.interactions.components.buttons.Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
                                 SWF.updateMessageID(uuid, message.getId());
                             });
                         }
-                        SWFJoin.setI(SWFJoin.getI() + 1);
+                        i++;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -167,7 +176,22 @@ public class SWFYes implements ServerButton {
             embedBuilder.setTitle("Fehler beim Beitreten der SWF");
             embedBuilder.setDescription("Du bist bereits in einer SWF. Du kannst nur in einer SWF gleichzeitig sein.");
             embedBuilder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
-            event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue((message) -> message.delete().queueAfter(10, TimeUnit.SECONDS));
+
+            if(c.getType() == ChannelType.TEXT) {
+                TextChannel textChannel = (TextChannel) c;
+                textChannel.sendMessageEmbeds(embedBuilder.build()).queue((message) -> message.delete().queueAfter(10, TimeUnit.SECONDS));
+            }else {
+                PrivateChannel textChannel = (PrivateChannel) c;
+                textChannel.sendMessageEmbeds(embedBuilder.build()).queue((message) -> message.delete().queueAfter(10, TimeUnit.SECONDS));
+            }
         }
+    }
+
+    public static int getI() {
+        return i;
+    }
+
+    public static void addI() {
+        i++;
     }
 }

@@ -1,6 +1,7 @@
-package buttons;
+package dbd.swf.buttons;
 
 import buttons.types.ServerButton;
+import dbd.swf.Functions;
 import functions.CreateImage;
 import functions.DBD_Chars;
 import main.Start;
@@ -132,7 +133,7 @@ public class SWFLeave implements ServerButton {
                         try {
                             CreateImage.createImage(images);
                             img = new File("/home/michel929/TeamSensivity/findyourswf.png");
-                            builder.setImage("attachment://FindYourSWF" + SWFJoin.getI() + ".png");
+                            builder.setImage("attachment://FindYourSWF" + Functions.getI() + ".png");
                             builder.setTitle("Find Your SWF");
                             builder.setColor(Color.decode("#2ecc71"));
                             builder.setAuthor(m.getEffectiveName(), "https://sensivity.team", m.getEffectiveAvatarUrl());
@@ -140,15 +141,15 @@ public class SWFLeave implements ServerButton {
                             builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
 
                             if (members.size() == 4) {
-                                event.getChannel().sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + SWFJoin.getI() + ".png")).setActionRow(Button.success("swfjoin" + uuid, "Join SWF").asDisabled(), Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
+                                event.getChannel().sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + Functions.getI() + ".png")).setActionRow(Button.success("swfjoin" + uuid, "Join SWF").asDisabled(), Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
                                     SWF.updateMessageID(uuid, message.getId());
                                 });
                             } else {
-                                event.getChannel().sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + SWFJoin.getI() + ".png")).setActionRow(Button.success("swfjoin" + uuid, "Join SWF"), Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
+                                event.getChannel().sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + Functions.getI() + ".png")).setActionRow(Button.success("swfjoin" + uuid, "Join SWF"), Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
                                     SWF.updateMessageID(uuid, message.getId());
                                 });
                             }
-                            SWFJoin.setI(SWFJoin.getI() + 1);
+                            Functions.addI();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

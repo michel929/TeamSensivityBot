@@ -38,6 +38,16 @@ public class Volume implements ServerSlash {
                     message.delete().queueAfter(10, TimeUnit.SECONDS);
                 });
             }
+        }else {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.setColor(Color.red);
+            builder.setDescription("Dieser Befehl ist zurzeit deaktiviert. Versuche es später erneut.");
+            builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
+            builder.setTitle("Befel ist deaktiviert.");
+
+            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                message.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
         }
     }
 }
