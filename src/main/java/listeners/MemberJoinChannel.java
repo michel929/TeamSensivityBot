@@ -33,12 +33,14 @@ public class MemberJoinChannel extends ListenerAdapter {
         Category c = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getCategoryById(BotInfos.getBotInfos("chill_cat"));
 
         if(event.getChannelJoined() != null) {
+            //PointsSystem
             if (BotInfos.getBotInfos("punktesystem").equals("1")) {
                 if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
                     members.put(event.getMember(), DateTime.now());
                 }
             }
 
+            //Create-Chill
             if (BotInfos.getBotInfos("chill_create").equals("1")) {
                 if (event.getChannelJoined().getId().equals(BotInfos.getBotInfos("chill_channel"))) {
                     c.createVoiceChannel("Chill | " + i).addPermissionOverride(event.getMember(), permission, null).queue(voiceChannel -> {
@@ -51,6 +53,7 @@ public class MemberJoinChannel extends ListenerAdapter {
         }
 
         if(event.getChannelLeft() != null) {
+            //PointSystem
             if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && members.contains(event.getMember())) {
                 DateTime date = members.get(event.getMember());
 
@@ -67,6 +70,7 @@ public class MemberJoinChannel extends ListenerAdapter {
                 }
             }
 
+            //Create-Chill
             if (channel.contains(event.getChannelLeft())) {
                 if (event.getChannelLeft().getMembers().size() == 0) {
                     event.getChannelLeft().delete().queue();

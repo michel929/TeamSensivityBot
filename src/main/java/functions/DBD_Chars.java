@@ -1,10 +1,7 @@
 package functions;
 
 import mysql.dashboard.PlayerInfos;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
