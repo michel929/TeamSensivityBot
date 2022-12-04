@@ -1,6 +1,8 @@
 package main;
 
 import geheim.BotToken;
+import karmasystem.PlayerMoved;
+import karmasystem.PlayerMute;
 import listeners.*;
 import listeners.dashboard.*;
 import listeners.dashboard.role.*;
@@ -20,7 +22,7 @@ import java.io.InputStreamReader;
 public class Start {
 
     public static Start INSTANCE;
-    public static String GUILD_ID = BotInfos.getBotInfos("guild_id"), VERSION_ID = "2.1";
+    public static String GUILD_ID = BotInfos.getBotInfos("guild_id"), VERSION_ID = "2.2";
 
     private JDA api;
     private CommandManager cmdMan;
@@ -112,6 +114,8 @@ public class Start {
         api.addEventListener(new OnStart());
 
         api.addEventListener(new MemberJoinChannel());
+       // api.addEventListener(new PlayerMoved());
+        api.addEventListener(new PlayerMute());
     }
 
     private void commands(){
