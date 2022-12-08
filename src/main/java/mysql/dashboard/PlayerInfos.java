@@ -3,6 +3,8 @@ package mysql.dashboard;
 import mysql.Connect;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class PlayerInfos {
     public static void createAccount(String id, String username, String pb, String banner){
@@ -49,6 +51,29 @@ public class PlayerInfos {
             while (rs.next()) {
                 if(id.equals(rs.getString(row))){
                     exist = true;
+                }
+
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exist;
+    }
+ public static LocalDate getDaily(String id){
+        LocalDate exist = null;
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM users";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                if(id.equals(rs.getString("discord_id"))){
+                    exist = rs.getDate("daily").toLocalDate();
                 }
 
             }

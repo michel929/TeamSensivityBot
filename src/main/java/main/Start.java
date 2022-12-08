@@ -1,7 +1,6 @@
 package main;
 
 import geheim.BotToken;
-import karmasystem.PlayerMoved;
 import karmasystem.PlayerMute;
 import listeners.*;
 import listeners.dashboard.*;
@@ -11,13 +10,17 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Start {
 
@@ -123,10 +126,22 @@ public class Start {
         api.upsertCommand("login", "Hiermit kannst du dich im Dashboard anmelden.").queue();
         api.upsertCommand("swf", "Hiermit kannst du eine SWF erstellen").addOption(OptionType.USER, "player2", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player3", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player4", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).queue();
         api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
+        api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
+
+        Collection<SubcommandData> subcommands = new ArrayList<>();
+        subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "Member", "", false).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
+        subcommands.add(new SubcommandData("remove", "Entfernt dem User Punkte.").addOption(OptionType.USER, "Member", "", false).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
+        subcommands.add(new SubcommandData("set", "Setze eine bestimmte anzahl an Punktem einem User.").addOption(OptionType.USER, "Member", "", false).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
+        api.upsertCommand("points", "Hiermit kannst du deine Punkte einsehen.").addOption(OptionType.USER, "Member", "", false).addSubcommands(subcommands).queue();
+
+        api.upsertCommand("daily", "Hiermit sammelst du die Tägliche belohnung ein.").queue();
+        api.upsertCommand("level", "Hiermit lässt du dir dein Level ausgeben.").addOption(OptionType.USER, "Member", "", false).queue();
 
         api.upsertCommand("play", "Hiermit kannst du Musik abspielen.").addOption(OptionType.STRING, "song", "Damit der Bot weiß was für ein Lied du hören möchtest...", true).queue();
         api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
         api.upsertCommand("stop", "Hiermit kannst du den aktuellen Song stoppen.").queue();
+
+
     }
 
     public JDA getApi() {
