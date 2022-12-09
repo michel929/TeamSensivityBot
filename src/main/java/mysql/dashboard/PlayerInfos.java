@@ -140,6 +140,20 @@ public class PlayerInfos {
             e.printStackTrace();
         }
     }
+    public static void updatePlayerInfos(String discord_id, String row, Date newInfos){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET " + row + " = '" + newInfos + "' WHERE discord_id = '" + discord_id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void insertRole(String id, String role){
         try {

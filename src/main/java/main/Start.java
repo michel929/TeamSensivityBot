@@ -129,9 +129,9 @@ public class Start {
         api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
 
         Collection<SubcommandData> subcommands = new ArrayList<>();
-        subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "Member", "", false).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
-        subcommands.add(new SubcommandData("remove", "Entfernt dem User Punkte.").addOption(OptionType.USER, "Member", "", false).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
-        subcommands.add(new SubcommandData("set", "Setze eine bestimmte anzahl an Punktem einem User.").addOption(OptionType.USER, "Member", "", false).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
+        subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "Member", "", true).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
+        subcommands.add(new SubcommandData("remove", "Entfernt dem User Punkte.").addOption(OptionType.USER, "Member", "", true).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
+        subcommands.add(new SubcommandData("set", "Setze eine bestimmte anzahl an Punktem einem User.").addOption(OptionType.USER, "Member", "", true).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
         api.upsertCommand("points", "Hiermit kannst du deine Punkte einsehen.").addOption(OptionType.USER, "Member", "", false).addSubcommands(subcommands).queue();
 
         api.upsertCommand("daily", "Hiermit sammelst du die Tägliche belohnung ein.").queue();
