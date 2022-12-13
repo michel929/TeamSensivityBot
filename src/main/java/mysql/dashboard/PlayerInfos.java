@@ -11,7 +11,7 @@ public class PlayerInfos {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO users (discord_id, discord_username, discord_bild, discord_banner, website_url) VALUES ('"+ id + "', '"+ username +"' , '"+ pb +"', '"+ banner +"', '" + id + "')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO users (discord_id, discord_username, discord_pb, discord_banner, website_url) VALUES ('"+ id + "', '"+ username +"' , '"+ pb +"', '"+ banner +"', '" + id + "')");
 
             posted.executeUpdate();
             con.close();
@@ -29,7 +29,7 @@ public class PlayerInfos {
 
             posted.executeUpdate();
 
-            posted = con.prepareStatement("DELETE FROM rollen WHERE discord_id = '" + id +"'");
+            posted = con.prepareStatement("DELETE FROM user_role WHERE discord_id = '" + id +"'");
 
             posted.executeUpdate();
             con.close();
@@ -159,7 +159,7 @@ public class PlayerInfos {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO rollen (discord_id, discorde_role) VALUES ('"+ id + "', '"+ role +"')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO user_role (discord_id, discord_role) VALUES ('"+ id + "', '"+ role +"')");
 
             posted.executeUpdate();
             con.close();

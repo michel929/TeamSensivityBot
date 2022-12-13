@@ -7,12 +7,13 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import slash.types.ServerSlash;
 
-import static java.time.temporal.ChronoUnit.HOURS;
-
 import java.awt.*;
-import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import static java.time.temporal.ChronoUnit.*;
 
 public class Daily implements ServerSlash {
     @Override
@@ -21,10 +22,15 @@ public class Daily implements ServerSlash {
             if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
                 LocalDate date = PlayerInfos.getDaily(event.getMember().getId());
                 LocalDate now = LocalDate.now();
-                long diff = HOURS.between(date, now);
 
-                if(diff >= 24){
-                    PlayerInfos.updatePlayerInfos(event.getMember().getId(), "daily", Date.valueOf(LocalDate.now()));
+                Date d1 = Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date d2 = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+                long elapsedms = d1.getTime() - d2.getTime();
+                long diff = TimeUnit.MINUTES.convert(elapsedms, TimeUnit.MILLISECONDS);
+
+                if(diff >= 1440){
+                    PlayerInfos.updatePlayerInfos(event.getMember().getId(), "daily", java.sql.Date.valueOf(LocalDate.now()));
                     PunkteSystem.uploadPoints(event.getMember().getId(), 10);
 
                     EmbedBuilder builder = new EmbedBuilder();
@@ -48,6 +54,16 @@ public class Daily implements ServerSlash {
                     });
                 }
             }
+        }else {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.setColor(Color.red);
+            builder.setDescription("Dieser Befehl ist zurzeit deaktiviert. Versuche es später erneut.");
+            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+            builder.setTitle("Befel ist deaktiviert.");
+
+            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                message.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
         }
     }
 }

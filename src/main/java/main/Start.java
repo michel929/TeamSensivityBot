@@ -129,13 +129,14 @@ public class Start {
         api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
 
         Collection<SubcommandData> subcommands = new ArrayList<>();
-        subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "Member", "", true).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
-        subcommands.add(new SubcommandData("remove", "Entfernt dem User Punkte.").addOption(OptionType.USER, "Member", "", true).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
-        subcommands.add(new SubcommandData("set", "Setze eine bestimmte anzahl an Punktem einem User.").addOption(OptionType.USER, "Member", "", true).addOption(OptionType.INTEGER, "Punkte", "Die Anzahl an Punkten.", true));
-        api.upsertCommand("points", "Hiermit kannst du deine Punkte einsehen.").addOption(OptionType.USER, "Member", "", false).addSubcommands(subcommands).queue();
+        subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
+        subcommands.add(new SubcommandData("remove", "Entfernt dem User Punkte.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
+        subcommands.add(new SubcommandData("set", "Setze eine bestimmte anzahl an Punktem einem User.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
+        subcommands.add(new SubcommandData("info", "Finde heraus wie viele Punkte du hast.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", false));
+        api.upsertCommand("points", "Hiermit kannst du deine Punkte einsehen.").addSubcommands(subcommands).queue();
 
         api.upsertCommand("daily", "Hiermit sammelst du die Tägliche belohnung ein.").queue();
-        api.upsertCommand("level", "Hiermit lässt du dir dein Level ausgeben.").addOption(OptionType.USER, "Member", "", false).queue();
+        api.upsertCommand("level", "Hiermit lässt du dir dein Level ausgeben.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", false).queue();
 
         api.upsertCommand("play", "Hiermit kannst du Musik abspielen.").addOption(OptionType.STRING, "song", "Damit der Bot weiß was für ein Lied du hören möchtest...", true).queue();
         api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
