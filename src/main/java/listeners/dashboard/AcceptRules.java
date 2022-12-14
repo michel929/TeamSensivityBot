@@ -25,9 +25,7 @@ public class AcceptRules extends ListenerAdapter {
             PlayerInfos.createAccount(m.getId(), m.getEffectiveName(), m.getEffectiveAvatarUrl(), banner);
 
             for (Role role: m.getRoles()) {
-                if(!PlayerInfos.isExist(role.getId(), "discord_role", "user_role")) {
-                    PlayerInfos.insertRole(m.getId(), role.getId());
-                }
+                PlayerInfos.insertRole(m.getId(), role.getId());
             }
         }
     }

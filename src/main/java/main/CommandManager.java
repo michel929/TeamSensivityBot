@@ -1,9 +1,6 @@
 package main;
 
-import commands.ClearCommand;
-import commands.DBDProfile;
-import commands.ResetCommand;
-import commands.UpdateCommand;
+import commands.*;
 import commands.forum.Maintenance;
 import commands.types.PrivateCommand;
 import commands.types.ServerCommand;
@@ -27,6 +24,7 @@ public class CommandManager {
         commands.put("wartung", new Maintenance());
         commands.put("reset", new ResetCommand());
         commands.put("clear", new ClearCommand());
+        commands.put("create", new CreateAccount());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){
