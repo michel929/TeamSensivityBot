@@ -37,9 +37,11 @@ public class OnStart extends ListenerAdapter {
 
         List<VoiceChannel> voice = g.getVoiceChannels();
 
-        //Get Alle User in Channel
+        //Get Alle User in Channel and OnlinePlayer
+        int OnlineUser = 0;
         for (VoiceChannel v: voice) {
             MemberJoinChannel.add(v.getMembers());
+            OnlineUser++;
         }
 
         //Get All ChillChannel
@@ -53,5 +55,11 @@ public class OnStart extends ListenerAdapter {
                 }
             }
         }
+
+        //OnlinePlayer
+        BotInfos.updateInfoInt("user_online", OnlineUser);
+
+        //UserCount
+        BotInfos.updateInfoInt("user_count", g.getMemberCount());
     }
 }

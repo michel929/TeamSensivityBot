@@ -33,6 +33,9 @@ public class MemberJoinChannel extends ListenerAdapter {
         Category c = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getCategoryById(BotInfos.getBotInfos("chill_cat"));
 
         if(event.getChannelJoined() != null) {
+            //OnlineUser
+            BotInfos.addOnlineUser();
+
             //PointsSystem
             if (BotInfos.getBotInfos("punktesystem").equals("1")) {
                 if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
@@ -53,6 +56,9 @@ public class MemberJoinChannel extends ListenerAdapter {
         }
 
         if(event.getChannelLeft() != null) {
+            //OnlineUser
+            BotInfos.removeOnlineUser();
+
             //PointSystem
             if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && members.contains(event.getMember())) {
                 DateTime date = members.get(event.getMember());
