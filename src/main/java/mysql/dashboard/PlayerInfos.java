@@ -62,7 +62,7 @@ public class PlayerInfos {
 
         return exist;
     }
- public static LocalDate getDaily(String id){
+    public static LocalDate getDaily(String id){
         LocalDate exist = null;
 
         try {

@@ -1,10 +1,12 @@
 package main;
 
 import geheim.BotToken;
-import karmasystem.PlayerMute;
 import listeners.*;
 import listeners.dashboard.*;
 import listeners.dashboard.role.*;
+import listeners.dashboard.tag.TagRemove;
+import listeners.dashboard.tag.TagCreate;
+import listeners.dashboard.tag.TagUpdate;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -104,7 +106,8 @@ public class Start {
         api.addEventListener(new PlayerLeave());
         api.addEventListener(new AcceptRules());
 
-        api.addEventListener(new NameChange());
+        api.addEventListener(new UserTagUpdate());
+        api.addEventListener(new UserUpdateName());
         api.addEventListener(new AvatarChange());
         api.addEventListener(new StatusChange());
         api.addEventListener(new BannerChange());
@@ -114,6 +117,10 @@ public class Start {
         api.addEventListener(new RoleUpdateName());
         api.addEventListener(new RoleUpdateColor());
         api.addEventListener(new RoleUpdatePosition());
+
+        api.addEventListener(new TagRemove());
+        api.addEventListener(new TagCreate());
+        api.addEventListener(new TagUpdate());
 
         api.addEventListener(new OnStart());
 

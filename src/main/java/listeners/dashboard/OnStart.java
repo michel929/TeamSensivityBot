@@ -3,11 +3,13 @@ package listeners.dashboard;
 import listeners.MemberJoinChannel;
 import main.Start;
 import mysql.BotInfos;
+import mysql.dashboard.Tag;
 import mysql.dashboard.UploadRole;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -64,5 +66,15 @@ public class OnStart extends ListenerAdapter {
 
         //UserCount
         BotInfos.updateInfoInt("user_count", g.getMemberCount());
+
+
+        for (ForumTag tag: g.getForumChannels().get(0).getAvailableTags()) {
+            if(Tag.isExist(tag)){
+                Tag.updateTag(tag);
+            }else {
+                Tag.insertTag(tag);
+            }
+        }
+
     }
 }

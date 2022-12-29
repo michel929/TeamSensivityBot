@@ -9,7 +9,7 @@ public class RoleUpdateColor extends ListenerAdapter {
     @Override
     public void onRoleUpdateColor(RoleUpdateColorEvent event) {
         if(!PlayerInfos.isExist(event.getRole().getId(), "role_id", "discord_role")) {
-            String color = Integer.toHexString(event.getNewColor().getRed()) + Integer.toHexString(event.getNewColor().getGreen()) + Integer.toHexString(event.getNewColor().getBlue()) + Integer.toHexString(event.getNewColor().getAlpha());
+            String color = "#" + Integer.toHexString((event.getRole().getColorRaw() & 0xffffff) | 0x1000000).substring(1);
             UploadRole.updateRole("color", color, event.getRole().getId());
         }
     }
