@@ -43,6 +43,8 @@ public class Start {
 
         INSTANCE = this;
 
+
+
         api = JDABuilder.create(BotToken.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
         api.getPresence().setStatus(OnlineStatus.ONLINE);
         api.getPresence().setActivity(Activity.competing("Version " + VERSION_ID));
