@@ -5,6 +5,7 @@ import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.UploadRole;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
@@ -41,7 +42,9 @@ public class OnStart extends ListenerAdapter {
         int OnlineUser = 0;
         for (VoiceChannel v: voice) {
             MemberJoinChannel.add(v.getMembers());
-            OnlineUser++;
+            for(Member member: v.getMembers()) {
+                OnlineUser++;
+            }
         }
 
         //Get All ChillChannel
