@@ -2,6 +2,7 @@ package commands;
 
 import commands.types.PrivateCommand;
 import main.Start;
+import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
@@ -16,25 +17,32 @@ public class UpdateCommand implements PrivateCommand {
             List<Member> members = g.getMembers();
 
             for (Member member: members) {
-                User.Profile p = member.getUser().retrieveProfile().complete();
+                if(!member.isPending() && !member.getId().equals("917069851191816262")) {
+                    System.out.println(member.getEffectiveName());
+                    User.Profile p = member.getUser().retrieveProfile().complete();
 
-                String banner = "";
+                    String banner = "";
 
-                if(p.getBannerUrl() != null) {
-                    banner = p.getBannerUrl();
-                }else {
-                    banner = p.getAccentColor().toString();
-                }
+                    if (p.getBannerUrl() != null) {
+                        banner = p.getBannerUrl();
+                    } else {
+                        banner ="#" + Integer.toHexString((p.getAccentColorRaw() & 0xffffff) | 0x1000000).substring(1);
+                    }
 
-                if(PlayerInfos.isExist(member.getId(), "discord_id", "users")){
+                    if (PlayerInfos.isExist(member.getId(), "discord_id", "users")) {
                         //TODO
-                }else {
-                    PlayerInfos.createAccount(member.getId(), member.getEffectiveName(), member.getAvatarUrl(), banner);
+                    } else {
 
-                    for (Role role: member.getRoles()) {
-                        if(!PlayerInfos.isExist(role.getId(), "discord_role", "user_role")) {
-                            PlayerInfos.insertRole(member.getId(), role.getId());
+                        PlayerInfos.createAccount(member.getId(), member.getUser().getAsTag(), member.getEffectiveAvatarUrl(), banner);
+
+                        for (Role role : member.getRoles()) {
+                            if (!PlayerInfos.isExist(role.getId(), "discord_role", "user_role")) {
+                                PlayerInfos.insertRole(member.getId(), role.getId());
+                            }
                         }
+
+                        Role re = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getRoleById(BotInfos.getBotInfos("dashboard_role"));
+                        Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).addRoleToMember(member, re).queue();
                     }
                 }
             }

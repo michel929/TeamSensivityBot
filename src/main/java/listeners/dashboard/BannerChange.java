@@ -15,7 +15,7 @@ public class BannerChange extends ListenerAdapter {
             if(p.getBannerUrl() != null) {
                 banner = p.getBannerUrl();
             }else {
-                banner = Integer.toHexString(p.getAccentColor().getRed()) + Integer.toHexString(p.getAccentColor().getGreen()) + Integer.toHexString(p.getAccentColor().getBlue()) + Integer.toHexString(p.getAccentColor().getAlpha());
+                banner ="#" + Integer.toHexString((p.getAccentColorRaw() & 0xffffff) | 0x1000000).substring(1);
             }
 
             PlayerInfos.updatePlayerInfos(event.getMember().getId(), "discord_banner", banner);

@@ -1,6 +1,5 @@
 package listeners;
 
-import main.Start;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -11,8 +10,8 @@ public class PlayerJoin extends ListenerAdapter {
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
         Member m = event.getMember();
-        Role r = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getRoleById(BotInfos.getBotInfos("discord_role"));
-        Role re = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getRoleById(BotInfos.getBotInfos("game_role"));
+        Role r = event.getGuild().getRoleById(BotInfos.getBotInfos("discord_role"));
+        Role re = event.getGuild().getRoleById(BotInfos.getBotInfos("game_role"));
 
         BotInfos.addUserCount();
 

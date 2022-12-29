@@ -11,7 +11,7 @@ public class NameChange extends ListenerAdapter {
     public void onUserUpdateName(UserUpdateNameEvent event) {
 
         if(BotInfos.getBotInfos("syncSystem").equals("1")) {
-            String name = event.getNewName();
+            String name = event.getUser().getAsTag();
             PlayerInfos.updatePlayerInfos(event.getUser().getId(), "discord_username", name);
         }
 

@@ -1,7 +1,9 @@
 package slash;
 
+import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import slash.types.ServerSlash;
 
@@ -13,6 +15,17 @@ public class Revoke implements ServerSlash {
     public void performCommand(SlashCommandInteractionEvent event) {
         if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
             PlayerInfos.removeAccount(event.getUser().getId());
+
+            Role re = event.getGuild().getRoleById(BotInfos.getBotInfos("dashboard_role"));
+            event.getGuild().removeRoleFromMember(event.getMember(), re).queue();
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.setColor(Color.red);
+            builder.setDescription("Dein Team Sensivity Account wurde gelöscht!!.");
+            builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
+            builder.setTitle("Erfolgreich gelöscht!");
+
+            event.getChannel().sendMessageEmbeds(builder.build()).queue();
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setColor(Color.red);

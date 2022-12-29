@@ -1,6 +1,9 @@
 package listeners;
 
 import main.Start;
+import mysql.BotInfos;
+import mysql.dashboard.PlayerInfos;
+import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -11,6 +14,12 @@ public class CommandListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        //PointsSystem
+        if(PlayerInfos.isExist(event.getAuthor().getId(), "discord_id", "users") && BotInfos.getBotInfos("punktesystem").equals("1")){
+            PunkteSystem.uploadPoints(event.getAuthor().getId(), 1);
+        }
+
+        //Commands
         String message = event.getMessage().getContentDisplay();
 
             if (event.isFromType(ChannelType.TEXT)) {

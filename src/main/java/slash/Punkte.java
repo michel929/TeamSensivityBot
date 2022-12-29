@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import slash.types.ServerSlash;
 
 import java.awt.*;
@@ -27,7 +28,7 @@ public class Punkte implements ServerSlash {
                         builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                         builder.setColor(Color.decode("#2ecc71"));
 
-                        event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                        event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
                             message.delete().queueAfter(10, TimeUnit.SECONDS);
                         });
 
@@ -63,7 +64,7 @@ public class Punkte implements ServerSlash {
                         builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                         builder.setColor(Color.decode("#2ecc71"));
 
-                        event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                        event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
                             message.delete().queueAfter(10, TimeUnit.SECONDS);
                         });
                     }
@@ -92,7 +93,7 @@ public class Punkte implements ServerSlash {
                                     builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                                     builder.setColor(Color.RED);
 
-                                    event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                                    event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
                                         message.delete().queueAfter(10, TimeUnit.SECONDS);
                                     });
                                 }
@@ -117,7 +118,7 @@ public class Punkte implements ServerSlash {
                                 builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                                 builder.setColor(Color.decode("#2ecc71"));
 
-                                event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+                                event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
                                     message.delete().queueAfter(10, TimeUnit.SECONDS);
                                 });
                             } else {
@@ -140,7 +141,7 @@ public class Punkte implements ServerSlash {
             builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
             builder.setTitle("Befel ist deaktiviert.");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
+            event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
                 message.delete().queueAfter(10, TimeUnit.SECONDS);
             });
         }

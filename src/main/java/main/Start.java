@@ -119,7 +119,7 @@ public class Start {
 
         api.addEventListener(new MemberJoinChannel());
        // api.addEventListener(new PlayerMoved());
-        api.addEventListener(new PlayerMute());
+        //api.addEventListener(new PlayerMute());
     }
 
     private void commands(){
@@ -137,7 +137,7 @@ public class Start {
         api.upsertCommand("points", "Hiermit kannst du deine Punkte einsehen.").addSubcommands(subcommands).queue();
 
         api.upsertCommand("daily", "Hiermit sammelst du die Tägliche belohnung ein.").queue();
-        api.upsertCommand("level", "Hiermit lässt du dir dein Level ausgeben.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", false).queue();
+        //api.upsertCommand("level", "Hiermit lässt du dir dein Level ausgeben.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", false).queue();
 
         api.upsertCommand("play", "Hiermit kannst du Musik abspielen.").addOption(OptionType.STRING, "song", "Damit der Bot weiß was für ein Lied du hören möchtest...", true).queue();
         api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();

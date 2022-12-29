@@ -33,16 +33,6 @@ public class MemberJoinChannel extends ListenerAdapter {
         Category c = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getCategoryById(BotInfos.getBotInfos("chill_cat"));
 
         if(event.getChannelJoined() != null) {
-            //OnlineUser
-            BotInfos.addOnlineUser();
-
-            //PointsSystem
-            if (BotInfos.getBotInfos("punktesystem").equals("1")) {
-                if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
-                    members.put(event.getMember(), DateTime.now());
-                }
-            }
-
             //Create-Chill
             if (BotInfos.getBotInfos("chill_create").equals("1")) {
                 if (event.getChannelJoined().getId().equals(BotInfos.getBotInfos("chill_channel"))) {
@@ -55,12 +45,24 @@ public class MemberJoinChannel extends ListenerAdapter {
             }
         }
 
-        if(event.getChannelLeft() != null) {
+        if(event.getChannelLeft() == null){
+            //OnlineUser
+            BotInfos.addOnlineUser();
+
+            //PointsSystem
+            if (BotInfos.getBotInfos("punktesystem").equals("1")) {
+                if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
+                    members.put(event.getMember(), DateTime.now());
+                }
+            }
+        }
+
+        if(event.getChannelJoined() == null){
             //OnlineUser
             BotInfos.removeOnlineUser();
 
             //PointSystem
-            if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && members.contains(event.getMember())) {
+            if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && members.containsKey(event.getMember())) {
                 DateTime date = members.get(event.getMember());
 
                 if (date.getDayOfMonth() != DateTime.now().getDayOfMonth()) {
@@ -72,10 +74,15 @@ public class MemberJoinChannel extends ListenerAdapter {
                     PunkteSystem.uploadMinutes(mh.getMinutes(), Date.valueOf(LocalDate.now()), event.getMember().getId());
                 } else {
                     Minutes m = Minutes.minutesBetween(date, DateTime.now());
+                    System.out.println(m.getMinutes());
                     PunkteSystem.uploadMinutes(m.getMinutes(), Date.valueOf(LocalDate.now()), event.getMember().getId());
                 }
-            }
 
+                members.remove(event.getMember());
+            }
+        }
+
+        if(event.getChannelLeft() != null) {
             //Create-Chill
             if (channel.contains(event.getChannelLeft())) {
                 if (event.getChannelLeft().getMembers().size() == 0) {

@@ -18,7 +18,7 @@ public class PunkteSystem {
             try {
                 Connection con = Connect.getConnection();
 
-                PreparedStatement posted = con.prepareStatement("UPDATE online SET min = '" + min + "', gesamt = '" + gesamt + "' WHERE discord_id = '" + id + "'");
+                PreparedStatement posted = con.prepareStatement("UPDATE online SET min = '" + min + "', gesamt = '" + gesamt + "' WHERE discord_id = '" + id + "' AND date = '" + date + "'");
 
                 posted.executeUpdate();
                 con.close();

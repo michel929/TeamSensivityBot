@@ -10,7 +10,7 @@ public class AvatarChange extends ListenerAdapter {
     public void onUserUpdateAvatar(UserUpdateAvatarEvent event) {
         if(BotInfos.getBotInfos("syncSystem").equals("1")) {
             String url = event.getNewAvatarUrl();
-            PlayerInfos.updatePlayerInfos(event.getUser().getId(), "discord_bild", url);
+            PlayerInfos.updatePlayerInfos(event.getUser().getId(), "discord_pb", url);
         }
     }
 }
