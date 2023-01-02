@@ -1,5 +1,6 @@
 package main;
 
+import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import geheim.BotToken;
 import listeners.*;
 import listeners.dashboard.*;
@@ -26,12 +27,13 @@ import java.util.Collection;
 public class Start {
 
     public static Start INSTANCE;
-    public static String GUILD_ID = BotInfos.getBotInfos("guild_id"), VERSION_ID = "2.2";
+    public static String GUILD_ID = BotInfos.getBotInfos("guild_id"), VERSION_ID = "2.3";
 
     private JDA api;
     private CommandManager cmdMan;
     private SlashManager slashMan;
     private ButtonManager buttonMan;
+    private SteamWebApiClient steamApi;
 
     public static void main(String[] args) {
         try {
@@ -59,6 +61,7 @@ public class Start {
         this.cmdMan = new CommandManager();
         this.slashMan = new SlashManager();
         this.buttonMan = new ButtonManager();
+        this.steamApi = new SteamWebApiClient.SteamWebApiClientBuilder(" AAB98CE4EF65918FD5FE6209892F9F7E").build();
 
         shutdown();
         BotToken.setToken();
@@ -135,6 +138,7 @@ public class Start {
         api.upsertCommand("swf", "Hiermit kannst du eine SWF erstellen").addOption(OptionType.USER, "player2", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player3", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player4", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).queue();
         api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
         api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
+        api.upsertCommand("steam", "Hiermit kannst du deinen SteamAccount verbinden.").queue();
 
         Collection<SubcommandData> subcommands = new ArrayList<>();
         subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
@@ -155,6 +159,10 @@ public class Start {
 
     public JDA getApi() {
         return api;
+    }
+
+    public SteamWebApiClient getSteamApi() {
+        return steamApi;
     }
 
     public CommandManager getCmdMan() {

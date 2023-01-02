@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connect {
-    static String url = "jdbc:mysql://192.168.178.200:3306/TeamSensivity";
+    static String url = "jdbc:mysql://localhost/teamsensivity";
     static String user = "discord";
     static String pass = Passwort.getDataPasswort();
 

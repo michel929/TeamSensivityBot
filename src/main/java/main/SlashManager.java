@@ -5,6 +5,7 @@ import music.slash.Volume;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import slash.*;
 import dbd.swf.slash.SWF;
+import slash.dashboard.*;
 import slash.types.ServerSlash;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,10 +18,13 @@ public class SlashManager {
 
             slashs.put("login", new Login());
             slashs.put("connect", new Connect());
-            slashs.put("swf", new SWF());
             slashs.put("token", new Token());
-            slashs.put("points", new Punkte());
             slashs.put("revoke", new Revoke());
+
+            slashs.put("steam", new ConnectSteam());
+
+            slashs.put("swf", new SWF());
+            slashs.put("points", new Punkte());
             slashs.put("daily", new Daily());
 
             slashs.put("play", new Play());

@@ -1,4 +1,4 @@
-package slash;
+package slash.dashboard;
 
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
