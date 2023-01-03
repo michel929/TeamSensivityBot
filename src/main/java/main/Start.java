@@ -5,6 +5,7 @@ import com.merakianalytics.orianna.Orianna;
 import com.merakianalytics.orianna.types.common.Region;
 import geheim.BotToken;
 import geheim.Riot;
+import geheim.Steam;
 import listeners.*;
 import listeners.dashboard.*;
 import listeners.dashboard.role.*;
@@ -64,7 +65,7 @@ public class Start {
         this.cmdMan = new CommandManager();
         this.slashMan = new SlashManager();
         this.buttonMan = new ButtonManager();
-        this.steamApi = new SteamWebApiClient.SteamWebApiClientBuilder(" AAB98CE4EF65918FD5FE6209892F9F7E").build();
+        this.steamApi = new SteamWebApiClient.SteamWebApiClientBuilder(Steam.apiKey).build();
 
         shutdown();
         BotToken.setToken();
@@ -148,6 +149,7 @@ public class Start {
 
         api.upsertCommand("steam", "Hiermit kannst du deinen SteamAccount verbinden.").queue();
         api.upsertCommand("riot", "Hiermit kannst du deinen RiotAccount verbinden.").queue();
+        api.upsertCommand("account", "Hiermit kannst du dein Profil bearbeiten.").queue();
 
         Collection<SubcommandData> subcommands = new ArrayList<>();
         subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
