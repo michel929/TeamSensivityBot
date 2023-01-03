@@ -10,7 +10,9 @@ public class ButtonListener extends ListenerAdapter {
 
     @Override
     public void onButtonInteraction(ButtonInteractionEvent event) {
-        event.reply("*Befehl wird ausgeführt...*").queue((message) -> message.deleteOriginal().queueAfter(10, TimeUnit.SECONDS));
+        if(event.getButton().getId().contains("swf")) {
+            event.reply("*Befehl wird ausgeführt...*").queue((message) -> message.deleteOriginal().queueAfter(10, TimeUnit.SECONDS));
+        }
 
         if (!Start.INSTANCE.getButtonMan().perform(event.getComponentId(), event)) {
             event.reply("Unbekannter Button").queue();

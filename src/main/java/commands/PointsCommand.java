@@ -23,7 +23,7 @@ public class PointsCommand implements ServerCommand {
             builder.setTitle("PunkteSystem");
             builder.setDescription("Hier findest du alle Informationen zu deinem Punktestand, etc.");
 
-            channel.sendMessageEmbeds(builder.build()).addActionRow(Button.primary("showPoints", "Dein Punktestand"), Button.link("https://sensivity.team/points.php", "Rangliste")).queue();
+            channel.sendMessageEmbeds(builder.build()).addActionRow(Button.success("showPoints", "Dein Punktestand"), Button.link("https://sensivity.team/points.php", "Rangliste")).queue();
         }
     }
 }

@@ -16,7 +16,7 @@ public class YourPoints implements ServerButton {
         int punkte = Integer.parseInt(PlayerInfos.getInfo(event.getMember().getId(), "discord_id", "points", "users"));
 
         builder.setTitle(event.getMember().getEffectiveName() + "s Punkte");
-        builder.setDescription("Der User hat **" + punkte + " Punkte**.");
+        builder.setDescription("Du hast **" + punkte + " Punkte**.");
         builder.setColor(Color.decode("#2ecc71"));
         builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
 

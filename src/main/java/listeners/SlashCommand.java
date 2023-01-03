@@ -12,7 +12,9 @@ public class SlashCommand extends ListenerAdapter {
         if (!Start.INSTANCE.getSlashMan().perform(event.getName(), event)) {
             event.reply("Unbekannter Command").queue();
         }else{
-            event.reply("*Befehl wird ausgeführt...*").queue((message) -> message.deleteOriginal().queueAfter(10, TimeUnit.SECONDS));
+            if(event.getName().equals("swf")) {
+                event.reply("*SWF wird erstellt...*").setEphemeral(true).queue();
+            }
         }
     }
 }

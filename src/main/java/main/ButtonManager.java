@@ -24,9 +24,16 @@ public class ButtonManager {
     public boolean perform(String command, ButtonInteractionEvent event){
 
         ServerButton cmd;
-        if((cmd = this.buttons.get(command.toLowerCase().substring(0, command.length() - 36))) != null){
-            cmd.performCommand(event);
-            return true;
+        if(command.contains("swf")) {
+            if ((cmd = this.buttons.get(command.toLowerCase().substring(0, command.length() - 36))) != null) {
+                cmd.performCommand(event);
+                return true;
+            }
+        }else {
+            if ((cmd = this.buttons.get(command)) != null) {
+                cmd.performCommand(event);
+                return true;
+            }
         }
         return false;
     }
