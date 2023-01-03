@@ -1,4 +1,4 @@
-package league;
+package riot;
 
 public class LeagueOfLegends {
 

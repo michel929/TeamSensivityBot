@@ -55,7 +55,7 @@ public class SWF implements ServerSlash {
                                 EmbedBuilder builder = new EmbedBuilder();
                                 builder.setColor(Color.decode("#2ecc71"));
                                 builder.setDescription("Ein User für den du versucht hast einen Platz zu Reservieren, hat entweder keinen Team Sensivity Account oder hat sein DBD Profil noch nicht vervollständigt.");
-                                builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
+                                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                                 builder.setTitle("Fehler bei Benutzung des Commands");
 
                                 event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
@@ -68,7 +68,7 @@ public class SWF implements ServerSlash {
                                         EmbedBuilder builder = new EmbedBuilder();
                                         builder.setColor(Color.decode("#2ecc71"));
                                         builder.setDescription("Du wurdest eingeladen einer SWF zu joinen...");
-                                        builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
+                                        builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                                         builder.setTitle("Einladung für eine SWF");
 
                                         privateChannel.sendMessageEmbeds(builder.build()).setActionRow(Button.success("swfyes" + uuid, "Join SWF")).queue();
@@ -120,7 +120,7 @@ public class SWF implements ServerSlash {
                             builder.setTitle("Find Your SWF");
                             builder.setColor(Color.decode("#2ecc71"));
                             builder.setAuthor(m.getEffectiveName(), "https://sensivity.team", m.getEffectiveAvatarUrl());
-                            builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
+                            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                             event.getChannel().sendMessageEmbeds(builder.build()).addFiles(FileUpload.fromData(img, "FindYourSWF" + Functions.getI() + ".png")).setActionRow(net.dv8tion.jda.api.interactions.components.buttons.Button.success("swfjoin" + uuid, "Join SWF"), net.dv8tion.jda.api.interactions.components.buttons.Button.danger("swfleave" + uuid, "Leave SWF"), Button.link("https://sensivity.team/swf?uuid=" + uuid, "About the Team")).queue(message -> {
                                 if (members.size() == 1) {
                                     mysql.SWF.createSWF(uuid, m.getId(), message.getId());
@@ -142,7 +142,7 @@ public class SWF implements ServerSlash {
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setColor(Color.red);
                     builder.setDescription("Du musst dein DBD_Profil vervollständigen. Entweder kannst du das im Dashboard bearbeiten oder du kannst es in dem dafür vorgesehenen DiscordChannel bearbeiten.");
-                    builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
+                    builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                     builder.setTitle("Fehler bei Benutzung des Commands");
 
                     event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
@@ -153,7 +153,7 @@ public class SWF implements ServerSlash {
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setColor(Color.red);
                 builder.setDescription("Du brauchst einen TeamSensivity Account um diesen Command zu benutzen. Benutze */register* um dir einen Account anzulegen.");
-                builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
+                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                 builder.setTitle("Fehler bei Benutzung des Commands");
 
                 event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {

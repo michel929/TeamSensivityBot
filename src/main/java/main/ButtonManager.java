@@ -1,5 +1,6 @@
 package main;
 
+import buttons.YourPoints;
 import dbd.swf.buttons.SWFJoin;
 import dbd.swf.buttons.SWFLeave;
 import dbd.swf.buttons.SWFYes;
@@ -17,6 +18,7 @@ public class ButtonManager {
         buttons.put("swfjoin", new SWFJoin());
         buttons.put("swfleave", new SWFLeave());
         buttons.put("swfyes", new SWFYes());
+        buttons.put("showPoints", new YourPoints());
     }
 
     public boolean perform(String command, ButtonInteractionEvent event){

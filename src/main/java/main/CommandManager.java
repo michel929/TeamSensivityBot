@@ -24,7 +24,7 @@ public class CommandManager {
         commands.put("wartung", new Maintenance());
         commands.put("reset", new ResetCommand());
         commands.put("clear", new ClearCommand());
-        commands.put("create", new CreateAccount());
+        commands.put("points", new PointsCommand());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){

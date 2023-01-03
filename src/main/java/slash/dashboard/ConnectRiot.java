@@ -11,17 +11,17 @@ import slash.types.ServerSlash;
 
 import java.awt.*;
 
-public class ConnectSteam implements ServerSlash {
+public class ConnectRiot implements ServerSlash {
     @Override
     public void performCommand(SlashCommandInteractionEvent event) {
-        if(BotInfos.getBotInfos("cmd_steam_on").equals("1")) {
-            TextInput steamid = TextInput.create("steamid", "Steam64 ID", TextInputStyle.SHORT)
-                    .setPlaceholder("Enter your Steam64ID")
-                    .setMinLength(17)
-                    .setMaxLength(17) // or setRequiredRange(10, 100)
+        if(BotInfos.getBotInfos("cmd_riot_on").equals("1")) {
+            TextInput steamid = TextInput.create("riotID", "Riot SummonerName", TextInputStyle.SHORT)
+                    .setPlaceholder("Enter your SummonerName")
+                    .setMinLength(3)
+                    .setMaxLength(16)
                     .build();
 
-            Modal modal = Modal.create("steam", "Connect your SteamAccount")
+            Modal modal = Modal.create("riot", "Connect your RiotAccount")
                     .addActionRows(ActionRow.of(steamid))
                     .build();
 

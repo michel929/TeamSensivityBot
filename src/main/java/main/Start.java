@@ -1,7 +1,10 @@
 package main;
 
 import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
+import com.merakianalytics.orianna.Orianna;
+import com.merakianalytics.orianna.types.common.Region;
 import geheim.BotToken;
+import geheim.Riot;
 import listeners.*;
 import listeners.dashboard.*;
 import listeners.dashboard.role.*;
@@ -65,6 +68,9 @@ public class Start {
 
         shutdown();
         BotToken.setToken();
+
+        Orianna.setRiotAPIKey(Riot.RiotKey);
+        Orianna.setDefaultRegion(Region.EUROPE_WEST);
     }
 
     public void shutdown(){
@@ -104,6 +110,7 @@ public class Start {
         api.addEventListener(new ButtonListener());
         api.addEventListener(new ChannelRemove());
         api.addEventListener(new BotAddToGuild());
+        api.addEventListener(new ModalInteraction());
 
         api.addEventListener(new PlayerJoin());
         api.addEventListener(new PlayerLeave());
@@ -138,7 +145,9 @@ public class Start {
         api.upsertCommand("swf", "Hiermit kannst du eine SWF erstellen").addOption(OptionType.USER, "player2", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player3", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player4", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).queue();
         api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
         api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
+
         api.upsertCommand("steam", "Hiermit kannst du deinen SteamAccount verbinden.").queue();
+        api.upsertCommand("riot", "Hiermit kannst du deinen RiotAccount verbinden.").queue();
 
         Collection<SubcommandData> subcommands = new ArrayList<>();
         subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));

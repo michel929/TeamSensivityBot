@@ -22,6 +22,7 @@ public class SlashManager {
             slashs.put("revoke", new Revoke());
 
             slashs.put("steam", new ConnectSteam());
+            slashs.put("riot", new ConnectRiot());
 
             slashs.put("swf", new SWF());
             slashs.put("points", new Punkte());
