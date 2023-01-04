@@ -32,6 +32,17 @@ public class MemberJoinChannel extends ListenerAdapter {
     public void onGuildVoiceUpdate(GuildVoiceUpdateEvent event) {
         Category c = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getCategoryById(BotInfos.getBotInfos("chill_cat"));
 
+        if(event.getChannelLeft() != null) {
+            //Create-Chill
+            if (channel.contains(event.getChannelLeft())) {
+                if (event.getChannelLeft().getMembers().size() == 0) {
+                    event.getChannelLeft().delete().queue();
+                    channel.remove(event.getChannelLeft());
+                    i--;
+                }
+            }
+        }
+
         if(event.getChannelJoined() != null) {
             //Create-Chill
             if (BotInfos.getBotInfos("chill_create").equals("1")) {
@@ -79,17 +90,6 @@ public class MemberJoinChannel extends ListenerAdapter {
                 }
 
                 members.remove(event.getMember());
-            }
-        }
-
-        if(event.getChannelLeft() != null) {
-            //Create-Chill
-            if (channel.contains(event.getChannelLeft())) {
-                if (event.getChannelLeft().getMembers().size() == 0) {
-                    event.getChannelLeft().delete().queue();
-                    channel.remove(event.getChannelLeft());
-                    i--;
-                }
             }
         }
     }

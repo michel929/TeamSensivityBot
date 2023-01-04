@@ -149,7 +149,7 @@ public class Start {
 
         api.upsertCommand("steam", "Hiermit kannst du deinen SteamAccount verbinden.").queue();
         api.upsertCommand("riot", "Hiermit kannst du deinen RiotAccount verbinden.").queue();
-        api.upsertCommand("account", "Hiermit kannst du dein Profil bearbeiten.").queue();
+        //api.upsertCommand("account", "Hiermit kannst du dein Profil bearbeiten.").queue();
 
         Collection<SubcommandData> subcommands = new ArrayList<>();
         subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
