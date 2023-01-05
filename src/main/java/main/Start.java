@@ -42,7 +42,7 @@ public class Start {
     private SlashManager slashMan;
     private ButtonManager buttonMan;
     private SteamWebApiClient steamApi;
-    Guild guild;
+    private Guild guild;
 
     public static void main(String[] args) {
         try {
@@ -157,6 +157,7 @@ public class Start {
 
         api.upsertCommand("steam", "Hiermit kannst du deinen SteamAccount verbinden.").queue();
         api.upsertCommand("riot", "Hiermit kannst du deinen RiotAccount verbinden.").queue();
+        api.upsertCommand("minecraft", "Hiermit kannst du deinen MinecraftAccount verbinden").queue();
         //api.upsertCommand("account", "Hiermit kannst du dein Profil bearbeiten.").queue();
 
         Collection<SubcommandData> subcommands = new ArrayList<>();

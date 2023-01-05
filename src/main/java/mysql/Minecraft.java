@@ -63,8 +63,36 @@ public class Minecraft {
             posted.executeUpdate();
             con.close();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updatePlayer(String uuid, String row, String neu){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE hardcore SET " + row + " = '" + neu + "' WHERE discord_id = '" + uuid + "'");
+
+            posted.executeUpdate();
+            con.close();
+
         } catch (
                 SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createHardcore(String uuid, String discord_id){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO hardcore (discord_id, uuid) VALUES ('"+ uuid + "', '"+ discord_id +"')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

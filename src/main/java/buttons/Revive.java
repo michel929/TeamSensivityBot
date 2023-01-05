@@ -23,14 +23,14 @@ public class Revive implements ServerButton {
                     Minecraft.updatePlayer(m.getId(), "dead", 0);
 
                     EmbedBuilder builder = new EmbedBuilder();
-                    builder.setColor(Color.RED);
+                    builder.setColor(Color.decode("#2ecc71"));
                     builder.setThumbnail("https://mc-heads.net/avatar/" + PlayerInfos.getInfo(memberID, "discord_id", "uuid", "hardcore") + "/nohelm.png");
                     builder.setDescription(m.getUser().getAsTag() + " hat " + event.getGuild().getMemberById(memberID).getUser().getAsTag() + " wiederbelebt.");
                     builder.setTitle("Erfolgreich wiederbelebt!");
 
                     event.getChannel().sendMessageEmbeds(builder.build()).queue();
 
-                    builder.setColor(Color.RED);
+                    builder.setColor(Color.decode("#2ecc71"));
                     builder.setThumbnail("https://sensivity.team/bot/img/minecraft/kopf/villager.png");
                     builder.setDescription("Du hast nicht genug Points um diese Buchung zu tätigen.");
                     builder.setTitle("Buchung erfolgreich!");
