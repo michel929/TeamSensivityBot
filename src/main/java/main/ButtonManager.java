@@ -1,5 +1,6 @@
 package main;
 
+import buttons.Revive;
 import buttons.YourPoints;
 import dbd.swf.buttons.SWFJoin;
 import dbd.swf.buttons.SWFLeave;
@@ -19,6 +20,7 @@ public class ButtonManager {
         buttons.put("swfleave", new SWFLeave());
         buttons.put("swfyes", new SWFYes());
         buttons.put("showPoints", new YourPoints());
+        buttons.put("revive", new Revive());
     }
 
     public boolean perform(String command, ButtonInteractionEvent event){
@@ -26,6 +28,11 @@ public class ButtonManager {
         ServerButton cmd;
         if(command.contains("swf")) {
             if ((cmd = this.buttons.get(command.toLowerCase().substring(0, command.length() - 36))) != null) {
+                cmd.performCommand(event);
+                return true;
+            }
+        }else if(command.contains("revive")){
+            if ((cmd = this.buttons.get("revive")) != null) {
                 cmd.performCommand(event);
                 return true;
             }

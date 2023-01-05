@@ -19,6 +19,9 @@ public class OnStart extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
         Guild g = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID);
+
+        Start.INSTANCE.setGuild(g);
+
         List<Role> rollen = g.getRoles();
 
         //Update Rollen in Datenbank

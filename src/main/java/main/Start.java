@@ -17,9 +17,12 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import request.OneMin;
+import request.TwentySec;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -27,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Timer;
 
 public class Start {
 
@@ -38,6 +42,7 @@ public class Start {
     private SlashManager slashMan;
     private ButtonManager buttonMan;
     private SteamWebApiClient steamApi;
+    Guild guild;
 
     public static void main(String[] args) {
         try {
@@ -72,6 +77,9 @@ public class Start {
 
         Orianna.setRiotAPIKey(Riot.RiotKey);
         Orianna.setDefaultRegion(Region.EUROPE_WEST);
+
+        new Timer().schedule(new OneMin(), 0, 1000 * 60);
+        new Timer().schedule(new TwentySec(), 0, 1000 * 20);
     }
 
     public void shutdown(){
@@ -172,6 +180,10 @@ public class Start {
         return api;
     }
 
+    public Guild getGuild() {
+        return guild;
+    }
+
     public SteamWebApiClient getSteamApi() {
         return steamApi;
     }
@@ -184,5 +196,9 @@ public class Start {
 
     public ButtonManager getButtonMan() {
         return buttonMan;
+    }
+
+    public void setGuild(Guild guild) {
+        this.guild = guild;
     }
 }
