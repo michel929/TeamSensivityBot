@@ -25,12 +25,10 @@ public class Punkte implements ServerSlash {
                         EmbedBuilder builder = new EmbedBuilder();
                         builder.setTitle(m.getEffectiveName() + "s Punkte");
                         builder.setDescription("Du hast diesem User " + event.getOption("punkte").getAsInt() + " Punkte hinzugefügt.");
-                        builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                        builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
                         builder.setColor(Color.decode("#2ecc71"));
 
-                        event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
-                            message.delete().queueAfter(10, TimeUnit.SECONDS);
-                        });
+                        event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
 
                     } else if (event.getSubcommandName().equals("remove")) {
                         Member m = event.getOption("member").getAsMember();
@@ -43,12 +41,11 @@ public class Punkte implements ServerSlash {
                         EmbedBuilder builder = new EmbedBuilder();
                         builder.setTitle(m.getEffectiveName() + "s Punkte");
                         builder.setDescription("Du hast diesem User " + event.getOption("punkte").getAsInt() + " Punkte abgezogen.");
-                        builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                        builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
                         builder.setColor(Color.decode("#2ecc71"));
 
-                        event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                            message.delete().queueAfter(10, TimeUnit.SECONDS);
-                        });
+                        event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
+
 
                     } else if (event.getSubcommandName().equals("set")) {
                         Member m = event.getOption("member").getAsMember();
@@ -61,12 +58,11 @@ public class Punkte implements ServerSlash {
                         EmbedBuilder builder = new EmbedBuilder();
                         builder.setTitle(m.getEffectiveName() + "s Punkte");
                         builder.setDescription("Du hast dem User seinen Punktestand auf " + event.getOption("punkte").getAsInt() + " Punkte gesetzt.");
-                        builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                        builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
                         builder.setColor(Color.decode("#2ecc71"));
 
-                        event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
-                            message.delete().queueAfter(10, TimeUnit.SECONDS);
-                        });
+                        event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
+
                     }
                 }
                     if (event.getSubcommandName().equals("info")) {
@@ -80,12 +76,11 @@ public class Punkte implements ServerSlash {
                                     EmbedBuilder builder = new EmbedBuilder();
                                     builder.setTitle(m.getEffectiveName() + "s Punkte");
                                     builder.setDescription("Der User hat **" + punkte + " Punkte**.");
-                                    builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                                    builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
                                     builder.setColor(Color.decode("#2ecc71"));
 
-                                    event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                                        message.delete().queueAfter(10, TimeUnit.SECONDS);
-                                    });
+                                    event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
+
                                 } else {
                                     EmbedBuilder builder = new EmbedBuilder();
                                     builder.setTitle("Keinen Account!");
@@ -93,9 +88,8 @@ public class Punkte implements ServerSlash {
                                     builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                                     builder.setColor(Color.RED);
 
-                                    event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
-                                        message.delete().queueAfter(10, TimeUnit.SECONDS);
-                                    });
+                                    event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
+
                                 }
                             } else {
                                 EmbedBuilder builder = new EmbedBuilder();
@@ -104,9 +98,8 @@ public class Punkte implements ServerSlash {
                                 builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                                 builder.setColor(Color.RED);
 
-                                event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                                    message.delete().queueAfter(10, TimeUnit.SECONDS);
-                                });
+                                event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+
                             }
                         } else {
                             if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
@@ -115,12 +108,11 @@ public class Punkte implements ServerSlash {
                                 EmbedBuilder builder = new EmbedBuilder();
                                 builder.setTitle(event.getMember().getEffectiveName() + "s Punkte");
                                 builder.setDescription("Der User hat **" + punkte + " Punkte**.");
-                                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                                builder.setThumbnail(PlayerInfos.getInfo(event.getMember().getId(), "discord_id", "discord_pb", "users"));
                                 builder.setColor(Color.decode("#2ecc71"));
 
-                                event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
-                                    message.delete().queueAfter(10, TimeUnit.SECONDS);
-                                });
+                                event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
+
                             } else {
                                 EmbedBuilder builder = new EmbedBuilder();
                                 builder.setTitle("Keinen Account!");
@@ -128,9 +120,7 @@ public class Punkte implements ServerSlash {
                                 builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                                 builder.setColor(Color.RED);
 
-                                event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                                    message.delete().queueAfter(10, TimeUnit.SECONDS);
-                                });
+                                event.replyEmbeds(builder.build()).setEphemeral(true).queue();
                             }
                         }
                     }
@@ -141,9 +131,7 @@ public class Punkte implements ServerSlash {
             builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
             builder.setTitle("Befel ist deaktiviert.");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
         }
     }
 }

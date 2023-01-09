@@ -21,8 +21,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import request.OneMin;
-import request.TwentySec;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -30,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Timer;
 
 public class Start {
 
