@@ -1,6 +1,7 @@
 package buttons;
 
 import buttons.types.ServerButton;
+import minecraft.Hardcore;
 import mysql.Minecraft;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
@@ -32,10 +33,12 @@ public class Revive implements ServerButton {
 
                     builder.setColor(Color.decode("#2ecc71"));
                     builder.setThumbnail("https://sensivity.team/bot/img/minecraft/kopf/villager.png");
-                    builder.setDescription("Du hast nicht genug Points um diese Buchung zu tätigen.");
+                    builder.setDescription("Du hast den Spieler wiederbelebt.");
                     builder.setTitle("Buchung erfolgreich!");
 
                     event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+
+                    Hardcore.deadPlayer.remove(memberID);
                 } else {
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setColor(Color.RED);

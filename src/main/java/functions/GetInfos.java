@@ -24,4 +24,15 @@ public class GetInfos {
 
         return i;
     }
+
+    public static void streamBOT(URL url) {
+        try (InputStream input = url.openStream()) {
+            InputStreamReader isr = new InputStreamReader(input);
+            BufferedReader reader = new BufferedReader(isr);
+            StringBuilder json = new StringBuilder();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

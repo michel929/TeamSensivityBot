@@ -27,6 +27,7 @@ public class TwentySec extends TimerTask {
             if(Hardcore.deadPlayer.containsKey(m.getId())){
                 if (!localDate.equals(Hardcore.deadPlayer.get(m.getId()))){
                     Minecraft.updatePlayer(m.getId(),"dead",0);
+                    Hardcore.deadPlayer.remove(m.getId());
                 }
             }else {
                 Hardcore.deadPlayer.put(m.getId(), localDate);

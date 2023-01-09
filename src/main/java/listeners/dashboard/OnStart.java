@@ -12,8 +12,11 @@ import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import request.OneMin;
+import request.TwentySec;
 
 import java.util.List;
+import java.util.Timer;
 
 public class OnStart extends ListenerAdapter {
     @Override
@@ -21,6 +24,9 @@ public class OnStart extends ListenerAdapter {
         Guild g = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID);
 
         Start.INSTANCE.setGuild(g);
+
+        new Timer().schedule(new OneMin(), 0, 1000 * 60);
+        new Timer().schedule(new TwentySec(), 0, 1000 * 20);
 
         List<Role> rollen = g.getRoles();
 

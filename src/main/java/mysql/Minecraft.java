@@ -87,7 +87,7 @@ public class Minecraft {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO hardcore (discord_id, uuid) VALUES ('"+ uuid + "', '"+ discord_id +"')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO hardcore (discord_id, uuid) VALUES ('"+ discord_id + "', '"+ uuid +"')");
 
             posted.executeUpdate();
             con.close();

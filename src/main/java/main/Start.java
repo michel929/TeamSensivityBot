@@ -77,9 +77,6 @@ public class Start {
 
         Orianna.setRiotAPIKey(Riot.RiotKey);
         Orianna.setDefaultRegion(Region.EUROPE_WEST);
-
-        new Timer().schedule(new OneMin(), 0, 1000 * 60);
-        new Timer().schedule(new TwentySec(), 0, 1000 * 20);
     }
 
     public void shutdown(){

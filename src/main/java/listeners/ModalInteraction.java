@@ -97,7 +97,7 @@ public class ModalInteraction extends ListenerAdapter {
                 PlayerInfos.updatePlayerInfos(event.getUser().getId(), "minecraft_uuid", uuid);
 
                 if(!PlayerInfos.isExist(event.getUser().getId(), "discord_id", "hardcore")){
-                    Minecraft.createHardcore(uuid, code);
+                    Minecraft.createHardcore(event.getUser().getId(), uuid);
                 }else {
                     Minecraft.updatePlayer(event.getUser().getId(), "uuid", uuid);
                 }
