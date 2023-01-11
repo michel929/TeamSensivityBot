@@ -107,7 +107,7 @@ public class Punkte implements ServerSlash {
 
                                 EmbedBuilder builder = new EmbedBuilder();
                                 builder.setTitle(event.getMember().getEffectiveName() + "s Punkte");
-                                builder.setDescription("Der User hat **" + punkte + " Punkte**.");
+                                builder.setDescription("Du hast **" + punkte + " Punkte**.");
                                 builder.setThumbnail(PlayerInfos.getInfo(event.getMember().getId(), "discord_id", "discord_pb", "users"));
                                 builder.setColor(Color.decode("#2ecc71"));
 

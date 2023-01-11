@@ -1,7 +1,6 @@
 package buttons;
 
 import buttons.types.ServerButton;
-import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -18,7 +17,7 @@ public class YourPoints implements ServerButton {
         builder.setTitle(event.getMember().getEffectiveName() + "s Punkte");
         builder.setDescription("Du hast **" + punkte + " Punkte**.");
         builder.setColor(Color.decode("#2ecc71"));
-        builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+        builder.setThumbnail(PlayerInfos.getInfo(event.getMember().getId(), "discord_id", "discord_pb", "users"));
 
         event.replyEmbeds(builder.build()).setEphemeral(true).queue();
     }

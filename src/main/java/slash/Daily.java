@@ -31,7 +31,7 @@ public class Daily implements ServerSlash {
 
                 if(diff >= 1440){
                     PlayerInfos.updatePlayerInfos(event.getMember().getId(), "daily", java.sql.Date.valueOf(LocalDate.now()));
-                    PunkteSystem.uploadPoints(event.getMember().getId(), 10);
+                    PunkteSystem.uploadPoints(event.getMember().getId(), 100);
 
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setDescription("Du hast deine DailyRewards eingesammelt du hast **10 Punkte** erhalten.");
@@ -39,9 +39,7 @@ public class Daily implements ServerSlash {
                     builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                     builder.setColor(Color.decode("#2ecc71"));
 
-                    event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                        message.delete().queueAfter(10, TimeUnit.SECONDS);
-                    });
+                    event.replyEmbeds(builder.build()).setEphemeral(true).queue();
                 }else {
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setDescription("Du hast bereits deine DailyRewards eingesammelt.");
@@ -49,9 +47,7 @@ public class Daily implements ServerSlash {
                     builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                     builder.setColor(Color.RED);
 
-                    event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                        message.delete().queueAfter(10, TimeUnit.SECONDS);
-                    });
+                    event.replyEmbeds(builder.build()).setEphemeral(true).queue();
                 }
             }
         }else {
@@ -61,9 +57,7 @@ public class Daily implements ServerSlash {
             builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
             builder.setTitle("Befel ist deaktiviert.");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
         }
     }
 }
