@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.joda.time.Minutes;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MemberJoinChannel extends ListenerAdapter {
 
     public static List<Channel> channel = new ArrayList<>();
-    private static ConcurrentHashMap<Member, DateTime> members = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Member, LocalDateTime> members = new ConcurrentHashMap<>();
 
     static int i = 1;
     EnumSet<Permission> permission = EnumSet.of(Permission.MANAGE_CHANNEL, Permission.VOICE_CONNECT, Permission.VOICE_MUTE_OTHERS, Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS);
@@ -61,7 +62,7 @@ public class MemberJoinChannel extends ListenerAdapter {
             //PointsSystem
             if (BotInfos.getBotInfos("punktesystem").equals("1")) {
                 if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
-                    members.put(event.getMember(), DateTime.now());
+                    members.put(event.getMember(), LocalDateTime.now());
                 }
             }
         }
@@ -72,12 +73,13 @@ public class MemberJoinChannel extends ListenerAdapter {
 
             //PointSystem
             if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && members.containsKey(event.getMember())) {
-                DateTime date = members.get(event.getMember());
+                LocalDateTime date = members.get(event.getMember());
+                Minutes m = Minutes.minutesBetween(date, LocalDateTime.now());
 
-                    PunkteSystem.uploadMinutes(date, DateTime.now(), event.getMember().getId());
-
-                    Minutes m = Minutes.minutesBetween(date, DateTime.now());
+                if(m.getMinutes() > 1) {
+                    PunkteSystem.uploadMinutes(date, LocalDateTime.now(), event.getMember().getId());
                     PunkteSystem.uploadPoints(event.getMember().getId(), m.getMinutes());
+                }
 
                 members.remove(event.getMember());
             }
@@ -91,7 +93,7 @@ public class MemberJoinChannel extends ListenerAdapter {
 
         for (Member m: member) {
             if(PlayerInfos.isExist(m.getId(), "discord_id", "users")) {
-                members.put(m, DateTime.now());
+                members.put(m, LocalDateTime.now());
             }
         }
     }

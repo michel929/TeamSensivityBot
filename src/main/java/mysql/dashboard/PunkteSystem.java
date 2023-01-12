@@ -2,12 +2,13 @@ package mysql.dashboard;
 
 import mysql.Connect;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import java.sql.*;
 
 public class PunkteSystem {
 
-    public static void uploadMinutes(DateTime first, DateTime second, String id){
+    public static void uploadMinutes(LocalDateTime first, LocalDateTime second, String id){
         try {
             Connection con = Connect.getConnection();
 
