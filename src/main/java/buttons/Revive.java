@@ -19,8 +19,8 @@ public class Revive implements ServerButton {
 
         if(PlayerInfos.isExist(m.getId(), "discord_id", "users")){
             if(PlayerInfos.getInfo(memberID, "discord_id", "dead", "hardcore").equals("1")) {
-                if (PunkteSystem.getPoints(m.getId()) >= 10000) {
-                    PunkteSystem.uploadPoints(m.getId(), -10000);
+                if (PunkteSystem.getPoints(m.getId()) >= 5000) {
+                    PunkteSystem.uploadPoints(m.getId(), -5000);
                     Minecraft.updatePlayer(m.getId(), "dead", 0);
 
                     EmbedBuilder builder = new EmbedBuilder();
