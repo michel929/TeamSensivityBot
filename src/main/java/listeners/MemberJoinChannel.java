@@ -11,11 +11,8 @@ import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.joda.time.DateTime;
-import org.joda.time.LocalTime;
 import org.joda.time.Minutes;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -77,26 +74,10 @@ public class MemberJoinChannel extends ListenerAdapter {
             if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && members.containsKey(event.getMember())) {
                 DateTime date = members.get(event.getMember());
 
-                if (date.getDayOfMonth() != DateTime.now().getDayOfMonth()) {
-                    Minutes gesamt = Minutes.minutesBetween(date, DateTime.now());
+                    PunkteSystem.uploadMinutes(date, DateTime.now(), event.getMember().getId());
 
-                    DateTime mitternacht = DateTime.now().withTime(new LocalTime(0, 0));
-
-                    Minutes heute = Minutes.minutesBetween(date, mitternacht);
-
-                    PunkteSystem.uploadMinutes(heute.getMinutes(), Date.valueOf(LocalDate.now()), event.getMember().getId());
-
-                    Minutes gestern = gesamt.minus(heute);
-
-                    PunkteSystem.uploadMinutes(gestern.getMinutes(), Date.valueOf(LocalDate.now().minusDays(1)), event.getMember().getId());
-
-                    System.out.println("Gestern: " + gestern.getMinutes());
-                    System.out.println("Heute: " + heute.getMinutes());
-
-                } else {
                     Minutes m = Minutes.minutesBetween(date, DateTime.now());
-                    PunkteSystem.uploadMinutes(m.getMinutes(), Date.valueOf(LocalDate.now()), event.getMember().getId());
-                }
+                    PunkteSystem.uploadPoints(event.getMember().getId(), m.getMinutes());
 
                 members.remove(event.getMember());
             }
