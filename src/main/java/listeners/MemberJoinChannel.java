@@ -77,7 +77,7 @@ public class MemberJoinChannel extends ListenerAdapter {
                 Minutes m = Minutes.minutesBetween(date, LocalDateTime.now());
 
                 if(m.getMinutes() > 1) {
-                    PunkteSystem.uploadMinutes(date, LocalDateTime.now(), event.getMember().getId());
+                    PunkteSystem.uploadMinutes(date, LocalDateTime.now(), event.getMember().getId(), m.getMinutes());
                     PunkteSystem.uploadPoints(event.getMember().getId(), m.getMinutes());
                 }
 

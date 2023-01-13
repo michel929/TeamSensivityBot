@@ -8,11 +8,11 @@ import java.sql.*;
 
 public class PunkteSystem {
 
-    public static void uploadMinutes(LocalDateTime first, LocalDateTime second, String id){
+    public static void uploadMinutes(LocalDateTime first, LocalDateTime second, String id, int diff){
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO online (discord_id, firstDate, secondDate) VALUES ('"+ id + "', '"+ first +"' , '"+ second +"')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO online (discord_id, firstDate, secondDate, minuten) VALUES ('"+ id + "', '"+ first +"' , '"+ second +"', '"+ diff +"')");
 
             posted.executeUpdate();
             con.close();
