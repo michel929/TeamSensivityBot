@@ -22,6 +22,20 @@ public class PunkteSystem {
         }
     }
 
+    public static void upload(String id, int diff, int type, String grund){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO points (discord_id, type, points, grund) VALUES ('"+ id + "', '"+ type +"' , '"+ diff +"', '"+ grund +"')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void uploadPoints(String id, int points){
         points = points + getPoints(id);
 

@@ -79,6 +79,7 @@ public class MemberJoinChannel extends ListenerAdapter {
                 if(m.getMinutes() > 1) {
                     PunkteSystem.uploadMinutes(date, LocalDateTime.now(), event.getMember().getId(), m.getMinutes());
                     PunkteSystem.uploadPoints(event.getMember().getId(), m.getMinutes());
+                    PunkteSystem.upload(event.getMember().getId(), m.getMinutes(), 1, "Durch Aktivität im SprachChannel.");
                 }
 
                 members.remove(event.getMember());

@@ -36,6 +36,8 @@ public class Revive implements ServerButton {
                     builder.setDescription("Du hast den Spieler wiederbelebt.");
                     builder.setTitle("Buchung erfolgreich!");
 
+                    PunkteSystem.upload(event.getMember().getId(), 5000, 0, "MinecraftUser wiederbelebt.");
+
                     event.replyEmbeds(builder.build()).setEphemeral(true).queue();
 
                     Hardcore.deadPlayer.remove(memberID);

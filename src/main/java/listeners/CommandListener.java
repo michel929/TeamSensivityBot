@@ -17,6 +17,7 @@ public class CommandListener extends ListenerAdapter {
         //PointsSystem
         if(PlayerInfos.isExist(event.getAuthor().getId(), "discord_id", "users") && BotInfos.getBotInfos("punktesystem").equals("1")){
             PunkteSystem.uploadPoints(event.getAuthor().getId(), 1);
+            PunkteSystem.upload(event.getAuthor().getId(), 1, 1, "Nachricht geschickt.");
         }
 
         //Commands
