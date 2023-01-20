@@ -69,6 +69,8 @@ public class Start {
         this.buttonMan = new ButtonManager();
         this.steamApi = new SteamWebApiClient.SteamWebApiClientBuilder(Steam.apiKey).build();
 
+        api.setAutoReconnect(true);
+
         shutdown();
         BotToken.setToken();
 
