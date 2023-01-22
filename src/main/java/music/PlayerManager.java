@@ -11,6 +11,7 @@ import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class PlayerManager {
         });
     }
 
-    public void loadAndPlay(TextChannel textChannel, String trackUrl){
+    public void loadAndPlay(TextChannel textChannel, String trackUrl, SlashCommandInteractionEvent event){
         final GuildMusicManager musicManager = this.getMusicManager(textChannel.getGuild());
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler(){
@@ -61,9 +62,7 @@ public class PlayerManager {
 
                 builder.setImage("https://img.youtube.com/vi/" + u + "/0.jpg");
 
-                textChannel.sendMessageEmbeds(builder.build()).queue((message) -> {
-                    message.delete().queueAfter(10, TimeUnit.SECONDS);
-                });
+                event.replyEmbeds(builder.build()).queue();
             }
 
             @Override
@@ -83,9 +82,7 @@ public class PlayerManager {
 
                     builder.setImage("https://img.youtube.com/vi/" + u + "/0.jpg");
 
-                    textChannel.sendMessageEmbeds(builder.build()).queue((message) -> {
-                        message.delete().queueAfter(10, TimeUnit.SECONDS);
-                    });
+                    event.replyEmbeds(builder.build()).queue();
                 }
             }
 

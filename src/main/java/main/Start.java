@@ -169,6 +169,7 @@ public class Start {
         api.upsertCommand("play", "Hiermit kannst du Musik abspielen.").addOption(OptionType.STRING, "song", "Damit der Bot weiß was für ein Lied du hören möchtest...", true).queue();
         api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
         api.upsertCommand("stop", "Hiermit kannst du den aktuellen Song stoppen.").queue();
+        api.upsertCommand("skip", "Hiermit kannst du den aktuellen Song skippen.").queue();
 
 
     }

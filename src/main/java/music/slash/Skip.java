@@ -1,36 +1,46 @@
 package music.slash;
 
+import main.Start;
 import music.PlayerManager;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.managers.AudioManager;
 import slash.types.ServerSlash;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
-public class Volume implements ServerSlash {
+public class Skip implements ServerSlash {
     @Override
     public void performCommand(SlashCommandInteractionEvent event) {
         if(BotInfos.getBotInfos("cmd_music_on").equals("1")) {
-            int volume = event.getOption("volume").getAsInt();
+            Guild g = event.getGuild();
 
-            if (volume <= 100 && volume >= 0) {
-                PlayerManager.getINSTANCE().getMusicManager(event.getGuild()).audioPlayer.setVolume(volume);
+            PlayerManager.getINSTANCE().getMusicManager(g).scheduler.nextTrack();
+
+            if(PlayerManager.getINSTANCE().getMusicManager(g).audioPlayer.getPlayingTrack() != null) {
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                builder.setColor(Color.decode("#2ecc71"));
+                builder.setTitle("Song wurde geskippt");
+                builder.setDescription("Spiele jetzt: **" + PlayerManager.getINSTANCE().getMusicManager(g).audioPlayer.getPlayingTrack().getInfo().title + "**.");
+
+                String u = PlayerManager.getINSTANCE().getMusicManager(g).audioPlayer.getPlayingTrack().getInfo().uri;
+
+                u = u.substring(u.indexOf("=") + 1);
+
+                builder.setImage("https://img.youtube.com/vi/" + u + "/0.jpg");
+
+                event.replyEmbeds(builder.build()).queue();
+            }else {
+                final AudioManager audioManager = Start.INSTANCE.getGuild().getAudioManager();
+                audioManager.closeAudioConnection();
 
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                 builder.setColor(Color.decode("#2ecc71"));
-                builder.setTitle("Volume auf " + volume + "% gesetzt");
-                builder.setDescription("Du hast erfolgreich die Lautstärke angepasst.");
-
-                event.replyEmbeds(builder.build()).queue();
-            } else {
-                EmbedBuilder builder = new EmbedBuilder();
-                builder.setColor(Color.red);
-                builder.setDescription("Volume muss zwischen 0 und 100 liegen.");
-                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-                builder.setTitle("Fehler beim benutzen des Commands");
+                builder.setTitle("Kein weiterer Song in der Warteschlange");
 
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
             }

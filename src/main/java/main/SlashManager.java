@@ -1,5 +1,6 @@
 package main;
 import music.slash.Play;
+import music.slash.Skip;
 import music.slash.Stop;
 import music.slash.Volume;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -33,6 +34,7 @@ public class SlashManager {
             slashs.put("play", new Play());
             slashs.put("volume", new Volume());
             slashs.put("stop", new Stop());
+            slashs.put("skip", new Skip());
         }
 
         public boolean perform(String command, SlashCommandInteractionEvent event){

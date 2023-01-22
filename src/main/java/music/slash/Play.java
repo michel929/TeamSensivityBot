@@ -33,9 +33,7 @@ public class Play implements ServerSlash {
                 builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                 builder.setTitle("Fehler beim benutzen des Commands.");
 
-                event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                    message.delete().queueAfter(10, TimeUnit.SECONDS);
-                });
+                event.replyEmbeds(builder.build()).setEphemeral(true).queue();
             }
 
             String u = event.getOption("song").getAsString();
@@ -44,7 +42,7 @@ public class Play implements ServerSlash {
                 u = "ytsearch:" + u + " audio";
             }
 
-            PlayerManager.getINSTANCE().loadAndPlay((TextChannel) event.getChannel(), u);
+            PlayerManager.getINSTANCE().loadAndPlay((TextChannel) event.getChannel(), u, event);
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setColor(Color.red);
@@ -52,9 +50,7 @@ public class Play implements ServerSlash {
             builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
             builder.setTitle("Befel ist deaktiviert.");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
         }
     }
 

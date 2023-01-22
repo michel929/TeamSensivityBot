@@ -26,9 +26,7 @@ public class Stop implements ServerSlash{
             builder.setTitle("Song wurde gestoppt");
             builder.setDescription("Du hast erfolgreich den Song gestoppt.");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+            event.replyEmbeds(builder.build()).queue();
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setColor(Color.red);
@@ -36,9 +34,7 @@ public class Stop implements ServerSlash{
             builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
             builder.setTitle("Befel ist deaktiviert.");
 
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
         }
     }
 }
