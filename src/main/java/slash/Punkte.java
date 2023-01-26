@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import slash.types.ServerSlash;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 public class Punkte implements ServerSlash {
     @Override
@@ -23,13 +22,13 @@ public class Punkte implements ServerSlash {
                         PunkteSystem.uploadPoints(m.getId(), event.getOption("punkte").getAsInt());
 
                         EmbedBuilder builder = new EmbedBuilder();
+
                         builder.setTitle(m.getEffectiveName() + "s Punkte");
                         builder.setDescription("Du hast diesem User " + event.getOption("punkte").getAsInt() + " Punkte hinzugefügt.");
                         builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
                         builder.setColor(Color.decode("#2ecc71"));
 
                         event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
-
                     } else if (event.getSubcommandName().equals("remove")) {
                         Member m = event.getOption("member").getAsMember();
                         if (PunkteSystem.getPoints(m.getId()) - event.getOption("punkte").getAsInt() <= 0) {

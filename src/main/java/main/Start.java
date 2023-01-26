@@ -140,7 +140,7 @@ public class Start {
         api.addEventListener(new OnStart());
 
         api.addEventListener(new MemberJoinChannel());
-       // api.addEventListener(new PlayerMoved());
+        // api.addEventListener(new PlayerMoved());
         //api.addEventListener(new PlayerMute());
     }
 

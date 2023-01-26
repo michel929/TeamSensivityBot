@@ -1,5 +1,6 @@
 package slash;
 
+import logging.LogSystem;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
@@ -40,6 +41,8 @@ public class Daily implements ServerSlash {
                     builder.setColor(Color.decode("#2ecc71"));
 
                     event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+
+                    LogSystem.logGeneral(event.getMember().getId(), "Der User hat den /daily Command ausgeführt und die Behlohnung erefolgreich eingesmmelt.", event.getUser().getAsTag());
                 }else {
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setDescription("Du hast bereits deine DailyRewards eingesammelt.");
@@ -48,6 +51,8 @@ public class Daily implements ServerSlash {
                     builder.setColor(Color.RED);
 
                     event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+
+                    LogSystem.logGeneral(event.getMember().getId(), "Der User hat den /daily Command ausgeführt jedoch hat er Sie heute schon eingesammelt.", event.getUser().getAsTag());
                 }
             }
         }else {
@@ -58,6 +63,9 @@ public class Daily implements ServerSlash {
             builder.setTitle("Befel ist deaktiviert.");
 
             event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+
+            LogSystem.logGeneral(event.getMember().getId(), "Der User hat den /daily Command ausgeführt jedoch war der Command disabled.", event.getUser().getAsTag());
+
         }
     }
 }
