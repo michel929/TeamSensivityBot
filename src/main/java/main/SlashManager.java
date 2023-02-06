@@ -19,11 +19,8 @@ public class SlashManager {
 
             slashs.put("login", new Login());
             slashs.put("connect", new Connect());
-            slashs.put("token", new Token());
             slashs.put("revoke", new Revoke());
 
-            slashs.put("steam", new ConnectSteam());
-            slashs.put("riot", new ConnectRiot());
             slashs.put("account", new Profil());
             slashs.put("minecraft", new ConnectMinecraft());
 
