@@ -20,7 +20,7 @@ public class LockUsername implements ServerSlash {
 
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setColor(Color.decode("#2ecc71"));
-                builder.setThumbnail(BotInfos.getBotInfos("logos_url"));
+                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                 builder.setDescription("Dein Nickname kann nun wieder geändert werden.");
                 builder.setTitle("Username entsperrt");
 
@@ -30,7 +30,7 @@ public class LockUsername implements ServerSlash {
 
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setColor(Color.decode("#2ecc71"));
-                builder.setThumbnail(BotInfos.getBotInfos("logos_url"));
+                builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                 builder.setDescription("Es kann nun keiner mehr deinen Nicknamen ändern.");
                 builder.setTitle("Username gesperrt");
 
