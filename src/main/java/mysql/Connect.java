@@ -1,13 +1,14 @@
 package mysql;
 
 import geheim.Passwort;
+import main.Main;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connect {
-    static String url = "jdbc:mysql://192.168.178.200:3306/TeamSensivity";
+    static String url = "jdbc:mysql://192.168.178.200:3306/" + Main.DATABASE;
     static String user = "discord";
     static String pass = Passwort.getDataPasswort();
 

@@ -1,6 +1,7 @@
 package commands;
 
 import commands.types.PrivateCommand;
+import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
@@ -13,7 +14,7 @@ public class UpdateCommand implements PrivateCommand {
     @Override
     public void performCommand(User m, PrivateChannel channel, Message message) {
         if (m.getId().equals("422148236875137059")){
-            Guild g = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID);
+            Guild g = Main.INSTANCE.getGuild();
             List<Member> members = g.getMembers();
 
             for (Member member: members) {
@@ -41,8 +42,8 @@ public class UpdateCommand implements PrivateCommand {
                             }
                         }
 
-                        Role re = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getRoleById(BotInfos.getBotInfos("dashboard_role"));
-                        Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).addRoleToMember(member, re).queue();
+                        Role re = Main.INSTANCE.getGuild().getRoleById(BotInfos.getBotInfos("dashboard_role"));
+                        Main.INSTANCE.getGuild().addRoleToMember(member, re).queue();
                     }
                 }
             }

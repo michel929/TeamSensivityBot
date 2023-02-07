@@ -3,6 +3,7 @@ package dbd.swf.slash;
 import dbd.swf.Functions;
 import functions.CreateImage;
 import functions.DBD_Chars;
+import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
@@ -64,7 +65,7 @@ public class SWF implements ServerSlash {
                                 fehler = true;
                             } else {
                                 if (!mem.getId().equals(event.getMember().getId())) {
-                                    Start.INSTANCE.getApi().openPrivateChannelById(mem.getId()).queue(privateChannel -> {
+                                    Main.INSTANCE.getApi().openPrivateChannelById(mem.getId()).queue(privateChannel -> {
                                         EmbedBuilder builder = new EmbedBuilder();
                                         builder.setColor(Color.decode("#2ecc71"));
                                         builder.setDescription("Du wurdest eingeladen einer SWF zu joinen...");
@@ -156,20 +157,10 @@ public class SWF implements ServerSlash {
                 builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                 builder.setTitle("Fehler bei Benutzung des Commands");
 
-                event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                    message.delete().queueAfter(10, TimeUnit.SECONDS);
-                });
+                event.replyEmbeds(builder.build()).setEphemeral(true).queue();
             }
         }else {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(Color.red);
-            builder.setDescription("Dieser Befehl ist zurzeit deaktiviert. Versuche es später erneut.");
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setTitle("Befel ist deaktiviert.");
-
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
         }
     }
 

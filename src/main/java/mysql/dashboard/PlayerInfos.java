@@ -21,6 +21,34 @@ public class PlayerInfos {
         }
     }
 
+    public static void addUserToList(String id){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO user_rename (discord_id) VALUES ('"+ id + "')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeUserToList(String id){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("DELETE FROM user_rename WHERE discord_id = '" + id +"'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void removeAccount(String id){
         try {
             Connection con = Connect.getConnection();

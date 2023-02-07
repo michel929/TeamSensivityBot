@@ -1,5 +1,7 @@
 package slash.dashboard;
 
+import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -57,15 +59,7 @@ public class Connect implements ServerSlash {
                 });
             }
         }else {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(Color.red);
-            builder.setDescription("Dieser Befehl ist zurzeit deaktiviert. Versuche es später erneut.");
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setTitle("Befel ist deaktiviert.");
-
-            event.getChannel().sendMessageEmbeds(builder.build()).queue((message) -> {
-                message.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
         }
     }
 }

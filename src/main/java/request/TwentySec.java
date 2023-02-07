@@ -1,5 +1,6 @@
 package request;
 
+import main.Main;
 import main.Start;
 import minecraft.Hardcore;
 import mysql.Minecraft;
@@ -18,7 +19,7 @@ public class TwentySec extends TimerTask {
     @Override
     public void run() {
         //UserDeadInMinecraft
-        TextChannel channel = Start.INSTANCE.getGuild().getTextChannelById("1060471251858100295");
+        TextChannel channel = Main.INSTANCE.getGuild().getTextChannelById("1060471251858100295");
         List<Member> members = Minecraft.getPlayer();
 
         for (Member m: members) {

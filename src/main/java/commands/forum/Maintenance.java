@@ -1,6 +1,7 @@
 package commands.forum;
 
 import commands.types.ServerCommand;
+import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -19,7 +20,7 @@ public class Maintenance implements ServerCommand {
     @Override
     public void performCommand(Member m, TextChannel channel, Message message) throws ParseException {
         if(m.hasPermission(Permission.ADMINISTRATOR)) {
-            ForumChannel forum = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getForumChannelById(BotInfos.getBotInfos("announcements"));
+            ForumChannel forum = Main.INSTANCE.getGuild().getForumChannelById(BotInfos.getBotInfos("announcements"));
 
             String[] args = message.getContentDisplay().split(" ");
             String description = "";

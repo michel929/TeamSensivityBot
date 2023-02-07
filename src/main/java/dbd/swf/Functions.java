@@ -2,6 +2,7 @@ package dbd.swf;
 
 import functions.CreateImage;
 import functions.DBD_Chars;
+import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import mysql.SWF;
@@ -45,7 +46,7 @@ public class Functions {
                 if(mem.equals(member.getId())){
                     fool = true;
                 }
-                members.add(Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getMemberById(mem));
+                members.add(Main.INSTANCE.getGuild().getMemberById(mem));
             }
         }
 
@@ -129,7 +130,7 @@ public class Functions {
                         builder.setAuthor(m.getEffectiveName(), "https://sensivity.team", m.getEffectiveAvatarUrl());
                         builder.setThumbnail("https://sensivity.team/bot/img/logo-transparent.png");
 
-                        Channel channel = Start.INSTANCE.getApi().getGuildChannelById(BotInfos.getBotInfos("DBD_FIND_SWF"));
+                        Channel channel = Main.INSTANCE.getApi().getGuildChannelById(BotInfos.getBotInfos("DBD_FIND_SWF"));
                         MessageHistory history = MessageHistory.getHistoryFromBeginning((MessageChannel) channel).complete();
                         List<Message> mess = history.getRetrievedHistory();
 

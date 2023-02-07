@@ -1,5 +1,6 @@
 package mysql;
 
+import main.Main;
 import main.Start;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -99,15 +100,15 @@ public class SWF {
             while (rs.next()) {
                 if(uuid.equals(rs.getString("id"))){
                     if(rs.getString("reserviert_1") != null) {
-                        reserviert.add(Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getMemberById(rs.getString("reserviert_1")));
+                        reserviert.add(Main.INSTANCE.getGuild().getMemberById(rs.getString("reserviert_1")));
                     }
 
                     if(rs.getString("reserviert_2") != null) {
-                        reserviert.add(Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getMemberById(rs.getString("reserviert_2")));
+                        reserviert.add(Main.INSTANCE.getGuild().getMemberById(rs.getString("reserviert_2")));
                     }
 
                     if(rs.getString("reserviert_3") != null) {
-                        reserviert.add(Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getMemberById(rs.getString("reserviert_3")));
+                        reserviert.add(Main.INSTANCE.getGuild().getMemberById(rs.getString("reserviert_3")));
                     }
                 }
             }

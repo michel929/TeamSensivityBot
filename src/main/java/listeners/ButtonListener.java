@@ -1,5 +1,6 @@
 package listeners;
 
+import main.Main;
 import main.Start;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -14,7 +15,7 @@ public class ButtonListener extends ListenerAdapter {
             event.reply("*Befehl wird ausgeführt...*").queue((message) -> message.deleteOriginal().queueAfter(10, TimeUnit.SECONDS));
         }
 
-        if (!Start.INSTANCE.getButtonMan().perform(event.getComponentId(), event)) {
+        if (!Main.INSTANCE.getButtonMan().perform(event.getComponentId(), event)) {
             event.reply("Unbekannter Button").queue();
         }
     }

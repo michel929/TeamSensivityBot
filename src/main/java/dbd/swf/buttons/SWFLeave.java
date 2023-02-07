@@ -4,6 +4,7 @@ import buttons.types.ServerButton;
 import dbd.swf.Functions;
 import functions.CreateImage;
 import functions.DBD_Chars;
+import main.Main;
 import main.Start;
 import mysql.SWF;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -56,7 +57,7 @@ public class SWFLeave implements ServerButton {
                     if (mem.equals(event.getMember().getId())) {
                         fools = true;
                     }
-                    members.add(Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getMemberById(mem));
+                    members.add(Main.INSTANCE.getGuild().getMemberById(mem));
                 }
             }
 

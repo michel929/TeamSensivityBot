@@ -1,5 +1,6 @@
 package mysql;
 
+import main.Main;
 import main.Start;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -20,7 +21,7 @@ public class Minecraft {
 
             while (rs.next()) {
                 if(rs.getInt("dead") == 1){
-                    members.add(Start.INSTANCE.getGuild().getMemberById(rs.getString("discord_id")));
+                    members.add(Main.INSTANCE.getGuild().getMemberById(rs.getString("discord_id")));
                 }
             }
 

@@ -1,5 +1,6 @@
 package listeners;
 
+import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.events.channel.ChannelDeleteEvent;
@@ -11,7 +12,7 @@ public class ChannelRemove extends ListenerAdapter {
 
         //Chill Channel update
        if(event.getChannel().getId().equals(BotInfos.getBotInfos("chill_channel"))){
-           Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).createVoiceChannel("Create Chill").queue(voiceChannel -> {
+           Main.INSTANCE.getGuild().createVoiceChannel("Create Chill").queue(voiceChannel -> {
                BotInfos.updateInfo("chill_channel", voiceChannel.getId());
            });
        }

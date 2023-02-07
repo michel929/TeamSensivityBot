@@ -1,6 +1,7 @@
 package listeners.dashboard;
 
 import listeners.MemberJoinChannel;
+import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.Tag;
@@ -21,12 +22,13 @@ import java.util.Timer;
 public class OnStart extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
-        Guild g = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID);
 
-        Start.INSTANCE.setGuild(g);
+        Guild g = Main.INSTANCE.getApi().getGuildById(Main.GUILD_ID);
 
         new Timer().schedule(new OneMin(), 0, 1000 * 60);
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
+
+        Main.INSTANCE.setGuild(g);
 
         List<Role> rollen = g.getRoles();
 
@@ -77,11 +79,13 @@ public class OnStart extends ListenerAdapter {
         BotInfos.updateInfoInt("user_count", g.getMemberCount());
 
 
-        for (ForumTag tag: g.getForumChannels().get(0).getAvailableTags()) {
-            if(Tag.isExist(tag)){
-                Tag.updateTag(tag);
-            }else {
-                Tag.insertTag(tag);
+        if(g.getForumChannels().size() > 0) {
+            for (ForumTag tag : g.getForumChannels().get(0).getAvailableTags()) {
+                if (Tag.isExist(tag)) {
+                    Tag.updateTag(tag);
+                } else {
+                    Tag.insertTag(tag);
+                }
             }
         }
 

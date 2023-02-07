@@ -21,43 +21,35 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import templates.EmbedMessages;
 
 import javax.security.auth.login.LoginException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class Start {
 
-    public static Start INSTANCE;
-    public static String GUILD_ID = BotInfos.getBotInfos("guild_id"), VERSION_ID = "2.3";
+    public static String VERSION_ID = "2.4";
 
     private JDA api;
     private CommandManager cmdMan;
     private SlashManager slashMan;
     private ButtonManager buttonMan;
     private SteamWebApiClient steamApi;
+    private EmbedMessages embedMessages;
     private Guild guild;
 
-    public static void main(String[] args) {
-        try {
-            new Start();
-        } catch (LoginException e) {
-            e.printStackTrace();
+    public Start(boolean demo) throws LoginException, IllegalArgumentException {
+
+        if (!demo) {
+            api = JDABuilder.create(BotToken.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
+            api.getPresence().setActivity(Activity.competing("Version " + VERSION_ID));
+        } else {
+            api = JDABuilder.create(BotToken.demoToken, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
+            api.getPresence().setActivity(Activity.competing("DEMO " + VERSION_ID));
         }
-    }
 
-    public Start() throws LoginException, IllegalArgumentException {
-
-        INSTANCE = this;
-
-
-
-        api = JDABuilder.create(BotToken.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
         api.getPresence().setStatus(OnlineStatus.ONLINE);
-        api.getPresence().setActivity(Activity.competing("Version " + VERSION_ID));
 
         listeners();
         commands();
@@ -68,47 +60,17 @@ public class Start {
         this.slashMan = new SlashManager();
         this.buttonMan = new ButtonManager();
         this.steamApi = new SteamWebApiClient.SteamWebApiClientBuilder(Steam.apiKey).build();
+        this.embedMessages = new EmbedMessages();
 
         api.setAutoReconnect(true);
 
-        shutdown();
         BotToken.setToken();
 
         Orianna.setRiotAPIKey(Riot.RiotKey);
         Orianna.setDefaultRegion(Region.EUROPE_WEST);
     }
 
-    public void shutdown(){
-        new Thread(() -> {
-
-            String line = "";
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            try{
-                while ((line = reader.readLine()) != null){
-                    if(line.equalsIgnoreCase("exit")){
-                        if(api != null){
-                            api.getPresence().setStatus(OnlineStatus.OFFLINE);
-                            System.out.println("Bot ist offline!");
-                        }
-                    }else if (line.equalsIgnoreCase("start")){
-                        if (api != null){
-                            api.getPresence().setStatus(OnlineStatus.ONLINE);
-                            System.out.println("Bot ist online!");
-                        }
-                    }else if(line.equalsIgnoreCase("shutdown")){
-                        if (api != null){
-                            api.shutdown();
-                            System.out.println("Bot ist aus!");
-                        }
-                    }
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
-    private void listeners(){
+    private void listeners() {
         api.addEventListener(new SlashCommand());
         api.addEventListener(new CommandListener());
         api.addEventListener(new SelectionMenu());
@@ -119,13 +81,13 @@ public class Start {
 
         api.addEventListener(new PlayerJoin());
         api.addEventListener(new PlayerLeave());
-        api.addEventListener(new AcceptRules());
 
         api.addEventListener(new UserTagUpdate());
         api.addEventListener(new UserUpdateName());
         api.addEventListener(new AvatarChange());
         api.addEventListener(new StatusChange());
         api.addEventListener(new BannerChange());
+        api.addEventListener(new MemberRenameUsername());
 
         api.addEventListener(new RoleCreate());
         api.addEventListener(new RoleDelete());
@@ -144,15 +106,15 @@ public class Start {
         //api.addEventListener(new PlayerMute());
     }
 
-    private void commands(){
+    private void commands() {
         api.upsertCommand("connect", "Hiermit verbindest du deinen DiscordAccount mit dem Dashboard.").queue();
         api.upsertCommand("login", "Hiermit kannst du dich im Dashboard anmelden.").queue();
         api.upsertCommand("swf", "Hiermit kannst du eine SWF erstellen").addOption(OptionType.USER, "player2", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player3", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player4", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).queue();
         api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
         api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
+        api.upsertCommand("lock", "Sorgt dafür das keiner dich mehr umbenennen.").queue();
 
-        api.upsertCommand("steam", "Hiermit kannst du deinen SteamAccount verbinden.").queue();
-        api.upsertCommand("riot", "Hiermit kannst du deinen RiotAccount verbinden.").queue();
+
         api.upsertCommand("minecraft", "Hiermit kannst du deinen MinecraftAccount verbinden").queue();
         //api.upsertCommand("account", "Hiermit kannst du dein Profil bearbeiten.").queue();
 
@@ -186,11 +148,17 @@ public class Start {
         return steamApi;
     }
 
+    public EmbedMessages getEmbedMessages() {
+        return embedMessages;
+    }
+
     public CommandManager getCmdMan() {
         return cmdMan;
     }
 
-    public SlashManager getSlashMan(){return slashMan;}
+    public SlashManager getSlashMan() {
+        return slashMan;
+    }
 
     public ButtonManager getButtonMan() {
         return buttonMan;

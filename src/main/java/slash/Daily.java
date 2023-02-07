@@ -1,6 +1,8 @@
 package slash;
 
 import logging.LogSystem;
+import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
@@ -56,13 +58,7 @@ public class Daily implements ServerSlash {
                 }
             }
         }else {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(Color.red);
-            builder.setDescription("Dieser Befehl ist zurzeit deaktiviert. Versuche es später erneut.");
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setTitle("Befel ist deaktiviert.");
-
-            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
 
             LogSystem.logGeneral(event.getMember().getId(), "Der User hat den /daily Command ausgeführt jedoch war der Command disabled.", event.getUser().getAsTag());
 

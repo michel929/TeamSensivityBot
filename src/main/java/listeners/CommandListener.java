@@ -1,5 +1,6 @@
 package listeners;
 
+import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
@@ -30,7 +31,7 @@ public class CommandListener extends ListenerAdapter {
                     String[] args = message.substring(1).split(" ");
 
                     if (args.length > 0) {
-                        if (!Start.INSTANCE.getCmdMan().perform(args[0], event.getMember(), channel, event.getMessage())) {
+                        if (!Main.INSTANCE.getCmdMan().perform(args[0], event.getMember(), channel, event.getMessage())) {
                             channel.sendMessage("Unbekannter Command").queue();
                         }
                     }
@@ -43,7 +44,7 @@ public class CommandListener extends ListenerAdapter {
                     String[] args = message.substring(1).split(" ");
 
                     if (args.length > 0) {
-                        if (!Start.INSTANCE.getCmdMan().perform(args[0], event.getAuthor(), channel, event.getMessage())) {
+                        if (!Main.INSTANCE.getCmdMan().perform(args[0], event.getAuthor(), channel, event.getMessage())) {
                             channel.sendMessage("Unbekannter Command").queue();
                         }
                     }

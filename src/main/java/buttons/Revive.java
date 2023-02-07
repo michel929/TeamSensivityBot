@@ -1,6 +1,8 @@
 package buttons;
 
 import buttons.types.ServerButton;
+import main.Main;
+import main.Start;
 import minecraft.Hardcore;
 import mysql.Minecraft;
 import mysql.dashboard.PlayerInfos;
@@ -60,13 +62,7 @@ public class Revive implements ServerButton {
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
             }
         }else {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(Color.RED);
-            builder.setThumbnail("https://sensivity.team/bot/img/minecraft/kopf/pillager.png");
-            builder.setDescription("Du brauchst einen TeamSensivityAccount um diesen Buchung zu tätigen.");
-            builder.setTitle("Buchung fehlgeschlagen!");
-
-            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
         }
     }
 }

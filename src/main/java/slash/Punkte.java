@@ -1,5 +1,7 @@
 package slash;
 
+import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
@@ -124,13 +126,7 @@ public class Punkte implements ServerSlash {
                         }
                     }
         }else {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(Color.red);
-            builder.setDescription("Dieser Befehl ist zurzeit deaktiviert. Versuche es später erneut.");
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setTitle("Befel ist deaktiviert.");
-
-            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
         }
     }
 }

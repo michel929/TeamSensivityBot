@@ -1,5 +1,6 @@
 package listeners;
 
+import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
@@ -29,7 +30,7 @@ public class MemberJoinChannel extends ListenerAdapter {
 
     @Override
     public void onGuildVoiceUpdate(GuildVoiceUpdateEvent event) {
-        Category c = Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).getCategoryById(BotInfos.getBotInfos("chill_cat"));
+        Category c = Main.INSTANCE.getGuild().getCategoryById(BotInfos.getBotInfos("chill_cat"));
 
         if(event.getChannelLeft() != null) {
             //Create-Chill
@@ -47,7 +48,7 @@ public class MemberJoinChannel extends ListenerAdapter {
             if (BotInfos.getBotInfos("chill_create").equals("1")) {
                 if (event.getChannelJoined().getId().equals(BotInfos.getBotInfos("chill_channel"))) {
                     c.createVoiceChannel("Chill | " + i).addPermissionOverride(event.getMember(), permission, null).queue(voiceChannel -> {
-                        Start.INSTANCE.getApi().getGuildById(Start.GUILD_ID).moveVoiceMember(event.getMember(), voiceChannel).queue();
+                        Main.INSTANCE.getGuild().moveVoiceMember(event.getMember(), voiceChannel).queue();
                         channel.add(voiceChannel);
                     });
                     i++;

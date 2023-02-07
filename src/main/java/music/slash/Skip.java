@@ -1,5 +1,6 @@
 package music.slash;
 
+import main.Main;
 import main.Start;
 import music.PlayerManager;
 import mysql.BotInfos;
@@ -34,7 +35,7 @@ public class Skip implements ServerSlash {
 
                 event.replyEmbeds(builder.build()).queue();
             }else {
-                final AudioManager audioManager = Start.INSTANCE.getGuild().getAudioManager();
+                final AudioManager audioManager = Main.INSTANCE.getGuild().getAudioManager();
                 audioManager.closeAudioConnection();
 
                 EmbedBuilder builder = new EmbedBuilder();

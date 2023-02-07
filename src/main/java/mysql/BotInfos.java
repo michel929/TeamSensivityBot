@@ -70,7 +70,7 @@ public class BotInfos {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO rollen (role_id, color, role_name, role_position) VALUES ('"+ id + "', '"+ color +"', + '" + name + "', '" + position + "')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO discord_role (role_id, color, role_name, role_position) VALUES ('"+ id + "', '"+ color +"', + '" + name + "', '" + position + "')");
 
             posted.executeUpdate();
             con.close();
