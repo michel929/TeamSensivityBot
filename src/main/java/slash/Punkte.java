@@ -1,5 +1,6 @@
 package slash;
 
+import functions.GetInfos;
 import main.Main;
 import main.Start;
 import mysql.BotInfos;
@@ -13,6 +14,8 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import slash.types.ServerSlash;
 
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Punkte implements ServerSlash {
     @Override
@@ -30,6 +33,15 @@ public class Punkte implements ServerSlash {
                         builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
                         builder.setColor(Color.decode("#2ecc71"));
 
+                        if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
+                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                            try {
+                                GetInfos.streamBOT(new URL(url));
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                         event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
                     } else if (event.getSubcommandName().equals("remove")) {
                         Member m = event.getOption("member").getAsMember();
@@ -44,6 +56,15 @@ public class Punkte implements ServerSlash {
                         builder.setDescription("Du hast diesem User " + event.getOption("punkte").getAsInt() + " Punkte abgezogen.");
                         builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
                         builder.setColor(Color.decode("#2ecc71"));
+
+                        if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
+                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                            try {
+                                GetInfos.streamBOT(new URL(url));
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
                         event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
 
@@ -61,6 +82,15 @@ public class Punkte implements ServerSlash {
                         builder.setDescription("Du hast dem User seinen Punktestand auf " + event.getOption("punkte").getAsInt() + " Punkte gesetzt.");
                         builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
                         builder.setColor(Color.decode("#2ecc71"));
+
+                        if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
+                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                            try {
+                                GetInfos.streamBOT(new URL(url));
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
                         event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
 

@@ -1,5 +1,6 @@
 package listeners;
 
+import functions.GetInfos;
 import main.Main;
 import main.Start;
 import mysql.BotInfos;
@@ -15,6 +16,8 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Minutes;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -81,6 +84,15 @@ public class MemberJoinChannel extends ListenerAdapter {
                     PunkteSystem.uploadMinutes(date, LocalDateTime.now(), event.getMember().getId(), m.getMinutes());
                     PunkteSystem.uploadPoints(event.getMember().getId(), m.getMinutes());
                     PunkteSystem.upload(event.getMember().getId(), m.getMinutes(), 1, "Durch Aktivität im SprachChannel.");
+
+                    if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
+                        String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                        try {
+                            GetInfos.streamBOT(new URL(url));
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
                 members.remove(event.getMember());
