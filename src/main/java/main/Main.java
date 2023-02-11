@@ -14,15 +14,6 @@ public class Main {
     public static void main(String[] args) {
         shutdown();
         System.out.println("Warte auf Anweisung:");
-
-        System.out.println("Normale Bot wird gestartet!");
-        DATABASE = "TeamSensivity";
-        GUILD_ID = "773995277840941067";
-        try {
-            INSTANCE = new Start(false);
-        } catch (LoginException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public static void shutdown(){
@@ -46,7 +37,7 @@ public class Main {
                         try {
                             if(INSTANCE == null) {
                                 System.out.println("Demo Bot wird gestartet");
-                                DATABASE = "TeamSensivity";
+                                DATABASE = "DemoTeamSensivity";
                                 GUILD_ID = "1072494676579463228";
                                 INSTANCE = new Start(true);
                             }

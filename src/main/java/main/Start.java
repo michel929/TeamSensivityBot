@@ -17,7 +17,9 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import templates.EmbedMessages;
@@ -131,8 +133,6 @@ public class Start {
         api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
         api.upsertCommand("stop", "Hiermit kannst du den aktuellen Song stoppen.").queue();
         api.upsertCommand("skip", "Hiermit kannst du den aktuellen Song skippen.").queue();
-
-
     }
 
     public JDA getApi() {
