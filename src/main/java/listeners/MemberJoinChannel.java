@@ -33,7 +33,7 @@ public class MemberJoinChannel extends ListenerAdapter {
 
     @Override
     public void onGuildVoiceUpdate(GuildVoiceUpdateEvent event) {
-        Category c = Main.INSTANCE.getGuild().getCategoryById(BotInfos.getBotInfos("chill_cat"));
+        Category c = event.getGuild().getCategoryById(BotInfos.getBotInfos("chill_cat"));
 
         if(event.getChannelLeft() != null) {
             //Create-Chill

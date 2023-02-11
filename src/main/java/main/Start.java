@@ -12,7 +12,6 @@ import listeners.dashboard.role.*;
 import listeners.dashboard.tag.TagRemove;
 import listeners.dashboard.tag.TagCreate;
 import listeners.dashboard.tag.TagUpdate;
-import mysql.BotInfos;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
