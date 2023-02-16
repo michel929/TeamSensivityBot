@@ -79,6 +79,7 @@ public class Start {
         api.addEventListener(new ChannelRemove());
         api.addEventListener(new BotAddToGuild());
         api.addEventListener(new ModalInteraction());
+        api.addEventListener(new ContextInteraction());
 
         api.addEventListener(new PlayerJoin());
         api.addEventListener(new PlayerLeave());
@@ -133,6 +134,11 @@ public class Start {
         api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
         api.upsertCommand("stop", "Hiermit kannst du den aktuellen Song stoppen.").queue();
         api.upsertCommand("skip", "Hiermit kannst du den aktuellen Song skippen.").queue();
+
+        //api.upsertCommand("setup", "Hiermit kannst du dein Profil bearbeiten.").queue();
+
+        //UserCommands
+        api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Report User")).queue();
     }
 
     public JDA getApi() {
