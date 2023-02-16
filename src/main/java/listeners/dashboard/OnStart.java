@@ -24,7 +24,7 @@ public class OnStart extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
 
-        Guild g = Main.INSTANCE.getApi().getGuildById(Main.GUILD_ID);
+        Guild g = event.getJDA().getGuildById(Main.GUILD_ID);
 
         new Timer().schedule(new OneMin(), 0, 1000 * 60);
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
