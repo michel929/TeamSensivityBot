@@ -62,7 +62,7 @@ public class PlayerManager {
 
                 builder.setImage("https://img.youtube.com/vi/" + u + "/0.jpg");
 
-                event.replyEmbeds(builder.build()).queue();
+                event.replyEmbeds(builder.build()).setSuppressEmbeds(true).queue();
             }
 
             @Override
@@ -82,7 +82,7 @@ public class PlayerManager {
 
                     builder.setImage("https://img.youtube.com/vi/" + u + "/0.jpg");
 
-                    event.replyEmbeds(builder.build()).queue();
+                    event.replyEmbeds(builder.build()).setSuppressEmbeds(true).queue();
                 }
             }
 

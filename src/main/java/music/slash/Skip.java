@@ -33,7 +33,7 @@ public class Skip implements ServerSlash {
 
                 builder.setImage("https://img.youtube.com/vi/" + u + "/0.jpg");
 
-                event.replyEmbeds(builder.build()).queue();
+                event.replyEmbeds(builder.build()).setSuppressEmbeds(true).queue();
             }else {
                 final AudioManager audioManager = Main.INSTANCE.getGuild().getAudioManager();
                 audioManager.closeAudioConnection();

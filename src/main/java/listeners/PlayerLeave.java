@@ -1,5 +1,6 @@
 package listeners;
 
+import logging.LogSystem;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
@@ -13,5 +14,7 @@ public class PlayerLeave extends ListenerAdapter {
         }
 
         BotInfos.removeUserCount();
+
+        LogSystem.logGeneral(event.getMember().getId(), "User hat den Server verlassen.", event.getUser().getAsTag());
     }
 }
