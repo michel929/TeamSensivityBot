@@ -143,7 +143,7 @@ public class PlayerInfos {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("DELETE FROM '" + table + "' WHERE '" + row + "' = '" + id +"'");
+            PreparedStatement posted = con.prepareStatement("DELETE FROM " + table + " WHERE '" + row + "' = '" + id +"'");
 
             posted.executeUpdate();
 

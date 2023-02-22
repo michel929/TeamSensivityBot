@@ -12,7 +12,7 @@ public class LogSystem {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO rollen (discord_id, log_text, discord_tag) VALUES ('"+ discord_id + "', '"+ text +"', + '" + discord_tag + "')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO log_system (discord_id, log_text, discord_tag) VALUES ('"+ discord_id + "', '"+ text +"', + '" + discord_tag + "')");
 
             posted.executeUpdate();
             con.close();
