@@ -89,7 +89,6 @@ public class Start {
         api.addEventListener(new AvatarChange());
         api.addEventListener(new StatusChange());
         api.addEventListener(new BannerChange());
-        api.addEventListener(new MemberRenameUsername());
 
         api.addEventListener(new RoleCreate());
         api.addEventListener(new RoleDelete());
@@ -104,6 +103,7 @@ public class Start {
         api.addEventListener(new OnStart());
 
         api.addEventListener(new MemberJoinChannel());
+        api.addEventListener(new UserRename());
         // api.addEventListener(new PlayerMoved());
         //api.addEventListener(new PlayerMute());
     }
