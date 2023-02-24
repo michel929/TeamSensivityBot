@@ -3,6 +3,7 @@ package main;
 import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import com.merakianalytics.orianna.Orianna;
 import com.merakianalytics.orianna.types.common.Region;
+import functions.GetGameRoles;
 import geheim.BotToken;
 import geheim.Riot;
 import geheim.Steam;
@@ -30,7 +31,7 @@ import java.util.Collection;
 
 public class Start {
 
-    public static String VERSION_ID = "2.4";
+    public static String VERSION_ID = "2.4.1";
 
     private JDA api;
     private CommandManager cmdMan;
@@ -39,6 +40,7 @@ public class Start {
     private SteamWebApiClient steamApi;
     private EmbedMessages embedMessages;
     private Guild guild;
+    private GetGameRoles gameRoles;
 
     public Start(boolean demo) throws LoginException, IllegalArgumentException {
 
@@ -167,6 +169,14 @@ public class Start {
 
     public ButtonManager getButtonMan() {
         return buttonMan;
+    }
+
+    public GetGameRoles getGameRoles() {
+        return gameRoles;
+    }
+
+    public void setGameRoles(GetGameRoles gameRoles) {
+        this.gameRoles = gameRoles;
     }
 
     public void setGuild(Guild guild) {

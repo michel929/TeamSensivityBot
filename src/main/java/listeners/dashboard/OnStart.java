@@ -1,5 +1,6 @@
 package listeners.dashboard;
 
+import functions.GetGameRoles;
 import listeners.MemberJoinChannel;
 import main.Main;
 import main.Start;
@@ -30,6 +31,7 @@ public class OnStart extends ListenerAdapter {
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
 
         Main.INSTANCE.setGuild(g);
+        Main.INSTANCE.setGameRoles(new GetGameRoles(g.getRoles()));
 
         List<Role> rollen = g.getRoles();
 
