@@ -25,6 +25,7 @@ public class CommandManager {
         commands.put("reset", new ResetCommand());
         commands.put("clear", new ClearCommand());
         commands.put("points", new PointsCommand());
+        commands.put("emoji", new GetEmojis());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){

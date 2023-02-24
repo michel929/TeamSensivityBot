@@ -80,6 +80,7 @@ public class Start {
         api.addEventListener(new BotAddToGuild());
         api.addEventListener(new ModalInteraction());
         api.addEventListener(new ContextInteraction());
+        api.addEventListener(new UserRename());
 
         api.addEventListener(new PlayerJoin());
         api.addEventListener(new PlayerLeave());
@@ -103,7 +104,6 @@ public class Start {
         api.addEventListener(new OnStart());
 
         api.addEventListener(new MemberJoinChannel());
-        api.addEventListener(new UserRename());
         // api.addEventListener(new PlayerMoved());
         //api.addEventListener(new PlayerMute());
     }
@@ -138,7 +138,7 @@ public class Start {
         //api.upsertCommand("setup", "Hiermit kannst du dein Profil bearbeiten.").queue();
 
         //UserCommands
-        api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Report User")).queue();
+        //api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Report User")).queue();
     }
 
     public JDA getApi() {

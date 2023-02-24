@@ -9,16 +9,17 @@ import slash.types.ServerSlash;
 public class Setup implements ServerSlash {
     @Override
     public void performCommand(SlashCommandInteractionEvent event) {
-        StringSelectMenu menu = StringSelectMenu.create("Select Games").addOption("Dead by Daylight", "dbd", "", event.getGuild().getEmojiById("1075905157210066944"))
-                .addOption("Valorant", "valo", "", event.getGuild().getEmojiById(""))
-                .addOption("League of Legends", "lol", "", event.getGuild().getEmojiById(""))
-                .addOption("Battlefront II", "battlefront", "", event.getGuild().getEmojiById(""))
-                .addOption("ECO", "eco", "", event.getGuild().getEmojiById(""))
-                .addOption("Fall Guys", "fall", "", event.getGuild().getEmojiById(""))
-                .addOption("Genshin Impact", "genshin", "", event.getGuild().getEmojiById(""))
-                .addOption("Minecraft", "minecraft", "", event.getGuild().getEmojiById(""))
-                .addOption("Sea of Thieves", "sot", "", event.getGuild().getEmojiById(""))
-                .addOption("Space Engineers", "space", "", event.getGuild().getEmojiById(""))
+        StringSelectMenu menu = StringSelectMenu.create("Select Games")
+                .addOption("Dead by Daylight", "dbd", "", event.getGuild().getEmojiById("1000821375113637928"))
+                .addOption("Valorant", "valo", "", event.getGuild().getEmojiById("1000822070613127169"))
+                .addOption("League of Legends", "lol", "", event.getGuild().getEmojiById("1000820299551481939"))
+                .addOption("Battlefront II", "battlefront", "", event.getGuild().getEmojiById("1078630122254499840"))
+                .addOption("ECO", "eco", "", event.getGuild().getEmojiById("1000825105548582983"))
+                .addOption("Fall Guys", "fall", "", event.getGuild().getEmojiById("1000829620335149057"))
+                .addOption("Genshin Impact", "genshin", "", event.getGuild().getEmojiById("1078630989582061568"))
+                .addOption("Minecraft", "minecraft", "", event.getGuild().getEmojiById("1000823430695878716"))
+                .addOption("Sea of Thieves", "sot", "", event.getGuild().getEmojiById("1001078806506905622"))
+                .addOption("Space Engineers", "space", "", event.getGuild().getEmojiById("1000828140333056070"))
                 .build();
 
         Modal modal = Modal.create("setup", "Setup ur Account").addActionRows(ActionRow.of(menu)).build();
