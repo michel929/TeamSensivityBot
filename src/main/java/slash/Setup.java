@@ -1,7 +1,6 @@
 package slash;
 
 import main.Main;
-import main.Start;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;

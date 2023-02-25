@@ -79,7 +79,6 @@ public class Start {
         api.addEventListener(new SelectionMenu());
         api.addEventListener(new ButtonListener());
         api.addEventListener(new ChannelRemove());
-        api.addEventListener(new BotAddToGuild());
         api.addEventListener(new ModalInteraction());
         api.addEventListener(new ContextInteraction());
         api.addEventListener(new UserRename());
