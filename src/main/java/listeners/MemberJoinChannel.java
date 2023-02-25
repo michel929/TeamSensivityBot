@@ -51,7 +51,7 @@ public class MemberJoinChannel extends ListenerAdapter {
             if (BotInfos.getBotInfos("chill_create").equals("1")) {
                 if (event.getChannelJoined().getId().equals(BotInfos.getBotInfos("chill_channel"))) {
                     c.createVoiceChannel("Chill | " + i).addPermissionOverride(event.getMember(), permission, null).queue(voiceChannel -> {
-                        Main.INSTANCE.getGuild().moveVoiceMember(event.getMember(), voiceChannel).queue();
+                        event.getGuild().moveVoiceMember(event.getMember(), voiceChannel).queue();
                         channel.add(voiceChannel);
                     });
                     i++;
