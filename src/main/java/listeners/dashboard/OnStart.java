@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import request.EveryDay;
 import request.OneMin;
 import request.TwentySec;
 
@@ -26,12 +27,12 @@ public class OnStart extends ListenerAdapter {
     public void onReady(ReadyEvent event) {
 
         Guild g = event.getJDA().getGuildById(Main.GUILD_ID);
+        Main.INSTANCE.setGuild(g);
+        Main.INSTANCE.setGameRoles(new GetGameRoles(g.getRoles()));
 
         new Timer().schedule(new OneMin(), 0, 1000 * 60);
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
-
-        Main.INSTANCE.setGuild(g);
-        Main.INSTANCE.setGameRoles(new GetGameRoles(g.getRoles()));
+        new Timer().schedule(new EveryDay(), 0, 1000 * 60 * 60 * 24);
 
         List<Role> rollen = g.getRoles();
 
