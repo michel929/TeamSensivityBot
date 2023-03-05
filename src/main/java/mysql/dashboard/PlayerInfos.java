@@ -60,6 +60,10 @@ public class PlayerInfos {
             posted = con.prepareStatement("DELETE FROM user_role WHERE discord_id = '" + id +"'");
 
             posted.executeUpdate();
+
+            posted = con.prepareStatement("DELETE FROM connections WHERE discord_id = '" + id +"'");
+
+            posted.executeUpdate();
             con.close();
 
         } catch (SQLException e) {
