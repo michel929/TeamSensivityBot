@@ -82,8 +82,14 @@ public class MemberJoinChannel extends ListenerAdapter {
 
                 if(m.getMinutes() > 1) {
                     PunkteSystem.uploadMinutes(date, LocalDateTime.now(), event.getMember().getId(), m.getMinutes());
-                    PunkteSystem.uploadPoints(event.getMember().getId(), m.getMinutes());
-                    PunkteSystem.upload(event.getMember().getId(), m.getMinutes(), 1, "Durch Aktivität im SprachChannel.");
+
+                    if(event.getMember().isBoosting()){
+                        PunkteSystem.uploadPoints(event.getMember().getId(), m.getMinutes() + (m.getMinutes() / 2));
+                        PunkteSystem.upload(event.getMember().getId(), m.getMinutes() + (m.getMinutes() / 2), 1, "Durch Aktivität im SprachChannel. (Points x 1.5 Booster)");
+                    }else {
+                        PunkteSystem.uploadPoints(event.getMember().getId(), m.getMinutes());
+                        PunkteSystem.upload(event.getMember().getId(), m.getMinutes(), 1, "Durch Aktivität im SprachChannel.");
+                    }
 
                     if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
                         String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();

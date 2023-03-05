@@ -29,7 +29,7 @@ import java.util.Collection;
 
 public class Start {
 
-    public static String VERSION_ID = "2.4.1";
+    public static String VERSION_ID = "2.4.2";
 
     private JDA api;
     private CommandManager cmdMan;
