@@ -12,7 +12,7 @@ public class EveryDay extends TimerTask {
     public void run() {
 
         for (String m: GetAllTokens.getUsers()) {
-            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m;
+            String url = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m;
             try {
                 GetInfos.streamBOT(new URL(url));
             } catch (MalformedURLException e) {
