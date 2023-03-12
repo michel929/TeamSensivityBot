@@ -35,4 +35,23 @@ public class GetInfos {
             e.printStackTrace();
         }
     }
+
+    public static String getPoints(URL url) {
+        try (InputStream input = url.openStream()) {
+            InputStreamReader isr = new InputStreamReader(input);
+            BufferedReader reader = new BufferedReader(isr);
+            StringBuilder json = new StringBuilder();
+            int c;
+
+           while ((c = reader.read()) != -1) {
+                json.append((char) c);
+            }
+
+           return json.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

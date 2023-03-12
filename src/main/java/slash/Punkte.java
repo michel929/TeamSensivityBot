@@ -33,9 +33,12 @@ public class Punkte implements ServerSlash {
                         builder.setColor(Color.decode("#2ecc71"));
 
                         if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
-                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
+                            String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
                             try {
-                                GetInfos.streamBOT(new URL(url));
+                                if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
+                                    GetInfos.streamBOT(new URL(url2));
+                                }
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             }
@@ -57,9 +60,12 @@ public class Punkte implements ServerSlash {
                         builder.setColor(Color.decode("#2ecc71"));
 
                         if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
-                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
+                            String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
                             try {
-                                GetInfos.streamBOT(new URL(url));
+                                if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
+                                    GetInfos.streamBOT(new URL(url2));
+                                }
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             }
@@ -83,14 +89,16 @@ public class Punkte implements ServerSlash {
                         builder.setColor(Color.decode("#2ecc71"));
 
                         if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
-                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
+                            String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
                             try {
-                                GetInfos.streamBOT(new URL(url));
+                                if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
+                                    GetInfos.streamBOT(new URL(url2));
+                                }
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             }
                         }
-
                         event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
 
                     }

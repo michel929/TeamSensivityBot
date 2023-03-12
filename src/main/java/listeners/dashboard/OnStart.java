@@ -32,7 +32,7 @@ public class OnStart extends ListenerAdapter {
 
         new Timer().schedule(new OneMin(), 0, 1000 * 60);
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
-        new Timer().schedule(new EveryDay(), 0, 1000 * 60 * 60 * 24);
+        //new Timer().schedule(new EveryDay(), 0, 1000 * 60 * 60 * 24);
 
         List<Role> rollen = g.getRoles();
 
