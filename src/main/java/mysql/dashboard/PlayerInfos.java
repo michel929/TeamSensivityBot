@@ -21,16 +21,31 @@ public class PlayerInfos {
         }
     }
 
-    public static void addUserToList(String id){
+    public static void addUserToList(String id, String name){
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO user_rename (discord_id) VALUES ('"+ id + "')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO user_rename (discord_id, name) VALUES ('"+ id + "', '"+ name +"')");
 
             posted.executeUpdate();
             con.close();
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateUserList(String id, String name){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE user_rename SET name = '" + name + "' WHERE discord_id = '" + id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
             e.printStackTrace();
         }
     }

@@ -26,7 +26,7 @@ public class LockUsername implements ServerSlash {
 
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
             } else {
-                PlayerInfos.addUserToList(event.getMember().getId());
+                PlayerInfos.addUserToList(event.getMember().getId(), event.getMember().getEffectiveName());
 
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setColor(Color.decode("#2ecc71"));
