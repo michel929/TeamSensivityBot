@@ -14,11 +14,11 @@ public class UserRename extends ListenerAdapter {
             Member punisher = event.getGuild().getMemberById(event.getEntry().getUserId());
             Member opfer = event.getGuild().getMemberById(event.getEntry().getTargetId());
 
-            System.out.println(event.getEntry().getTargetId());
-
-            if(!punisher.hasPermission(Permission.ADMINISTRATOR) || !punisher.getUser().isBot()){
-                if (PlayerInfos.isExist(event.getEntry().getTargetId(), "discord_id", "user_rename")) {
-                    opfer.modifyNickname(opfer.getUser().getName()).complete();
+            if(!punisher.getId().equals("422148236875137059")) {
+                if (!punisher.hasPermission(Permission.ADMINISTRATOR) || !punisher.getUser().isBot()) {
+                    if (PlayerInfos.isExist(event.getEntry().getTargetId(), "discord_id", "user_rename")) {
+                        opfer.modifyNickname(opfer.getUser().getName()).complete();
+                    }
                 }
             }
         }
