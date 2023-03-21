@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.Category;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.joda.time.DateTime;
@@ -27,8 +28,6 @@ public class MemberJoinChannel extends ListenerAdapter {
 
     public static List<Channel> channel = new ArrayList<>();
     private static ConcurrentHashMap<Member, LocalDateTime> members = new ConcurrentHashMap<>();
-
-    static int i = 1;
     EnumSet<Permission> permission = EnumSet.of(Permission.MANAGE_CHANNEL, Permission.VOICE_CONNECT, Permission.VOICE_MUTE_OTHERS, Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS);
 
     @Override
@@ -41,7 +40,6 @@ public class MemberJoinChannel extends ListenerAdapter {
                 if (event.getChannelLeft().getMembers().size() == 0) {
                     event.getChannelLeft().delete().queue();
                     channel.remove(event.getChannelLeft());
-                    i--;
                 }
             }
         }
@@ -50,11 +48,28 @@ public class MemberJoinChannel extends ListenerAdapter {
             //Create-Chill
             if (BotInfos.getBotInfos("chill_create").equals("1")) {
                 if (event.getChannelJoined().getId().equals(BotInfos.getBotInfos("chill_channel"))) {
-                    c.createVoiceChannel("Chill | " + i).addPermissionOverride(event.getMember(), permission, null).queue(voiceChannel -> {
+                    boolean finish = false;
+                    int x = 1;
+                    int w = 0;
+
+                    while(finish == false) {
+                        for (Channel v : channel) {
+                            if(v.getName().contains("" + x)){
+                                x++;
+                            }else {
+                                w++;
+                            }
+                        }
+
+                        if(w == channel.size()){
+                            finish = true;
+                        }
+                    }
+
+                    c.createVoiceChannel("Chill | " + x).addPermissionOverride(event.getMember(), permission, null).queue(voiceChannel -> {
                         event.getGuild().moveVoiceMember(event.getMember(), voiceChannel).queue();
                         channel.add(voiceChannel);
                     });
-                    i++;
                 }
             }
         }
@@ -109,9 +124,6 @@ public class MemberJoinChannel extends ListenerAdapter {
         }
     }
 
-    public static void addI(){
-        i++;
-    }
     public static void add(List<Member> member){
 
         for (Member m: member) {

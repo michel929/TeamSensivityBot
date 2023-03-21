@@ -71,7 +71,6 @@ public class OnStart extends ListenerAdapter {
                     v.delete().queue();
                 }else {
                     MemberJoinChannel.channel.add(v);
-                    MemberJoinChannel.addI();
                 }
             }
         }
