@@ -54,6 +54,7 @@ public class OnStart extends ListenerAdapter {
 
 
         List<VoiceChannel> voice = g.getVoiceChannels();
+        List<VoiceChannel> chillVoice = g.getCategoryById(BotInfos.getBotInfos("chill_cat")).getVoiceChannels();
 
         //Get Alle User in Channel and OnlinePlayer
         int OnlineUser = 0;
@@ -65,8 +66,8 @@ public class OnStart extends ListenerAdapter {
         }
 
         //Get All ChillChannel
-        for (VoiceChannel v: voice) {
-            if(v.getName().contains("Chill") && !v.getId().equals(BotInfos.getBotInfos("chill_channel"))){
+        for (VoiceChannel v: chillVoice) {
+            if(!v.getId().equals(BotInfos.getBotInfos("chill_channel"))){
                 if(v.getMembers().size() == 0){
                     v.delete().queue();
                 }else {
