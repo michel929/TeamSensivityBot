@@ -50,9 +50,9 @@ public class MemberJoinChannel extends ListenerAdapter {
                 if (event.getChannelJoined().getId().equals(BotInfos.getBotInfos("chill_channel"))) {
                     boolean finish = false;
                     int x = 1;
-                    int w = 0;
 
                     while(finish == false) {
+                        int w = 0;
                         for (Channel v : channel) {
                             if(v.getName().contains("" + x)){
                                 x++;
