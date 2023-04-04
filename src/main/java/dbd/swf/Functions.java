@@ -119,7 +119,7 @@ public class Functions {
                         builder.setDescription("**Player 1:** " + m.getAsMention() + DBD_Chars.getDBDRank(m.getId()) + " \n **Player 2:** " + members.get(1).getAsMention() + DBD_Chars.getDBDRank(members.get(1).getId()) + " \n **Player 3:** " + members.get(2).getAsMention() + DBD_Chars.getDBDRank(members.get(2).getId()) + " \n **Player 4:** " + members.get(3).getAsMention() + DBD_Chars.getDBDRank(members.get(3).getId()));
                     }
 
-                    images.add("https://sensivity.team/assets/images/sensivity/titel.png");
+                    images.add("https://sensivity.team/bot/img/swf/titel.png");
                     images.add("https://sensivity.team/bot/img/x.png");
                     try {
                         CreateImage.createImage(images);
