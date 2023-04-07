@@ -18,7 +18,10 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.interactions.commands.Command;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import templates.EmbedMessages;
@@ -33,6 +36,7 @@ public class Start {
 
     private JDA api;
     private CommandManager cmdMan;
+    private UserContextInteractionManager userManager;
     private SlashManager slashMan;
     private ButtonManager buttonMan;
     private SteamWebApiClient steamApi;
@@ -64,6 +68,7 @@ public class Start {
         this.buttonMan = new ButtonManager();
         this.steamApi = new SteamWebApiClient.SteamWebApiClientBuilder(Steam.apiKey).build();
         this.embedMessages = new EmbedMessages();
+        this.userManager = new UserContextInteractionManager();
 
         api.setAutoReconnect(true);
 
@@ -80,7 +85,7 @@ public class Start {
         api.addEventListener(new ButtonListener());
         api.addEventListener(new ChannelRemove());
         api.addEventListener(new ModalInteraction());
-        api.addEventListener(new ContextInteraction());
+        api.addEventListener(new UserContextInteraction());
         api.addEventListener(new UserRename());
 
         api.addEventListener(new PlayerJoin());
@@ -103,6 +108,7 @@ public class Start {
         api.addEventListener(new TagUpdate());
 
         api.addEventListener(new OnStart());
+        api.addEventListener(new OnShutdown());
 
         api.addEventListener(new MemberJoinChannel());
         // api.addEventListener(new PlayerMoved());
@@ -139,7 +145,7 @@ public class Start {
         //api.upsertCommand("setup", "Hiermit kannst du dein Profil bearbeiten.").queue();
 
         //UserCommands
-        //api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Report User")).queue();
+        api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Create TeamSensivity Account").setDefaultPermissions(DefaultMemberPermissions.DISABLED)).queue();
     }
 
     public JDA getApi() {
@@ -172,6 +178,10 @@ public class Start {
 
     public GetGameRoles getGameRoles() {
         return gameRoles;
+    }
+
+    public UserContextInteractionManager getUserManager() {
+        return userManager;
     }
 
     public void setGameRoles(GetGameRoles gameRoles) {

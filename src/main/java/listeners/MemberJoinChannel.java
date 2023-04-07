@@ -132,4 +132,9 @@ public class MemberJoinChannel extends ListenerAdapter {
             }
         }
     }
+
+    public static ConcurrentHashMap<Member, LocalDateTime> getMembers() {
+        return members;
+    }
+
 }
