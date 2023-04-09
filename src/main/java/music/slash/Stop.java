@@ -26,7 +26,7 @@ public class Stop implements ServerSlash{
             builder.setTitle("Song wurde gestoppt");
             builder.setDescription("Du hast erfolgreich den Song gestoppt.");
 
-            event.replyEmbeds(builder.build()).setSuppressEmbeds(true).queue();
+            event.replyEmbeds(builder.build()).queue();
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setColor(Color.red);
