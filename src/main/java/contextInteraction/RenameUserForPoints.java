@@ -18,8 +18,8 @@ public class RenameUserForPoints implements UserContextInteraction {
     @Override
     public void performCommand(UserContextInteractionEvent event) {
         if(PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")){
-            if(PunkteSystem.getPoints(event.getMember().getId()) >= 8000){
-                event.replyModal(createModal(event.getMember().getId())).queue();
+            if(PunkteSystem.getPoints(event.getMember().getId()) >= 500){
+                event.replyModal(createModal(event.getTargetMember().getUser().getId())).queue();
             }else {
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setColor(Color.RED);
@@ -40,6 +40,7 @@ public class RenameUserForPoints implements UserContextInteraction {
                 .setMinLength(1)
                 .setMaxLength(30)
                 .setRequired(true)
+                .setValue(id)
                 .build();
 
         return Modal.create("rename" + id, "Rename User")
