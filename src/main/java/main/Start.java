@@ -145,6 +145,9 @@ public class Start {
         //api.upsertCommand("setup", "Hiermit kannst du dein Profil bearbeiten.").queue();
 
         //UserCommands
+        api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Muten (10000 Points)")).queue();
+        api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Kick (10000 Points)")).queue();
+        api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Rename (8000 Points)")).queue();
         api.updateCommands().addCommands(Commands.context(Command.Type.USER, "Create TeamSensivity Account").setDefaultPermissions(DefaultMemberPermissions.DISABLED)).queue();
     }
 
