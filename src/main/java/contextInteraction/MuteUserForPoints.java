@@ -1,6 +1,8 @@
 package contextInteraction;
 
 import contextInteraction.type.UserContextInteraction;
+import functions.GetInfos;
+import logging.LogSystem;
 import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
@@ -9,6 +11,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MuteUserForPoints implements UserContextInteraction {
     @Override
@@ -21,6 +25,7 @@ public class MuteUserForPoints implements UserContextInteraction {
                     PunkteSystem.upload(event.getMember().getId(), 1000, 0, event.getTargetMember().getUser().getName() + " stummgeschaltet.");
 
                     event.getTargetMember().mute(true).queue();
+                    LogSystem.logGeneral(event.getMember().getId(), "User hat " + event.getTargetMember().getUser().getName() + " stummgeschaltet.", event.getMember().getUser().getAsTag());
 
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setColor(Color.decode("#2ecc71"));
@@ -30,6 +35,16 @@ public class MuteUserForPoints implements UserContextInteraction {
                     builder.setTitle("Erfolgreich stummgeschaltet!");
 
                     event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+
+                    String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                    String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + event.getMember().getId();
+                    try {
+                        if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
+                            GetInfos.streamBOT(new URL(url2));
+                        }
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
                 }else{
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setColor(Color.RED);

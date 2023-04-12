@@ -1,5 +1,7 @@
 package listeners;
 
+import functions.GetInfos;
+import logging.LogSystem;
 import main.Main;
 import mysql.BotInfos;
 import mysql.Minecraft;
@@ -12,6 +14,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.components.text.TextInput;
 
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ModalInteraction extends ListenerAdapter {
     @Override
@@ -56,6 +60,7 @@ public class ModalInteraction extends ListenerAdapter {
             PunkteSystem.upload(event.getMember().getId(), 500, 0,  m.getUser().getName() + " umbenannt.");
 
             m.modifyNickname(newName).queue();
+            LogSystem.logGeneral(event.getMember().getId(), "User hat " + m.getUser().getName() + " umbenannt", event.getMember().getUser().getAsTag());
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("Erfolgreich umbenannt...");
@@ -64,6 +69,16 @@ public class ModalInteraction extends ListenerAdapter {
             builder.setDescription("Du hast den User (" + m.getUser().getName() + ") erfolgreich umbenannt.");
 
             event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+
+            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+            String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + event.getMember().getId();
+            try {
+                if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
+                    GetInfos.streamBOT(new URL(url2));
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
