@@ -10,6 +10,7 @@ public class EmbedMessages {
 
     private MessageEmbed noAccount;
     private MessageEmbed notActive;
+    private MessageEmbed noPermission;
     public EmbedMessages(){
 
         EmbedBuilder builder = new EmbedBuilder();
@@ -24,9 +25,16 @@ public class EmbedMessages {
         embedBuilder.setThumbnail(BotInfos.getBotInfos("logo_url"));
         embedBuilder.setTitle("Befel ist deaktiviert.");
 
+        EmbedBuilder embeddBuilder = new EmbedBuilder();
+        embeddBuilder.setColor(Color.red);
+        embeddBuilder.setDescription("Du hast keine Permissions dazu den Command auszuführen.");
+        embeddBuilder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+        embeddBuilder.setTitle("Keine Rechte dafür!");
+
 
         noAccount = builder.build();
         notActive = embedBuilder.build();
+        noPermission = embeddBuilder.build();
     }
 
     public MessageEmbed getNoAccount() {
@@ -35,5 +43,9 @@ public class EmbedMessages {
 
     public MessageEmbed getNotActive() {
         return notActive;
+    }
+
+    public MessageEmbed getNoPermission() {
+        return noPermission;
     }
 }

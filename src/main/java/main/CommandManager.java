@@ -26,6 +26,7 @@ public class CommandManager {
         commands.put("clear", new ClearCommand());
         commands.put("points", new PointsCommand());
         commands.put("emoji", new GetEmojis());
+        commands.put("consen", new ConnectTeamSensivityAccount());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){
