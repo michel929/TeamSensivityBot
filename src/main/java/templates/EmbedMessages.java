@@ -27,7 +27,7 @@ public class EmbedMessages {
 
         EmbedBuilder embeddBuilder = new EmbedBuilder();
         embeddBuilder.setColor(Color.red);
-        embeddBuilder.setDescription("Du hast keine Permissions dazu den Command auszuführen.");
+        embeddBuilder.setDescription("Du hast keine Permissions um diesen Vorgang zu starten.");
         embeddBuilder.setThumbnail(BotInfos.getBotInfos("logo_url"));
         embeddBuilder.setTitle("Keine Rechte dafür!");
 

@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.simple.parser.ParseException;
 
 import java.awt.*;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class ResetCommand implements ServerCommand {
     @Override
-    public void performCommand(Member m, TextChannel channel, Message message) throws ParseException {
-        if (m.getId().equals("422148236875137059")){
+    public void performCommand(MessageReceivedEvent event) throws ParseException {
+        if (event.getMember().getId().equals("422148236875137059")){
             List<Member> members = Main.INSTANCE.getGuild().getMembers();
             int i = 1;
             for (Member member: members) {
@@ -35,6 +36,8 @@ public class ResetCommand implements ServerCommand {
                     System.out.println(member.getEffectiveName());
                 }
             }
+        }else {
+
         }
     }
 }

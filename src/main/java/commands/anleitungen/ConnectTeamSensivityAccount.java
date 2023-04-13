@@ -1,4 +1,4 @@
-package commands;
+package commands.anleitungen;
 
 import commands.types.ServerCommand;
 import main.Main;

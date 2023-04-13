@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.simple.parser.ParseException;
 
 import java.awt.*;
@@ -16,14 +17,14 @@ import java.util.concurrent.TimeUnit;
 
 public class ClearCommand implements ServerCommand {
     @Override
-    public void performCommand(Member m, TextChannel channel, Message message) throws ParseException {
-        message.delete().queueAfter(10, TimeUnit.SECONDS);
+    public void performCommand(MessageReceivedEvent event) throws ParseException {
+        event.getMessage().delete().queueAfter(10, TimeUnit.SECONDS);
 
-        if(m.hasPermission(Permission.ADMINISTRATOR)) {
-            String[] args = message.getContentDisplay().substring(1).split(" ");
+        if(event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
+            String[] args = event.getMessage().getContentDisplay().substring(1).split(" ");
 
             if(args.length < 2){
-                MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).complete();
+                MessageHistory history = MessageHistory.getHistoryFromBeginning(event.getChannel()).complete();
                 List<Message> mess = history.getRetrievedHistory();
 
                 for (Message message1 : mess) {
@@ -35,7 +36,7 @@ public class ClearCommand implements ServerCommand {
 
                     int anzahl = Integer.parseInt(args[1]);
 
-                    MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).complete();
+                    MessageHistory history = MessageHistory.getHistoryFromBeginning(event.getChannel()).complete();
                     List<Message> mess = history.getRetrievedHistory();
 
                     List<Message> selected = mess.subList(anzahl, mess.size() - 1);
@@ -52,7 +53,7 @@ public class ClearCommand implements ServerCommand {
                     builder.setAuthor("Team Sensivity");
                     builder.setTitle("Falscher Datentyp!");
 
-                    channel.sendMessageEmbeds(builder.build()).queue((message1) -> {
+                    event.getChannel().sendMessageEmbeds(builder.build()).queue((message1) -> {
                         message1.delete().queueAfter(10, TimeUnit.SECONDS);
                     });
                 }
@@ -65,7 +66,7 @@ public class ClearCommand implements ServerCommand {
             builder.setAuthor("Team Sensivity");
             builder.setTitle("NO PERMISSION!!");
 
-            channel.sendMessageEmbeds(builder.build()).queue((message1) -> {
+            event.getChannel().sendMessageEmbeds(builder.build()).queue((message1) -> {
                 message1.delete().queueAfter(10, TimeUnit.SECONDS);
             });
         }

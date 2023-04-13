@@ -1,19 +1,18 @@
 package commands;
 
-import commands.types.PrivateCommand;
+import commands.types.ServerCommand;
 import main.Main;
-import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
-public class UpdateCommand implements PrivateCommand {
+public class UpdateCommand implements ServerCommand {
     @Override
-    public void performCommand(User m, PrivateChannel channel, Message message) {
-        if (m.getId().equals("422148236875137059")){
+    public void performCommand(MessageReceivedEvent event) {
+        if (event.getMember().getId().equals("422148236875137059")){
             Guild g = Main.INSTANCE.getGuild();
             List<Member> members = g.getMembers();
 
