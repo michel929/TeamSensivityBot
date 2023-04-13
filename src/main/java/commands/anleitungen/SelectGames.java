@@ -8,14 +8,15 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.simple.parser.ParseException;
 
 import java.awt.*;
 
 public class SelectGames implements ServerCommand {
     @Override
-    public void performCommand(Member m, TextChannel channel, Message message) throws ParseException {
-        if(m.hasPermission(Permission.ADMINISTRATOR)){
+    public void performCommand(MessageReceivedEvent event) throws ParseException {
+        if(event.getMember().hasPermission(Permission.ADMINISTRATOR)){
             EmbedBuilder schritt1 = new EmbedBuilder();
             schritt1.setColor(Color.decode("#9914fa"));
             schritt1.setThumbnail(BotInfos.getBotInfos("logo_url"));
@@ -30,10 +31,10 @@ public class SelectGames implements ServerCommand {
             schritt2.setImage("https://sensivity.team/bot/img/anleitung/Schritt_2.png");
             schritt2.setTitle("Select Games");
 
-            channel.sendMessageEmbeds(schritt1.build()).queue();
-            channel.sendMessageEmbeds(schritt2.build()).queue();
+            event.getChannel().sendMessageEmbeds(schritt1.build()).queue();
+            event.getChannel().sendMessageEmbeds(schritt2.build()).queue();
         }else {
-            channel.sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
+            event.getChannel().sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
         }
     }
 }

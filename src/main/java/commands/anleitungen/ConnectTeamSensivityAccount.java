@@ -8,14 +8,15 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.simple.parser.ParseException;
 
 import java.awt.*;
 
 public class ConnectTeamSensivityAccount implements ServerCommand {
     @Override
-    public void performCommand(Member m, TextChannel channel, Message message) throws ParseException {
-        if(m.hasPermission(Permission.ADMINISTRATOR)){
+    public void performCommand(MessageReceivedEvent event) throws ParseException {
+        if(event.getMember().hasPermission(Permission.ADMINISTRATOR)){
             EmbedBuilder schritt1 = new EmbedBuilder();
             schritt1.setColor(Color.decode("#9914fa"));
             schritt1.setThumbnail(BotInfos.getBotInfos("logo_url"));
@@ -51,13 +52,13 @@ public class ConnectTeamSensivityAccount implements ServerCommand {
             schritt5.setImage("https://sensivity.team/bot/img/account/Schritt_5.png");
             schritt5.setTitle("Connect Team Sensivity Account");
 
-            channel.sendMessageEmbeds(schritt1.build()).queue();
-            channel.sendMessageEmbeds(schritt2.build()).queue();
-            channel.sendMessageEmbeds(schritt3.build()).queue();
-            channel.sendMessageEmbeds(schritt4.build()).queue();
-            channel.sendMessageEmbeds(schritt5.build()).queue();
+            event.getChannel().sendMessageEmbeds(schritt1.build()).queue();
+            event.getChannel().sendMessageEmbeds(schritt2.build()).queue();
+            event.getChannel().sendMessageEmbeds(schritt3.build()).queue();
+            event.getChannel().sendMessageEmbeds(schritt4.build()).queue();
+            event.getChannel().sendMessageEmbeds(schritt5.build()).queue();
         }else {
-            channel.sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
+            event.getChannel().sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
         }
     }
 }
