@@ -1,4 +1,4 @@
-package main;
+package main.manager;
 
 import buttons.Revive;
 import buttons.YourPoints;

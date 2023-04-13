@@ -1,4 +1,4 @@
-package main;
+package main.manager;
 import music.slash.Play;
 import music.slash.Skip;
 import music.slash.Stop;
@@ -21,7 +21,6 @@ public class SlashManager {
             slashs.put("connect", new Connect());
             slashs.put("revoke", new Revoke());
             slashs.put("lock", new LockUsername());
-            slashs.put("setup", new Setup());
 
             slashs.put("account", new Profil());
             slashs.put("minecraft", new ConnectMinecraft());

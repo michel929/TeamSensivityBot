@@ -1,7 +1,6 @@
 package slash.dashboard;
 
 import main.Main;
-import main.Start;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

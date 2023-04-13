@@ -13,6 +13,7 @@ import listeners.dashboard.role.*;
 import listeners.dashboard.tag.TagRemove;
 import listeners.dashboard.tag.TagCreate;
 import listeners.dashboard.tag.TagUpdate;
+import main.manager.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -39,6 +40,7 @@ public class Start {
     private UserContextInteractionManager userManager;
     private SlashManager slashMan;
     private ButtonManager buttonMan;
+    private ModalManager modalMan;
     private SteamWebApiClient steamApi;
     private EmbedMessages embedMessages;
     private Guild guild;
@@ -69,6 +71,7 @@ public class Start {
         this.steamApi = new SteamWebApiClient.SteamWebApiClientBuilder(Steam.apiKey).build();
         this.embedMessages = new EmbedMessages();
         this.userManager = new UserContextInteractionManager();
+        this.modalMan = new ModalManager();
 
         api.setAutoReconnect(true);
 
@@ -135,14 +138,11 @@ public class Start {
         api.upsertCommand("points", "Hiermit kannst du deine Punkte einsehen.").addSubcommands(subcommands).queue();
 
         api.upsertCommand("daily", "Hiermit sammelst du die Tägliche belohnung ein.").queue();
-        //api.upsertCommand("level", "Hiermit lässt du dir dein Level ausgeben.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", false).queue();
 
         api.upsertCommand("play", "Hiermit kannst du Musik abspielen.").addOption(OptionType.STRING, "song", "Damit der Bot weiß was für ein Lied du hören möchtest...", true).queue();
         api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
         api.upsertCommand("stop", "Hiermit kannst du den aktuellen Song stoppen.").queue();
         api.upsertCommand("skip", "Hiermit kannst du den aktuellen Song skippen.").queue();
-
-        //api.upsertCommand("setup", "Hiermit kannst du dein Profil bearbeiten.").queue();
 
         //UserCommands
         api.updateCommands().addCommands(
@@ -183,6 +183,10 @@ public class Start {
 
     public GetGameRoles getGameRoles() {
         return gameRoles;
+    }
+
+    public ModalManager getModalMan() {
+        return modalMan;
     }
 
     public UserContextInteractionManager getUserManager() {

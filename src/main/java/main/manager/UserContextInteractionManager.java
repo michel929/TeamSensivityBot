@@ -1,4 +1,4 @@
-package main;
+package main.manager;
 import contextInteraction.KickUserForPoints;
 import contextInteraction.MuteUserForPoints;
 import contextInteraction.RenameUserForPoints;

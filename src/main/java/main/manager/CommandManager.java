@@ -1,4 +1,4 @@
-package main;
+package main.manager;
 
 import commands.*;
 import commands.forum.Maintenance;
