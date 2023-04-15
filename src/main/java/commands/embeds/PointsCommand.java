@@ -1,4 +1,4 @@
-package commands;
+package commands.embeds;
 
 import commands.types.ServerCommand;
 import main.Main;

@@ -4,6 +4,7 @@ import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import com.merakianalytics.orianna.Orianna;
 import com.merakianalytics.orianna.types.common.Region;
 import functions.GetGameRoles;
+import games.blackjack.SelectSave;
 import geheim.BotToken;
 import geheim.Riot;
 import geheim.Steam;
@@ -33,7 +34,7 @@ import java.util.Collection;
 
 public class Start {
 
-    public static String VERSION_ID = "2.4.3";
+    public static String VERSION_ID = "2.5";
 
     private JDA api;
     private CommandManager cmdMan;
@@ -43,6 +44,7 @@ public class Start {
     private ModalManager modalMan;
     private SteamWebApiClient steamApi;
     private EmbedMessages embedMessages;
+    private SelectSave selectSave;
     private Guild guild;
     private GetGameRoles gameRoles;
 
@@ -72,6 +74,7 @@ public class Start {
         this.embedMessages = new EmbedMessages();
         this.userManager = new UserContextInteractionManager();
         this.modalMan = new ModalManager();
+        this.selectSave = new SelectSave();
 
         api.setAutoReconnect(true);
 
@@ -199,5 +202,9 @@ public class Start {
 
     public void setGuild(Guild guild) {
         this.guild = guild;
+    }
+
+    public SelectSave getSelectSave() {
+        return selectSave;
     }
 }

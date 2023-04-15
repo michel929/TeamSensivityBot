@@ -1,8 +1,10 @@
 package main.manager;
 
 import commands.*;
-import commands.anleitungen.ConnectTeamSensivityAccount;
-import commands.anleitungen.SelectGames;
+import commands.embeds.CreateLobby;
+import commands.embeds.PointsCommand;
+import commands.embeds.anleitungen.ConnectTeamSensivityAccount;
+import commands.embeds.anleitungen.SelectGames;
 import commands.types.ServerCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.simple.parser.ParseException;
@@ -20,6 +22,7 @@ public class CommandManager {
         commands.put("reset", new ResetCommand());
         commands.put("clear", new ClearCommand());
         commands.put("points", new PointsCommand());
+        commands.put("cl", new CreateLobby());
         commands.put("emoji", new GetEmojis());
         commands.put("consen", new ConnectTeamSensivityAccount());
         commands.put("selgam", new SelectGames());

@@ -1,5 +1,6 @@
 package listeners;
 
+import main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -11,6 +12,11 @@ public class SelectionMenu extends ListenerAdapter {
 
     @Override
     public void onStringSelectInteraction(StringSelectInteractionEvent event) {
+        if (event.getComponentId().equals("choose-game")){
+            Main.INSTANCE.getSelectSave().addUserSelect(event.getMember().getId(), event.getValues().get(0));
+        }
+
+
         EmbedBuilder builder = new EmbedBuilder();
         if(event.getComponent().getId().equals("dbd_role")){
             for (int i = 0; i < event.getValues().size(); i++){
