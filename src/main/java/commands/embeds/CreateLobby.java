@@ -20,17 +20,19 @@ public class CreateLobby implements ServerCommand {
             EmbedBuilder schritt1 = new EmbedBuilder();
             schritt1.setColor(Color.decode("#9914fa"));
             schritt1.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            schritt1.setDescription("");
+            schritt1.setDescription("Wähle hier ein Game aus und klicke dann unten auf Start.");
             schritt1.setTitle("Create GameLobby");
 
             StringSelectMenu menu = StringSelectMenu.create("choose-game")
                     .addOptions(SelectOption.of("Black Jack", "jack")
-                                    .withDescription("")
+                                    .withDescription("Spiel gegen den Dealer")
                                     .withDefault(true)
                             )
                     .build();
 
-            event.getChannel().sendMessageEmbeds(schritt1.build()).addActionRow(menu, Button.success("start-game", "Start")).queue();
+            event.getChannel().sendMessageEmbeds(schritt1.build()).addActionRow(menu).queue();
+            event.getChannel().sendMessage("\u1CBC").addActionRow(Button.success("start-game", "Start")).queue();
+
         }else {
             event.getChannel().sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
         }

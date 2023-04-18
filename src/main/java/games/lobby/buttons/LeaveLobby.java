@@ -1,6 +1,7 @@
 package games.lobby.buttons;
 
 import buttons.types.ServerButton;
+import games.Player;
 import games.lobby.Lobby;
 import main.Main;
 import mysql.BotInfos;
@@ -19,11 +20,16 @@ public class LeaveLobby implements ServerButton {
         boolean contains = false;
 
         for (Lobby l : lobby.values()) {
-            if (l.getPlayer().contains(event.getMember())) {
-                l.removePlayer(event.getMember());
-                contains = true;
-            } else if (l.getHost().equals(event.getMember().getId())) {
+            for (Player p : l.getPlayer()) {
+                if (p.getM() == event.getMember()) {
+                    l.removePlayer(event.getMember());
+                    contains = true;
+                }
+            }
+
+            if (l.getHost().equals(event.getMember().getId())) {
                 if(l.getPlayer().size() == 0){
+                    lobby.remove(l);
                     l.getChannel().delete().queue();
                 }else {
                     l.setHost(l.getPlayer().get(0).getM().getId());
@@ -33,15 +39,7 @@ public class LeaveLobby implements ServerButton {
             }
         }
 
-        if (contains) {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(Color.decode(""));
-            builder.setDescription("Du hast die Lobby erfolgreich verlassen");
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setTitle("Du hast die Lobby verlassen!");
-
-            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
-        }else {
+        if (!contains) {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("Fehler beim Verlassen der Gruppe!");
             builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
@@ -50,5 +48,7 @@ public class LeaveLobby implements ServerButton {
 
             event.replyEmbeds(builder.build()).setEphemeral(true).queue();
         }
+
+        System.out.println(lobby.size());
     }
 }

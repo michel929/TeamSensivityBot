@@ -1,6 +1,7 @@
 package games.lobby.buttons;
 
 import buttons.types.ServerButton;
+import games.Player;
 import games.lobby.Lobby;
 import main.Main;
 import mysql.BotInfos;
@@ -22,9 +23,13 @@ public class JoinLobby implements ServerButton {
             boolean contains = false;
 
             for (Lobby l: lobby.values()) {
-                if(l.getPlayer().contains(event.getMember())){
-                    contains = true;
-                }else if(l.getHost().equals(event.getMember().getId())){
+                for (Player p : l.getPlayer()) {
+                    if (p.getM() == event.getMember()) {
+                        contains = true;
+                    }
+                }
+
+                if(l.getHost().equals(event.getMember().getId())){
                     contains = true;
                 }
             }

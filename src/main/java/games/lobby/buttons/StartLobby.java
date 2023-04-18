@@ -55,24 +55,24 @@ public class StartLobby implements ServerButton {
             if(game.equals("jack")) {
                 event.getGuild().getCategoryById("1097807839315107900").createTextChannel("Black Jack").queue(channel -> {
                     lobby.get(event.getMember()).setChannel(channel);
+
+                    EmbedBuilder builder = new EmbedBuilder();
+                    builder.setDescription("Spiele jetzt mit " + event.getMember().getAsMention() + "das Spiel seiner Wahl.");
+                    builder.setColor(Color.decode("#9914fa"));
+                    builder.setTitle("GameLobby");
+                    builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                    builder.setFooter("1 Player in der Lobby");
+
+                    channel.sendMessageEmbeds(builder.build()).addActionRow(Button.success("joinLobby" + lobby.get(event.getMember()).getId(), "Join Lobby"), Button.primary("startGameNow" + lobby.get(event.getMember()).getId(), "Starte das Game")).queue(message -> {
+                        lobby.get(event.getMember()).setMessageId(message);
+                    });
                 });
             }
-
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.setDescription("Spiele jetzt mit " + event.getMember().getAsMention() + "das Spiel seiner Wahl.");
-            builder.setColor(Color.decode("#9914fa"));
-            builder.setTitle("GameLobby");
-            builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setFooter("1 Player in der Lobby");
-
-            lobby.get(event.getMember()).getChannel().sendMessageEmbeds(builder.build()).addActionRow(Button.success("joinLobby" + lobby.get(event.getMember()).getId(), "Join Lobby"), Button.primary("startGameNow" + lobby.get(event.getMember()).getId(), "Starte das Game")).queue(message -> {
-                lobby.get(event.getMember()).setMessageId(message);
-            });
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Du hast eine Lobby erstellt!");
             embedBuilder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            embedBuilder.setColor(Color.decode(""));
+            embedBuilder.setColor(Color.decode("#2ecc71"));
             embedBuilder.setDescription("Du hast eine Lobby erstellt und bist der Host des Games.");
 
             event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
