@@ -1,9 +1,12 @@
-package games.blackjack;
+package games.lobby;
+
+import net.dv8tion.jda.api.entities.Member;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SelectSave {
     public static ConcurrentHashMap<String, String> list;
+    ConcurrentHashMap<Member, Lobby> lobby = new ConcurrentHashMap<>();
 
     public SelectSave(){
         list = new ConcurrentHashMap<>();
@@ -30,4 +33,7 @@ public class SelectSave {
         return list.get(id);
     }
 
+    public ConcurrentHashMap<Member, Lobby> getLobby() {
+        return lobby;
+    }
 }

@@ -1,6 +1,7 @@
 package listeners;
 
 import main.Main;
+import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -13,7 +14,11 @@ public class SelectionMenu extends ListenerAdapter {
     @Override
     public void onStringSelectInteraction(StringSelectInteractionEvent event) {
         if (event.getComponentId().equals("choose-game")){
-            Main.INSTANCE.getSelectSave().addUserSelect(event.getMember().getId(), event.getValues().get(0));
+            if(PlayerInfos.isExist(event.getUser().getId(), "discord_id", "users")) {
+                Main.INSTANCE.getSelectSave().addUserSelect(event.getMember().getId(), event.getValues().get(0));
+            }else {
+                event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
+            }
         }
 
 

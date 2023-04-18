@@ -4,7 +4,7 @@ import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import com.merakianalytics.orianna.Orianna;
 import com.merakianalytics.orianna.types.common.Region;
 import functions.GetGameRoles;
-import games.blackjack.SelectSave;
+import games.lobby.SelectSave;
 import geheim.BotToken;
 import geheim.Riot;
 import geheim.Steam;

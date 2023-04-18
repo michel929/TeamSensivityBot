@@ -1,5 +1,5 @@
 package commands.embeds;
-StringSele
+
 import commands.types.ServerCommand;
 import main.Main;
 import mysql.BotInfos;
@@ -25,12 +25,12 @@ public class CreateLobby implements ServerCommand {
 
             StringSelectMenu menu = StringSelectMenu.create("choose-game")
                     .addOptions(SelectOption.of("Black Jack", "jack")
-                                    .withEmoji()
                                     .withDescription("")
+                                    .withDefault(true)
                             )
                     .build();
 
-            event.getChannel().sendMessageEmbeds(schritt1.build()).addActionRow(menu, Button.success("startgame", "Start")).queue();
+            event.getChannel().sendMessageEmbeds(schritt1.build()).addActionRow(menu, Button.success("start-game", "Start")).queue();
         }else {
             event.getChannel().sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
         }
