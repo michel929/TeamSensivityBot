@@ -7,22 +7,28 @@ import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
 
 public class JoinLobby implements ServerButton {
     @Override
     public void performCommand(ButtonInteractionEvent event) {
         if(PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")){
             String lobbyid = event.getId().replace("startGameNow", "");
-            ConcurrentHashMap<Member, Lobby> lobby = Main.INSTANCE.getSelectSave().getLobby();
+            System.out.println(lobbyid);
+            ArrayList<Lobby> lobby = Main.INSTANCE.getSelectSave().getLobby();
             boolean contains = false;
+            Lobby lobby1 = null;
 
-            for (Lobby l: lobby.values()) {
+
+            for (Lobby l: lobby) {
+                if(l.getId().equals(lobbyid)){
+                    lobby1 = l;
+                }
+
                 for (Player p : l.getPlayer()) {
                     if (p.getM() == event.getMember()) {
                         contains = true;
@@ -43,19 +49,18 @@ public class JoinLobby implements ServerButton {
 
                 event.replyEmbeds(embedBuilder.build()).addActionRow(Button.danger("leaveOld", "Alte Lobby verlassen")).setEphemeral(true).queue();
             }else {
-                Member lo = Main.INSTANCE.getGuild().getMemberById(lobbyid);
-                Lobby l = Main.INSTANCE.getSelectSave().getLobby().get(lo);
-                l.addPlayer(event.getMember());
+                lobby1.addPlayer(event.getMember());
 
                 EmbedBuilder builder = new EmbedBuilder();
-                builder.setDescription("Spiele jetzt mit " + lo.getAsMention() + "das Spiel seiner Wahl.");
+                builder.setDescription("Spiele jetzt mit " + event.getGuild().getMemberById(lobby1.getHost()).getAsMention() + "das Spiel seiner Wahl.");
                 builder.setColor(Color.decode("#9914fa"));
                 builder.setTitle("GameLobby");
                 builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-                builder.setFooter((l.getPlayer().size() + 1) + " Player in der Lobby");
+                builder.setFooter((lobby1.getPlayer().size() + 1) + " Player in der Lobby");
 
-                l.getMessageId().editMessageEmbeds(builder.build()).queue(message -> {
-                    l.setMessageId(message);
+                Lobby finalLobby = lobby1;
+                lobby1.getMessageId().editMessageEmbeds(builder.build()).queue(message -> {
+                    finalLobby.setMessageId(message);
                 });
             }
         }else {

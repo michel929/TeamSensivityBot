@@ -1,17 +1,18 @@
 package games.lobby.buttons;
 
 import buttons.types.ServerButton;
+import games.Player;
 import games.lobby.Lobby;
 import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class StartLobby implements ServerButton {
 
@@ -29,14 +30,18 @@ public class StartLobby implements ServerButton {
     }
 
     private void startGame(ButtonInteractionEvent event, String game){
-        ConcurrentHashMap<Member, Lobby> lobby = Main.INSTANCE.getSelectSave().getLobby();
+        ArrayList<Lobby> lobby = Main.INSTANCE.getSelectSave().getLobby();
 
         boolean contains = false;
 
-        for (Lobby l: lobby.values()) {
-            if(l.getPlayer().contains(event.getMember())){
-                contains = true;
-            }else if(l.getHost().equals(event.getMember().getId())){
+        for (Lobby l: lobby) {
+            for (Player p : l.getPlayer()) {
+                if(p.getM() == event.getMember()){
+                    contains = true;
+                }
+            }
+
+            if(l.getHost().equals(event.getMember().getId())){
                 contains = true;
             }
         }
@@ -50,11 +55,12 @@ public class StartLobby implements ServerButton {
 
             event.replyEmbeds(embedBuilder.build()).addActionRow(Button.danger("leaveOld", "Alte Lobby verlassen")).setEphemeral(true).queue();
         }else {
-            lobby.put(event.getMember(), new Lobby(event.getMember().getId(), game, event.getMember().getId()));
+            lobby.add(new Lobby(UUID.randomUUID().toString(), game, event.getMember().getId()));
+            Lobby l = lobby.get(lobby.size() - 1);
 
             if(game.equals("jack")) {
                 event.getGuild().getCategoryById("1097807839315107900").createTextChannel("Black Jack").queue(channel -> {
-                    lobby.get(event.getMember()).setChannel(channel);
+                    l.setChannel(channel);
 
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setDescription("Spiele jetzt mit " + event.getMember().getAsMention() + "das Spiel seiner Wahl.");
@@ -63,8 +69,8 @@ public class StartLobby implements ServerButton {
                     builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                     builder.setFooter("1 Player in der Lobby");
 
-                    channel.sendMessageEmbeds(builder.build()).addActionRow(Button.success("joinLobby" + lobby.get(event.getMember()).getId(), "Join Lobby"), Button.primary("startGameNow" + lobby.get(event.getMember()).getId(), "Starte das Game")).queue(message -> {
-                        lobby.get(event.getMember()).setMessageId(message);
+                    channel.sendMessageEmbeds(builder.build()).setActionRow(Button.success("joinLobby" + l.getId(), "Join Lobby"), Button.primary("startGameNow" + l.getId(), "Starte das Game"), Button.danger("leaveOld", "Verlasse die Lobby")).queue(message -> {
+                        l.setMessageId(message);
                     });
                 });
             }

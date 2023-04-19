@@ -6,17 +6,24 @@ import games.lobby.Lobby;
 import main.Main;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class StartGame implements ServerButton {
     @Override
     public void performCommand(ButtonInteractionEvent event) {
-        Member m = Main.INSTANCE.getGuild().getMemberById(event.getId().replace("startGameNow", ""));
-        Lobby l = Main.INSTANCE.getSelectSave().getLobby().get(m);
+        String m = event.getId().replace("startGameNow", "");
+        ArrayList<Lobby> lobby = Main.INSTANCE.getSelectSave().getLobby();
+        Lobby l = null;
+
+        for (Lobby lobby1: lobby) {
+            if(lobby1.getId().equals(m)){
+                l = lobby1;
+            }
+        }
 
         if((l.getPlayer().size() + 1) >= l.getMinPlayer()){
             if(l.getGame().equals("jack")){

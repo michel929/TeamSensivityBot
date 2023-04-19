@@ -8,7 +8,6 @@ import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 import java.awt.*;
@@ -16,12 +15,18 @@ import java.awt.*;
 public class Einsatz500Jack implements ServerButton {
     @Override
     public void performCommand(ButtonInteractionEvent event) {
-        Member m = Main.INSTANCE.getGuild().getMemberById(event.getId().replace("500e", ""));
-        Lobby l = Main.INSTANCE.getSelectSave().getLobby().get(m);
+        String lobbyid = event.getId().replace("500e", "");
+        Lobby lobby = null;
+
+        for (Lobby l: Main.INSTANCE.getSelectSave().getLobby()) {
+            if(l.getId().equals(lobbyid)){
+                lobby = l;
+            }
+        }
 
         boolean contains = false, everyone = true;
 
-        for (Player p : l.getPlayer()) {
+        for (Player p : lobby.getPlayer()) {
             if(p.getM() == event.getMember()){
                 contains = true;
                 if(p.getEinsatz() == 0) {
@@ -41,7 +46,7 @@ public class Einsatz500Jack implements ServerButton {
                     embedBuilder.setColor(Color.decode("#9914fa"));
                     embedBuilder.setDescription("Wählt euren Einsatz, wenn ihr gewinnt bekommt ihr das 4-Fache wieder. Bei einem Unentschieden bekommt ihr euren Einsatz zurück.");
                     String einsatz = "";
-                    for (Player player : l.getPlayer()) {
+                    for (Player player : lobby.getPlayer()) {
                         einsatz = einsatz + player.getM().getAsMention() + ": " + player.getEinsatz() + " ";
 
                         if (player.getEinsatz() == 0) {
@@ -51,8 +56,9 @@ public class Einsatz500Jack implements ServerButton {
 
                     embedBuilder.setFooter(einsatz);
 
-                    l.getMessageId().editMessageEmbeds(embedBuilder.build()).queue(message -> {
-                        l.setMessageId(message);
+                    Lobby finalLobby = lobby;
+                    lobby.getMessageId().editMessageEmbeds(embedBuilder.build()).queue(message -> {
+                        finalLobby.setMessageId(message);
                     });
                 }else {
                     EmbedBuilder builder = new EmbedBuilder();
@@ -68,12 +74,12 @@ public class Einsatz500Jack implements ServerButton {
 
         if(everyone){
             //RUNDE STARTET
-            for (Player p : l.getPlayer()) {
+            for (Player p : lobby.getPlayer()) {
                 PunkteSystem.uploadPoints(p.getM().getId(), - p.getEinsatz());
                 PunkteSystem.upload(event.getMember().getId(), p.getEinsatz(), 0, "Einsatz für BlackJack.");
             }
 
-            StartJack.start(l);
+            StartJack.start(lobby);
         }
 
         if(!contains){
