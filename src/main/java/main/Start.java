@@ -1,12 +1,9 @@
 package main;
 
 import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
-import com.merakianalytics.orianna.Orianna;
-import com.merakianalytics.orianna.types.common.Region;
 import functions.GetGameRoles;
 import games.lobby.SelectSave;
 import geheim.BotToken;
-import geheim.Riot;
 import geheim.Steam;
 import listeners.*;
 import listeners.dashboard.*;
@@ -77,11 +74,6 @@ public class Start {
         this.selectSave = new SelectSave();
 
         api.setAutoReconnect(true);
-
-        BotToken.setToken();
-
-        Orianna.setRiotAPIKey(Riot.RiotKey);
-        Orianna.setDefaultRegion(Region.EUROPE_WEST);
     }
 
     private void listeners() {

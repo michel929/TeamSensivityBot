@@ -4,7 +4,10 @@ import mysql.Connect;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerInfos {
     public static void createAccount(String id, String username, String pb, String banner){
@@ -156,6 +159,51 @@ public class PlayerInfos {
         }
 
         return y;
+    }
+
+    public static ArrayList<String> getConnectionFromType(String type){
+        ArrayList<String> s = new ArrayList<>();
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM connections";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                if(type.equals(rs.getString("type"))){
+                    s.add(rs.getString("connect_id"));
+                }
+
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    public static HashMap<String, String> getLeaguePuuids(){
+        HashMap<String, String> s = new HashMap<>();
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM riot_ids";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                s.put(rs.getString("discord_id"), rs.getString("puuid"));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return s;
     }
 
     public static void deleteInfo(String id, String row, String table){
