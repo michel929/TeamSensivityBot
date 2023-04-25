@@ -1,10 +1,12 @@
 package listeners.dashboard;
 
 import functions.GetGameRoles;
+import functions.GetInfos;
 import listeners.MemberJoinChannel;
 import main.Main;
 import main.Start;
 import mysql.BotInfos;
+import mysql.GetAllTokens;
 import mysql.dashboard.Tag;
 import mysql.dashboard.UploadRole;
 import net.dv8tion.jda.api.entities.Guild;
@@ -19,6 +21,8 @@ import request.EveryDay;
 import request.OneMin;
 import request.TwentySec;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Timer;
 
@@ -90,6 +94,15 @@ public class OnStart extends ListenerAdapter {
                 } else {
                     Tag.insertTag(tag);
                 }
+            }
+        }
+
+        for (String m: GetAllTokens.getUsers()) {
+            String url = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m;
+            try {
+                GetInfos.streamBOT(new URL(url));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             }
         }
     }

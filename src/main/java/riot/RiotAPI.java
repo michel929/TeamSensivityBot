@@ -110,16 +110,10 @@ public class RiotAPI {
         JSONArray participants = (JSONArray) info.get("participants");
 
         ArrayList<JSONObject> player = new ArrayList<>();
-        player.add((JSONObject) participants.get(0));
-        player.add((JSONObject) participants.get(1));
-        player.add((JSONObject) participants.get(2));
-        player.add((JSONObject) participants.get(3));
-        player.add((JSONObject) participants.get(4));
-        player.add((JSONObject) participants.get(5));
-        player.add((JSONObject) participants.get(6));
-        player.add((JSONObject) participants.get(7));
-        player.add((JSONObject) participants.get(8));
-        player.add((JSONObject) participants.get(9));
+
+        for (int f = 0; f < participants.size(); f++){
+            player.add((JSONObject) participants.get(f));
+        }
 
         int x = 1;
         for (JSONObject o : player) {
@@ -186,33 +180,34 @@ public class RiotAPI {
         }
 
         JSONArray teams = (JSONArray) info.get("teams");
+
         ArrayList<JSONObject> team = new ArrayList<>();
-        player.add((JSONObject) teams.get(0));
-        player.add((JSONObject) teams.get(1));
+        team.add((JSONObject) teams.get(0));
+        team.add((JSONObject) teams.get(1));
 
         for (JSONObject t : team) {
-            JSONObject objectives = (JSONObject) info.get("objectives");
+            JSONObject objectives = (JSONObject) t.get("objectives");
             JSONObject baron = (JSONObject) objectives.get("baron");
-            JSONObject herold = (JSONObject) objectives.get("riftHerold");
+            JSONObject herold = (JSONObject) objectives.get("riftHerald");
             JSONObject champion = (JSONObject) objectives.get("champion");
             JSONObject dragon = (JSONObject) objectives.get("dragon");
             JSONObject inhibitor = (JSONObject) objectives.get("inhibitor");
             JSONObject tower = (JSONObject) objectives.get("tower");
 
             if (teamid == Integer.parseInt(t.get("teamId").toString())) {
-                heralds_team1 = (int) herold.get("kills");
-                baron_team1 = (int) baron.get("kills");
-                dragons_team1 = (int) dragon.get("kills");
-                kills_team1 = (int) champion.get("kills");
-                inihibitoren_team1 = (int) inhibitor.get("kills");
-                tower_team1 = (int) tower.get("kills");
+                heralds_team1 = Integer.parseInt(herold.get("kills").toString());
+                baron_team1 = Integer.parseInt(baron.get("kills").toString());
+                dragons_team1 = Integer.parseInt(dragon.get("kills").toString());
+                kills_team1 = Integer.parseInt(champion.get("kills").toString());
+                inihibitoren_team1 = Integer.parseInt(inhibitor.get("kills").toString());
+                tower_team1 = Integer.parseInt(tower.get("kills").toString());
             } else {
-                heralds_team2 = (int) herold.get("kills");
-                baron_team2 = (int) baron.get("kills");
-                dragons_team2 = (int) dragon.get("kills");
-                kills_team2 = (int) champion.get("kills");
-                inihibitoren_team2 = (int) inhibitor.get("kills");
-                tower_team2 = (int) tower.get("kills");
+                heralds_team2 = Integer.parseInt(herold.get("kills").toString());
+                baron_team2 = Integer.parseInt(baron.get("kills").toString());
+                dragons_team2 = Integer.parseInt(dragon.get("kills").toString());
+                kills_team2 = Integer.parseInt(champion.get("kills").toString());
+                inihibitoren_team2 = Integer.parseInt(inhibitor.get("kills").toString());
+                tower_team2 = Integer.parseInt(tower.get("kills").toString());
             }
         }
         String sql = "INSERT INTO league_games (`discord_id`, `match_id`, `match_type`, `win`, `position`, `damage_champions`, " +
