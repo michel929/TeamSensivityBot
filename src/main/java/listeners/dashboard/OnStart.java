@@ -7,6 +7,7 @@ import main.Main;
 import main.Start;
 import mysql.BotInfos;
 import mysql.GetAllTokens;
+import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.Tag;
 import mysql.dashboard.UploadRole;
 import net.dv8tion.jda.api.entities.Guild;
@@ -20,9 +21,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import request.EveryDay;
 import request.OneMin;
 import request.TwentySec;
+import riot.RiotAPI;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 
@@ -105,5 +108,9 @@ public class OnStart extends ListenerAdapter {
                 e.printStackTrace();
             }
         }
+
+        //League Player update
+        HashMap<String, String> league = PlayerInfos.getLeaguePuuids();
+        RiotAPI.getMatches(league);
     }
 }
