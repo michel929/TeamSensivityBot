@@ -65,10 +65,9 @@ public class RiotAPI {
         int[] item_6 = new int[10];
         int[] item_7 = new int[10];
         int[] gold = new int[10];
-        int damage_champions = 0;
-        int damage_buildings = 0;
-        int[] damage_total = new int[10];
-        int damage_objective = 0;
+        int[] damage_buildings = new int[10];
+        int[] damage_champions = new int[10];
+        int[] damage_objective = new int[10];
         int get_damage = 0;
         int wards = 0;
         int cs = 0;
@@ -133,9 +132,9 @@ public class RiotAPI {
                 assist[0] = Integer.parseInt(o.get("assists").toString());
                 level[0] = Integer.parseInt(o.get("champLevel").toString());
                 champ[0] = Integer.parseInt(o.get("championId").toString());
-                damage_buildings = Integer.parseInt(o.get("damageDealtToBuildings").toString());
-                damage_objective = Integer.parseInt(o.get("damageDealtToObjectives").toString());
-                damage_champions = Integer.parseInt(o.get("totalDamageDealtToChampions").toString());
+                damage_buildings[0] = Integer.parseInt(o.get("damageDealtToBuildings").toString());
+                damage_objective[0] = Integer.parseInt(o.get("damageDealtToObjectives").toString());
+                damage_champions[0] = Integer.parseInt(o.get("totalDamageDealtToChampions").toString());
                 death[0] = Integer.parseInt(o.get("deaths").toString());
                 double_kills = Integer.parseInt(o.get("doubleKills").toString());
                 gold[0] = Integer.parseInt(o.get("goldEarned").toString());
@@ -150,7 +149,6 @@ public class RiotAPI {
                 kills[0] = Integer.parseInt(o.get("kills").toString());
                 quadra_kills = Integer.parseInt(o.get("quadraKills").toString());
                 penta_kills = Integer.parseInt(o.get("pentaKills").toString());
-                damage_total[0] = Integer.parseInt(o.get("totalDamageDealt").toString());
                 get_damage = Integer.parseInt(o.get("totalDamageTaken").toString());
                 cs = Integer.parseInt(o.get("totalMinionsKilled").toString());
                 wards = Integer.parseInt(o.get("wardsPlaced").toString());
@@ -173,7 +171,9 @@ public class RiotAPI {
                 item_6[x] = Integer.parseInt(o.get("item5").toString());
                 item_7[x] = Integer.parseInt(o.get("item6").toString());
                 gold[x] = Integer.parseInt(o.get("goldEarned").toString());
-                damage_total[x] = Integer.parseInt(o.get("totalDamageDealt").toString());
+                damage_buildings[x] = Integer.parseInt(o.get("damageDealtToBuildings").toString());
+                damage_objective[x] = Integer.parseInt(o.get("damageDealtToObjectives").toString());
+                damage_champions[x] = Integer.parseInt(o.get("totalDamageDealtToChampions").toString());
 
                 x++;
             }
@@ -210,8 +210,7 @@ public class RiotAPI {
                 tower_team2 = Integer.parseInt(tower.get("kills").toString());
             }
         }
-        String sql = "INSERT INTO league_games (`discord_id`, `match_id`, `match_type`, `win`, `position`, `damage_champions`, " +
-                "`damage_buildings`, `damage_objective`, `get_damage`, `wards`, `cs`, `cast_1`, `cast_2`, `vision_score`, `kills_team1`, " +
+        String sql = "INSERT INTO league_games (`discord_id`, `match_id`, `match_type`, `win`, `position`, `get_damage`, `wards`, `cs`, `cast_1`, `cast_2`, `vision_score`, `kills_team1`, " +
                 "`kills_team2`, `first_blood`, `heralds_team1`, `heralds_team2`, `dragons_team1`, `dragons_team2`, `tower_team1`, " +
                 "`tower_team2`, `baron_team1`, `baron_team2`, `inihibitoren_team1`, `inihibitoren_team2`, `member_1`, `member_2`, `member_3`, " +
                 "`member_4`, `member_5`, `member_6`, `member_7`, `member_8`, `member_9`, `member_10`, `champ_1`, `champ_2`, `champ_3`, `champ_4`, " +
@@ -228,9 +227,10 @@ public class RiotAPI {
                 "`item4_champ8`, `item5_champ8`, `item6_champ8`, `item7_champ8`, `item1_champ9`, `item2_champ9`, `item3_champ9`, `item4_champ9`, `item5_champ9`, " +
                 "`item6_champ9`, `item7_champ9`, `item1_champ10`, `item2_champ10`, `item3_champ10`, `item4_champ10`, `item5_champ10`, `item6_champ10`, `item7_champ10`, " +
                 "`gold_champ1`, `gold_champ2`, `gold_champ3`, `gold_champ4`, `gold_champ5`, `gold_champ6`, `gold_champ7`, `gold_champ8`, `gold_champ9`, `gold_champ10`, " +
-                "`damage_total_champ1`, `damage_total_champ2`, `damage_total_champ3`, `damage_total_champ4`, `damage_total_champ5`, `damage_total_champ6`, `damage_total_champ7`," +
-                " `damage_total_champ8`, `damage_total_champ9`, `damage_total_champ10`) VALUES ('" + discord_id + "','" + match + "','" + match_type + "','" + win + "','" + position + "','" + damage_champions + "'," +
-                "'" + damage_buildings + "','" + damage_objective + "','" + get_damage + "','" + wards + "','" + cs + "','" + cast_1 + "','" + cast_2 + "','" + vision_score + "','" + kills_team1 + "','" + kills_team2 + "','" + first_blood + "','" + heralds_team1 + "'," +
+                "`damage_objective_1`, `damage_objective_2`, `damage_objective_3`, `damage_objective_4`, `damage_objective_5`, `damage_objective_6`, `damage_objective_7`," +
+                " `damage_objective_8`, `damage_objective_9`, `damage_objective_10`, `damage_champions_1`, `damage_champions_2`, `damage_champions_3`, `damage_champions_4`, " +
+                "`damage_champions_5`, `damage_champions_6`, `damage_champions_7`,`damage_champions_8`, `damage_champions_9`, `damage_champions_10`, `damage_buildings_1`, `damage_buildings_2`" +
+                ", `damage_buildings_3`, `damage_buildings_4`, `damage_buildings_5`, `damage_buildings_6`, `damage_buildings_7`, `damage_buildings_8`, `damage_buildings_9`, `damage_buildings_10`) VALUES ('" + discord_id + "','" + match + "','" + match_type + "','" + win + "','" + position + "','" + get_damage + "','" + wards + "','" + cs + "','" + cast_1 + "','" + cast_2 + "','" + vision_score + "','" + kills_team1 + "','" + kills_team2 + "','" + first_blood + "','" + heralds_team1 + "'," +
                 "'" + heralds_team2 + "','" + dragons_team1 + "','" + dragons_team2 + "','" + tower_team1 + "','" + tower_team2 + "','" + baron_team1 + "','" + baron_team2 + "','" + inihibitoren_team1 + "','" + inihibitoren_team2 + "','" + member[0] + "','" + member[1] + "','" + member[2] + "'," +
                 "'" + member[3] + "','" + member[4] + "','" + member[5] + "','" + member[6] + "','" + member[7] + "','" + member[8] + "','" + member[9] + "','" + champ[0] + "','" + champ[1] + "','" + champ[2] + "','" + champ[3] + "','" + champ[4] + "'," +
                 "'" + champ[5] + "','" + champ[6] + "','" + champ[7] + "','" + champ[8] + "','" + champ[9] + "','" + kills[0] + "','" + double_kills + "','" + tribble_kills + "','" + quadra_kills + "','" + penta_kills + "','" + kills[1] + "','" + kills[2] + "'," +
@@ -244,8 +244,9 @@ public class RiotAPI {
                 "'" + item_3[6] + "','" + item_4[6] + "','" + item_5[6] + "','" + item_6[6] + "','" + item_7[6] + "','" + item_1[7] + "','" + item_2[7] + "','" + item_3[7] + "','" + item_4[7] + "','" + item_5[7] + "','" + item_6[7] + "'," +
                 "'" + item_7[7] + "','" + item_1[8] + "','" + item_2[8] + "','" + item_3[8] + "','" + item_4[8] + "','" + item_5[8] + "','" + item_6[8] + "','" + item_7[8] + "','" + item_1[9] + "','" + item_2[9] + "','" + item_3[9] + "'," +
                 "'" + item_4[9] + "','" + item_5[9] + "','" + item_6[9] + "','" + item_7[9] + "','" + gold[0] + "','" + gold[1] + "','" + gold[2] + "','" + gold[3] + "','" + gold[4] + "','" + gold[5] + "','" + gold[6] + "'," +
-                "'" + gold[7] + "','" + gold[8] + "','" + gold[9] + "','" + damage_total[0] + "','" + damage_total[1] + "','" + damage_total[2] + "','" + damage_total[3] + "','" + damage_total[4] + "','" + damage_total[5] + "','" + damage_total[6] + "','" + damage_total[7] + "'," +
-                "'" + damage_total[8] + "','" + damage_total[9] + "')";
+                "'" + gold[7] + "','" + gold[8] + "','" + gold[9] + "','" + damage_objective[0] + "','" + damage_objective[1] + "','" + damage_objective[2] + "','" + damage_objective[3] + "','" + damage_objective[4] + "','" + damage_objective[5] + "','" + damage_objective[6] + "','" + damage_objective[7] + "'," +
+                "'" + damage_objective[8] + "','" + damage_objective[9] + "','" + damage_champions[0] + "','" + damage_champions[1] + "','" + damage_champions[2] + "','" + damage_champions[3] + "','" + damage_champions[4] + "','" + damage_champions[5] + "','" + damage_champions[6] + "','" + damage_champions[7] + "','" + damage_champions[8] +
+                "','" + damage_champions[9] + "','" + damage_buildings[0] + "','" + damage_buildings[1] + "','" + damage_buildings[2] + "','" + damage_buildings[3] + "','" + damage_buildings[4] + "','" + damage_buildings[5] + "','" + damage_buildings[6] + "','" + damage_buildings[7] + "','" + damage_buildings[8] + "','" + damage_buildings[9] + "')";
 
         try {
             Connection con = Connect.getConnection();
