@@ -14,6 +14,8 @@ public class EveryDay extends TimerTask {
     @Override
     public void run() {
 
+        System.out.println("EveryDAy Request");
+
         for (String m: GetAllTokens.getUsers()) {
             String url = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m;
             try {

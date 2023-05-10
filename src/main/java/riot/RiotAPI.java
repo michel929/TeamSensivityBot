@@ -28,7 +28,7 @@ public class RiotAPI {
 
                     for (int i = 0; i < matchList.size(); i++) {
                         if (PlayerInfos.isExist(matchList.get(i).toString(), "match_id", "league_games")) {
-                            if (!PlayerInfos.getInfo(matchList.get(i).toString(), "match_id", "discord_id", "league_games").equals(discord_id)) {
+                            if (!PlayerInfos.isMatchFromUser(discord_id, matchList.get(i).toString())) {
                                 loadToDatabase(matchList.get(i).toString(), puuid, discord_id);
                                 try {
                                     sleep(2000);
