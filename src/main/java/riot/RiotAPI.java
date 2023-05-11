@@ -125,8 +125,6 @@ public class RiotAPI {
                 }
                 if ("true".equals(o.get("firstBloodKill").toString())) {
                     first_blood = 1;
-                } else {
-                    first_blood = 0;
                 }
 
                 assist[0] = Integer.parseInt(o.get("assists").toString());
@@ -157,6 +155,11 @@ public class RiotAPI {
                 cast_2 = Integer.parseInt(o.get("summoner2Casts").toString());
                 member[0] = o.get("summonerName").toString();
             } else {
+                if ("true".equals(o.get("firstBloodKill").toString())) {
+                    first_blood = x;
+                    first_blood++;
+                }
+
                 assist[x] = Integer.parseInt(o.get("assists").toString());
                 level[x] = Integer.parseInt(o.get("champLevel").toString());
                 champ[x] = Integer.parseInt(o.get("championId").toString());
