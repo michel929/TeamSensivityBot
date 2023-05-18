@@ -36,6 +36,25 @@ public class PunkteSystem {
         }
     }
 
+    public static String getMostPoints(){
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM users ORDER BY points DESC LIMIT 1";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                return rs.getString("discord_id");
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public static void uploadPoints(String id, int points){
         points = points + getPoints(id);
 

@@ -1,8 +1,14 @@
 package request;
 
 import functions.GetInfos;
+import main.Main;
+import mysql.BotInfos;
 import mysql.GetAllTokens;
 import mysql.dashboard.PlayerInfos;
+import mysql.dashboard.PunkteSystem;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import riot.RiotAPI;
 
 import java.net.MalformedURLException;
@@ -15,6 +21,18 @@ public class EveryDay extends TimerTask {
     public void run() {
 
         System.out.println("EveryDAy Request");
+
+        String mostPoints = PunkteSystem.getMostPoints();
+        Guild g = Main.INSTANCE.getGuild();
+
+        Role r = g.getRoleById("1108320006921527296");
+        g.addRoleToMember(g.getMemberById(mostPoints), r).queue();
+
+        for (Member m: g.getMembers()) {
+            if(m.getRoles().contains(r)){
+                g.removeRoleFromMember(m, r).queue();
+            }
+        }
 
         for (String m: GetAllTokens.getUsers()) {
             String url = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m;
