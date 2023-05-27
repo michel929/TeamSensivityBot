@@ -1,6 +1,8 @@
 package main.manager;
 
 import buttons.Revive;
+import buttons.WatchRoom;
+import buttons.WatchRoomAccept;
 import buttons.YourPoints;
 import dbd.swf.buttons.SWFJoin;
 import dbd.swf.buttons.SWFLeave;
@@ -25,6 +27,8 @@ public class ButtonManager {
         buttons.put("swfyes", new SWFYes());
         buttons.put("showPoints", new YourPoints());
         buttons.put("revive", new Revive());
+        buttons.put("watch", new WatchRoom());
+        buttons.put("verstanden", new WatchRoomAccept());
 
         //GameLobby
         buttons.put("start-game", new StartLobby());

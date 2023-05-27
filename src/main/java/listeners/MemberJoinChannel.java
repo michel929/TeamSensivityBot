@@ -4,15 +4,18 @@ import functions.GetInfos;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Minutes;
 
+import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MemberJoinChannel extends ListenerAdapter {
 
     public static List<Channel> channel = new ArrayList<>();
+    public static List<Channel> watch = new ArrayList<>();
     private static ConcurrentHashMap<Member, LocalDateTime> members = new ConcurrentHashMap<>();
     EnumSet<Permission> permission = EnumSet.of(Permission.MANAGE_CHANNEL, Permission.VOICE_CONNECT, Permission.VOICE_MUTE_OTHERS, Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS);
 
@@ -36,11 +40,27 @@ public class MemberJoinChannel extends ListenerAdapter {
                 if (event.getChannelLeft().getMembers().size() == 0) {
                     event.getChannelLeft().delete().queue();
                     channel.remove(event.getChannelLeft());
+                    watch.remove(event.getChannelLeft());
                 }
             }
         }
 
         if(event.getChannelJoined() != null) {
+            //isWatchroom
+            if(watch.contains(event.getChannelJoined())){
+                event.getMember().mute(true).queue();
+                event.getMember().getUser().openPrivateChannel().queue(privateChannel -> {
+                    EmbedBuilder builder = new EmbedBuilder();
+                    builder.setTitle("Achtung WatchRoom");
+                    builder.setDescription("Du bist einem WatchRoom gejoined. In diesem Channel wird ein Film oder eine Serie geschaut bitte nimm Rücksicht. Um nicht mehr gemuted zu sein bestätige diese Nachricht mit dem Button.");
+                    builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                    builder.setColor(Color.red);
+                    privateChannel.sendMessageEmbeds(builder.build()).addActionRow(Button.success("verstanden", "Verstanden!")).queue();
+                });
+            }else {
+                event.getMember().mute(false).queue();
+            }
+
             //Create-Chill
             if (BotInfos.getBotInfos("chill_create").equals("1")) {
                 if (event.getChannelJoined().getId().equals(BotInfos.getBotInfos("chill_channel"))) {
@@ -65,6 +85,14 @@ public class MemberJoinChannel extends ListenerAdapter {
                     c.createVoiceChannel("Chill | " + x).addPermissionOverride(event.getMember(), permission, null).queue(voiceChannel -> {
                         event.getGuild().moveVoiceMember(event.getMember(), voiceChannel).queue();
                         channel.add(voiceChannel);
+
+                        EmbedBuilder builder = new EmbedBuilder();
+                        builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                        builder.setColor(Color.decode("#9914fa"));
+                        builder.setTitle("Watch Room / Normal Room");
+                        builder.setDescription("Wandel den Cannel in einen WatchRoom. Das bedeutet jeder der joined wird erst Serverweit gemuted und wird erst wieder entmuted wenn er bestätigt das ihr einen Film schaut.");
+
+                        voiceChannel.sendMessageEmbeds(builder.build()).addActionRow(Button.secondary("watch", "Change Channel Type")).setSuppressEmbeds(true).queue();
                     });
                 }
             }
