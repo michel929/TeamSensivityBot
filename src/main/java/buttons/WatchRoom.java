@@ -31,6 +31,7 @@ public class WatchRoom implements ServerButton {
             }
 
             event.getChannel().asAudioChannel().getManager().setName("Chill | " + x).queue();
+            event.deferEdit().queue();
         }else {
             MemberJoinChannel.watch.add(event.getChannel());
 
@@ -53,6 +54,8 @@ public class WatchRoom implements ServerButton {
             }
 
             event.getChannel().asAudioChannel().getManager().setName("Watch Room | " + x).queue();
+            event.deferEdit().queue();
+
         }
     }
 }

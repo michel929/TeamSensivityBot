@@ -229,7 +229,7 @@ public class PlayerInfos {
             ResultSet rs    = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                s.put(rs.getString("discord_id"), rs.getString("puuid"));
+                s.put(rs.getString("discord_id"), rs.getString("puuid_old"));
             }
 
             con.close();

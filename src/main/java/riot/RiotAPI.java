@@ -23,7 +23,7 @@ public class RiotAPI {
                 league.forEach((k, v) -> {
                     String puuid = v;
                     String discord_id = k;
-                    System.out.println("Daten für " + discord_id + " werden gerade abgerufen.");
+                    System.out.println("Daten für " + discord_id + " werden gerade abgerufen. (" + puuid + ")");
                     JSONArray matchList = Api.getRequest("https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?start=0&count=100&api_key=" + Riot.RiotKey);
 
                     for (int i = 0; i < matchList.size(); i++) {
@@ -31,7 +31,7 @@ public class RiotAPI {
                             if (!PlayerInfos.isMatchFromUser(discord_id, matchList.get(i).toString())) {
                                 loadToDatabase(matchList.get(i).toString(), puuid, discord_id);
                                 try {
-                                    sleep(2000);
+                                    sleep(300);
                                 } catch (InterruptedException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -39,7 +39,7 @@ public class RiotAPI {
                         } else {
                             loadToDatabase(matchList.get(i).toString(), puuid, discord_id);
                             try {
-                                sleep(2000);
+                                sleep(300);
                             } catch (InterruptedException e) {
                                 throw new RuntimeException(e);
                             }

@@ -90,9 +90,9 @@ public class MemberJoinChannel extends ListenerAdapter {
                         builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                         builder.setColor(Color.decode("#9914fa"));
                         builder.setTitle("Watch Room / Normal Room");
-                        builder.setDescription("Wandel den Cannel in einen WatchRoom. Das bedeutet jeder der joined wird erst Serverweit gemuted und wird erst wieder entmuted wenn er bestätigt das ihr einen Film schaut.");
+                        builder.setDescription("Verwandel den Channel in einen WatchRoom. Das bedeutet jeder der joined wird erst Serverweit gemuted und wird erst wieder entmuted wenn er bestätigt das ihr einen Film schaut.");
 
-                        voiceChannel.sendMessageEmbeds(builder.build()).addActionRow(Button.secondary("watch", "Change Channel Type")).setSuppressEmbeds(true).queue();
+                        voiceChannel.sendMessageEmbeds(builder.build()).addActionRow(Button.secondary("watch", "Change Channel Type")).setSuppressedNotifications(true).queue();
                     });
                 }
             }
