@@ -16,9 +16,9 @@ public class Tier {
     public Tier(String name, int id, String bday, String hunger, String durst, int happy, int level){
         this.name = name;
         type = Main.INSTANCE.getPets().getAnimalByID(id);
-        this.bday = DateTime.parse(bday);
-        this.hunger = DateTime.parse(hunger);
-        this.durst = DateTime.parse(durst);
+        this.bday = DateTime.parse(bday.replace(" ", "T"));
+        this.hunger = DateTime.parse(hunger.replace(" ", "T"));
+        this.durst = DateTime.parse(durst.replace(" ", "T"));
         this.happy = happy;
         this.level = level;
     }

@@ -92,7 +92,6 @@ public class Start {
         api.addEventListener(new PlayerJoin());
         api.addEventListener(new PlayerLeave());
 
-        api.addEventListener(new UserTagUpdate());
         api.addEventListener(new UserUpdateName());
         api.addEventListener(new AvatarChange());
         api.addEventListener(new StatusChange());

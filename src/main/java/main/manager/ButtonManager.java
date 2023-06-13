@@ -33,7 +33,6 @@ public class ButtonManager {
 
         //Pets
         buttons.put("tier-shop", new BuyTier());
-        buttons.put("animalshop", new BuyAnimal());
         buttons.put("kaufen", new Kaufen());
         buttons.put("food", new Food());
         buttons.put("next", new Next());

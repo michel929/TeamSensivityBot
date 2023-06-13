@@ -6,6 +6,7 @@ import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.joda.time.DateTime;
@@ -19,7 +20,7 @@ import java.sql.Timestamp;
 public class Kaufen implements ServerButton {
     @Override
     public void performCommand(ButtonInteractionEvent event) {
-        int animal = Integer.parseInt(event.getId().replace("-kaufen", ""));
+        int animal = Integer.parseInt(event.getComponentId().replace("-kaufen", ""));
         Pets pets = Main.INSTANCE.getPets();
         Animal tier = pets.getAnimalByID(animal);
 
@@ -44,23 +45,23 @@ public class Kaufen implements ServerButton {
                         b.setColor(Color.decode("#9914fa"));
                         b.setTitle(t.getName());
 
-                        DateTime footTime = DateTime.now().plusHours(3);
-                        Timestamp food = new Timestamp(footTime.getMillis());
+                        DateTime footDate = DateTime.now().plusHours(3);
+                        long food = footDate.getMillis() / 1000;
 
-                        DateTime drinkTime = DateTime.now().plusHours(1);
-                        Timestamp drink = new Timestamp(drinkTime.getMillis());
+                        DateTime drinkDate = DateTime.now().plusHours(1);
+                        long drink = drinkDate.getMillis() / 1000;
 
                         DateTime date = DateTime.now();
-                        Timestamp now = new Timestamp(date.getMillis());
+                        long now = date.getMillis() / 1000;
 
                         b.addField("Level:", "1", true);
                         b.addField("Bday:", "<t:" + now + ":D>", true);
                         b.addField("Besitzer:", event.getMember().getAsMention(), true);
-                        b.addField("Happiness:", "50 von 100", true);
-                        b.addField("Essen:", "Kann <t:" + food + ":R> gefüttert werden", true);
-                        b.addField("Trinken:", "Kann <t:" + drink + ":R> gefüttert werden", true);
+                        b.addField("Happiness:", "50 von 100", false);
+                        b.addField("Essen:", "Kann <t:" + food + ":R> gefüttert werden", false);
+                        b.addField("Trinken:", "Kann <t:" + drink + ":R> gefüttert werden", false);
 
-                        threadChannel.sendMessageEmbeds(b.build()).addActionRow(Button.secondary("refresh", ""), Button.success(event.getMember().getId() + "food", ""), Button.success(event.getMember().getId() + "drink", ""), Button.secondary(event.getMember().getId() + "rename", "Rename")).setSuppressedNotifications(true).queue();
+                        threadChannel.sendMessageEmbeds(b.build()).addActionRow(Button.secondary("refresh", Emoji.fromFormatted("U+1F501")), Button.success(event.getMember().getId() + "food", Emoji.fromFormatted("U+1F356")), Button.success(event.getMember().getId() + "drink", Emoji.fromFormatted("U+1F6B0")), Button.secondary(event.getMember().getId() + "rename", "Rename")).setSuppressedNotifications(true).queue();
                     });
 
                     event.replyEmbeds(builder.build()).setEphemeral(true).addActionRow(Button.secondary("rename", "Rename")).queue();

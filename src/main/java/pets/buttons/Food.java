@@ -13,18 +13,18 @@ import java.sql.Timestamp;
 public class Food implements ServerButton {
     @Override
     public void performCommand(ButtonInteractionEvent event) {
-        String discord_id = event.getId().replace("food", "");
+        String discord_id = event.getComponentId().replace("food", "");
 
         Tier animal = PetsManager.getAnimal(discord_id);
 
-        if(animal.getHunger().isBeforeNow()){
+        if(animal.getHunger().plusHours(3).isBeforeNow()){
             //TODO MUSS NOCH GEMACHT WERDEN
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("Nicht Hungrig!");
             builder.setColor(Color.red);
             builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setDescription("Das Haustier hat keinen Hunger. Du kannst es erst <t:" + new Timestamp(animal.getHunger().getMillis()) + ":R>");
+            builder.setDescription("Das Haustier hat keinen Hunger. Du kannst es erst <t:" + animal.getHunger().plusHours(3).getMillis() / 1000 + ":R> füttern");
 
             event.replyEmbeds(builder.build()).setEphemeral(true).queue();
         }
