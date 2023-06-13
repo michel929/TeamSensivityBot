@@ -13,8 +13,7 @@ import games.lobby.buttons.einsatz.Einsatz100Jack;
 import games.lobby.buttons.einsatz.Einsatz1000Jack;
 import games.lobby.buttons.einsatz.Einsatz500Jack;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import pets.buttons.BuyCat;
-import pets.buttons.BuyTier;
+import pets.buttons.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,7 +33,11 @@ public class ButtonManager {
 
         //Pets
         buttons.put("tier-shop", new BuyTier());
-        buttons.put("cat-shop", new BuyCat());
+        buttons.put("animalshop", new BuyAnimal());
+        buttons.put("kaufen", new Kaufen());
+        buttons.put("food", new Food());
+        buttons.put("next", new Next());
+        buttons.put("pre", new Pre());
 
         //GameLobby
         buttons.put("start-game", new StartLobby());

@@ -23,6 +23,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import pets.tiere.Pets;
 import templates.EmbedMessages;
 
 import javax.security.auth.login.LoginException;
@@ -34,6 +35,7 @@ public class Start {
     public static String VERSION_ID = "2.5";
 
     private JDA api;
+    private Pets pets;
     private CommandManager cmdMan;
     private UserContextInteractionManager userManager;
     private SlashManager slashMan;
@@ -72,6 +74,7 @@ public class Start {
         this.userManager = new UserContextInteractionManager();
         this.modalMan = new ModalManager();
         this.selectSave = new SelectSave();
+        this.pets = new Pets();
 
         api.setAutoReconnect(true);
     }
@@ -198,5 +201,9 @@ public class Start {
 
     public SelectSave getSelectSave() {
         return selectSave;
+    }
+
+    public Pets getPets() {
+        return pets;
     }
 }

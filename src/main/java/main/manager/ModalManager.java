@@ -1,12 +1,10 @@
 package main.manager;
 
-import contextInteraction.UpdateUser;
-import contextInteraction.type.UserContextInteraction;
 import modals.ConnectMinecraft;
 import modals.RenameUser;
 import modals.type.ServerModal;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
+import pets.modals.Name;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,6 +16,7 @@ public class ModalManager {
 
         modals.put("rename", new RenameUser());
         modals.put("minecraft", new ConnectMinecraft());
+        modals.put("haustier", new Name());
     }
 
     public boolean perform(String command, ModalInteractionEvent event){

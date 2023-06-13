@@ -19,6 +19,7 @@ public class Shop implements ServerCommand {
             schritt1.setColor(Color.decode("#9914fa"));
             schritt1.setThumbnail(BotInfos.getBotInfos("logo_url"));
             schritt1.setDescription("Hier kannst du ein Tier kaufen... Oder ein Accessoires für dein Tier kaufen.");
+            schritt1.addField("Was bringt mir ein Haustier?", "Ein Haustier sammelt auch Points für dich wenn du Offline bist.", true);
             schritt1.setTitle("Tierhandlung");
             schritt1.setImage("https://sensivity.team/bot/pets/pets.png");
 

@@ -19,11 +19,13 @@ public class BuyTier implements ServerButton {
         schritt1.setTitle("Tierhandlung");
 
         event.replyEmbeds(schritt1.build()).addActionRow(
-                Button.secondary("cat-shop", "Katze"),
-                        Button.secondary("dog-shop", "Hund"),
-                        Button.secondary("hamster-shop", "Hamster"),
-                        Button.secondary("fish-shop", "Fisch"),
-                        Button.secondary("rabbit-shop", "Hase"))
+                Button.secondary("cat-animalshop", "Katze"),
+                        Button.secondary("dog-animalshop", "Hund"),
+                        Button.secondary("hamster-animalshop", "Hamster"),
+                        Button.secondary("bird-animalshop", "Bird"),
+                        Button.secondary("rabbit-animalshop", "Hase"),
+                        Button.secondary("dragon-animalshop", "Dragon"),
+                        Button.secondary("special-animalshop", "Special"))
                 .setEphemeral(true).queue();
     }
 }
