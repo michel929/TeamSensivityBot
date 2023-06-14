@@ -13,6 +13,7 @@ public class Refresh implements ServerButton {
     @Override
     public void performCommand(ButtonInteractionEvent event) {
         String discord_id = event.getComponentId().replace("-refresh", "");
+
         Tier t = PetsManager.getAnimal(discord_id);
 
         EmbedBuilder b = new EmbedBuilder();

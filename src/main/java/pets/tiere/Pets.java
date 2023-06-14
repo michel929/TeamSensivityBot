@@ -33,10 +33,10 @@ public class Pets {
         hamster.add(new Animal("https://sensivity.team/bot/pets/hamster/1.png", 2000, "Hamster 1", 15, 1));
         hamster.add(new Animal("https://sensivity.team/bot/pets/hamster/2.png", 2000, "Hamster 2", 16, 2));
 
-        dragon.add(new Animal("https://sensivity.team/bot/pets/dragon/3.png", 8000, "Green Dragon", 17, 1));
+        dragon.add(new Animal("https://sensivity.team/bot/pets/dragon/1.png", 8000, "Green Dragon", 17, 1));
         dragon.add(new Animal("https://sensivity.team/bot/pets/dragon/2.png", 8000, "Red Dragon", 18, 2));
 
-        special.add(new Animal("https://sensivity.team/bot/pets/special/2.png", 10000, "Raccoonie", 19, 1));
+        special.add(new Animal("https://sensivity.team/bot/pets/special/1.png", 10000, "Raccoonie", 19, 1));
     }
 
     public ArrayList<Animal> getAnimal(String name){

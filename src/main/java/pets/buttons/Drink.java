@@ -10,23 +10,22 @@ import pets.mysql.PetsManager;
 import pets.tiere.Tier;
 
 import java.awt.*;
-import java.util.ArrayList;
 
-public class Food implements ServerButton {
+public class Drink implements ServerButton {
     @Override
     public void performCommand(ButtonInteractionEvent event) {
-        String discord_id = event.getComponentId().replace("-food", "");
-        System.out.println(discord_id);
+        String discord_id = event.getComponentId().replace("-drink", "");
+
         Tier animal = PetsManager.getAnimal(discord_id);
 
         if(animal.getHunger().plusHours(3).isBeforeNow()){
-            if(PunkteSystem.getPoints(event.getMember().getId()) >= 100){
-                    PunkteSystem.uploadPoints(event.getMember().getId(), -100);
-                    PunkteSystem.upload(event.getMember().getId(), 100, 0, "Haustier gefüttert.");
+            if(PunkteSystem.getPoints(event.getMember().getId()) >= 60){
+                    PunkteSystem.uploadPoints(event.getMember().getId(), -60);
+                    PunkteSystem.upload(event.getMember().getId(), 60, 0, "Haustier gefüttert.");
 
                     String s = String.valueOf(DateTime.now()).replace("T", " ");
                     s = s.substring(0, s.length() - 6);
-                    PetsManager.update(s, "hunger", discord_id);
+                    PetsManager.update(s, "durst", discord_id);
 
                     animal = PetsManager.getAnimal(discord_id);
 
@@ -66,7 +65,7 @@ public class Food implements ServerButton {
             builder.setTitle("Nicht Hungrig!");
             builder.setColor(Color.red);
             builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-            builder.setDescription("Das Haustier hat keinen Hunger. Du kannst es erst <t:" + animal.getHunger().plusHours(3).getMillis() / 1000 + ":R> füttern");
+            builder.setDescription("Das Haustier hat keinen Durst. Du kannst es erst <t:" + animal.getDurst().plusHours(1).getMillis() / 1000 + ":R> füttern");
 
             event.replyEmbeds(builder.build()).setEphemeral(true).queue();
         }
