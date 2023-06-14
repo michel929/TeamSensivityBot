@@ -16,7 +16,7 @@ public class ModalManager {
 
         modals.put("rename", new RenameUser());
         modals.put("minecraft", new ConnectMinecraft());
-        modals.put("haustier", new Name());
+        modals.put("animalrename", new Name());
     }
 
     public boolean perform(String command, ModalInteractionEvent event){

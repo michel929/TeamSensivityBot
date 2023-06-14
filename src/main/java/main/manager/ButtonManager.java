@@ -37,6 +37,8 @@ public class ButtonManager {
         buttons.put("food", new Food());
         buttons.put("next", new Next());
         buttons.put("pre", new Pre());
+        buttons.put("refresh", new Refresh());
+        buttons.put("rename", new Rename());
 
         //GameLobby
         buttons.put("start-game", new StartLobby());

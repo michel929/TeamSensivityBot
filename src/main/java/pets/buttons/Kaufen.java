@@ -15,7 +15,6 @@ import pets.tiere.Animal;
 import pets.tiere.Pets;
 
 import java.awt.*;
-import java.sql.Timestamp;
 
 public class Kaufen implements ServerButton {
     @Override
@@ -28,6 +27,7 @@ public class Kaufen implements ServerButton {
             if(!PetsManager.isExist(event.getMember().getId())) {
                 if (PunkteSystem.getPoints(event.getMember().getId()) >= tier.getPoints()) {
                     PunkteSystem.uploadPoints(event.getMember().getId(), -tier.getPoints());
+                    PunkteSystem.upload(event.getMember().getId(), tier.getPoints(), 0, "Neues Haustier gekauft.");
 
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setColor(Color.decode("#2ecc71"));
@@ -61,10 +61,10 @@ public class Kaufen implements ServerButton {
                         b.addField("Essen:", "Kann <t:" + food + ":R> gefüttert werden", false);
                         b.addField("Trinken:", "Kann <t:" + drink + ":R> gefüttert werden", false);
 
-                        threadChannel.sendMessageEmbeds(b.build()).addActionRow(Button.secondary("refresh", Emoji.fromFormatted("U+1F501")), Button.success(event.getMember().getId() + "food", Emoji.fromFormatted("U+1F356")), Button.success(event.getMember().getId() + "drink", Emoji.fromFormatted("U+1F6B0")), Button.secondary(event.getMember().getId() + "rename", "Rename")).setSuppressedNotifications(true).queue();
+                        threadChannel.sendMessageEmbeds(b.build()).addActionRow(Button.secondary(event.getMember().getId() + "-refresh", Emoji.fromFormatted("U+1F501")), Button.success(event.getMember().getId() + "food", Emoji.fromFormatted("U+1F356")), Button.success(event.getMember().getId() + "drink", Emoji.fromFormatted("U+1F6B0")), Button.secondary(event.getMember().getId() + "rename", "Rename")).setSuppressedNotifications(true).queue();
                     });
 
-                    event.replyEmbeds(builder.build()).setEphemeral(true).addActionRow(Button.secondary("rename", "Rename")).queue();
+                    event.replyEmbeds(builder.build()).setEphemeral(true).queue();
                 } else {
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setColor(Color.RED);

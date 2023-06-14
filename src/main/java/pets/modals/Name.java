@@ -15,6 +15,7 @@ public class Name implements ServerModal {
 
         if(PetsManager.isExist(event.getMember().getId())){
             PetsManager.update(name, "name", event.getMember().getId());
+
             EmbedBuilder builder = new EmbedBuilder();
             builder.setColor(Color.decode("#2ecc71"));
             builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
