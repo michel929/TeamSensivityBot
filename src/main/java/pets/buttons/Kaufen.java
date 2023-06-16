@@ -1,6 +1,7 @@
 package pets.buttons;
 
 import buttons.types.ServerButton;
+import functions.GetInfos;
 import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
@@ -15,6 +16,8 @@ import pets.tiere.Animal;
 import pets.tiere.Pets;
 
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Kaufen implements ServerButton {
     @Override
@@ -28,6 +31,16 @@ public class Kaufen implements ServerButton {
                 if (PunkteSystem.getPoints(event.getMember().getId()) >= tier.getPoints()) {
                     PunkteSystem.uploadPoints(event.getMember().getId(), -tier.getPoints());
                     PunkteSystem.upload(event.getMember().getId(), tier.getPoints(), 0, "Neues Haustier gekauft.");
+
+                    String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                    String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + event.getMember().getId();
+                    try {
+                        if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
+                            GetInfos.streamBOT(new URL(url2));
+                        }
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
 
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setColor(Color.decode("#2ecc71"));

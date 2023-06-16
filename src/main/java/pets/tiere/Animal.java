@@ -6,12 +6,14 @@ public class Animal {
     private String name;
     private int id;
     private int pos;
-    public Animal(String url, int points, String name, int id, int pos){
+    private int multi;
+    public Animal(String url, int points, String name, int id, int pos, int multi){
         this.id = id;
         this.name = name;
         this.url = url;
         this.points = points;
         this.pos = pos;
+        this.multi = multi;
     }
 
     public String getName() {
@@ -32,5 +34,9 @@ public class Animal {
 
     public String getUrl() {
         return url;
+    }
+
+    public int getMulti() {
+        return multi;
     }
 }

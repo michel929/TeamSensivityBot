@@ -1,22 +1,24 @@
 package pets.buttons;
 
 import buttons.types.ServerButton;
+import functions.GetInfos;
 import mysql.BotInfos;
 import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.joda.time.DateTime;
+import pets.Function;
 import pets.mysql.PetsManager;
 import pets.tiere.Tier;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Food implements ServerButton {
     @Override
     public void performCommand(ButtonInteractionEvent event) {
         String discord_id = event.getComponentId().replace("-food", "");
-        System.out.println(discord_id);
         Tier animal = PetsManager.getAnimal(discord_id);
 
         if(animal.getHunger().plusHours(3).isBeforeNow()){
@@ -24,9 +26,35 @@ public class Food implements ServerButton {
                     PunkteSystem.uploadPoints(event.getMember().getId(), -100);
                     PunkteSystem.upload(event.getMember().getId(), 100, 0, "Haustier gefüttert.");
 
+                    String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + event.getMember().getId();
+                    String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + event.getMember().getId();
+                    try {
+                        if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
+                            GetInfos.streamBOT(new URL(url2));
+                        }
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+
                     String s = String.valueOf(DateTime.now()).replace("T", " ");
                     s = s.substring(0, s.length() - 6);
                     PetsManager.update(s, "hunger", discord_id);
+
+                    int hunger = animal.getHungerheute();
+                    PetsManager.update(hunger + 1, "heute_food", discord_id);
+
+                    hunger = animal.getAmount_drink();
+                    PetsManager.update(hunger + 1, "amount_food", discord_id);
+
+                    int level = Function.levelUpdate(hunger + 1 + animal.getAmount_drink());
+
+                    if(level == -1){
+                        if((hunger + 1 + animal.getAmount_drink()) % 100 == 0){
+                            PetsManager.update(animal.getLevel() + 1, "level", discord_id);
+                        }
+                    }else {
+                      PetsManager.update(level, "level", discord_id);
+                    }
 
                     animal = PetsManager.getAnimal(discord_id);
 
