@@ -33,7 +33,13 @@ public class PlayerJoin extends ListenerAdapter {
             Role re = event.getGuild().getRoleById(BotInfos.getBotInfos("dashboard_role"));
             event.getGuild().addRoleToMember(m, re).queue();
 
-            PlayerInfos.createAccount(m.getId(), m.getUser().getAsTag(), m.getEffectiveAvatarUrl(), banner);
+            String name = m.getUser().getName();
+
+            name = name.replace(">", "");
+            name = name.replace("<", "");
+            name = name.replace(";", "");
+
+            PlayerInfos.createAccount(m.getId(), name, m.getEffectiveAvatarUrl(), banner);
 
             for (Role role: m.getRoles()) {
                 PlayerInfos.insertRole(m.getId(), role.getId());

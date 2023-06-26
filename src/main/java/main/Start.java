@@ -125,7 +125,16 @@ public class Start {
 
 
         api.upsertCommand("minecraft", "Hiermit kannst du deinen MinecraftAccount verbinden").queue();
-        //api.upsertCommand("account", "Hiermit kannst du dein Profil bearbeiten.").queue();
+
+        Collection<SubcommandData> bday = new ArrayList<>();
+        bday.add(new SubcommandData("info", "Zeigt dir eine Liste aller Geburtstage an."));
+        bday.add(new SubcommandData("add", "Füge deinen eigenen Bday hinzu.")
+                .addOption(OptionType.INTEGER, "tag", "Wähle einen Tag.", true)
+                .addOption(OptionType.INTEGER, "monat", "Wähle einen Monat", true)
+                .addOption(OptionType.INTEGER, "jahr", "Wähle ein Jahr", true));
+        bday.add(new SubcommandData("remove", "Entferne deinen Geburtstag."));
+        bday.add(new SubcommandData("next", "Zeigt dir an wer als nächstes Geburtstag hat."));
+        api.upsertCommand("bday", "Hiermit kannst du das Geburtstag Feature benutzen.").addSubcommands(bday).queue();
 
         Collection<SubcommandData> subcommands = new ArrayList<>();
         subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));

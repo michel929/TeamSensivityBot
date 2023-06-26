@@ -74,7 +74,9 @@ public class Kaufen implements ServerButton {
                         b.addField("Essen:", "Kann <t:" + food + ":R> gefüttert werden", false);
                         b.addField("Trinken:", "Kann <t:" + drink + ":R> gefüttert werden", false);
 
-                        threadChannel.sendMessageEmbeds(b.build()).addActionRow(Button.secondary(event.getMember().getId() + "-refresh", Emoji.fromFormatted("U+1F501")), Button.success(event.getMember().getId() + "-food", Emoji.fromFormatted("U+1F356")), Button.success(event.getMember().getId() + "-drink", Emoji.fromFormatted("U+1F6B0")), Button.secondary(event.getMember().getId() + "-rename", "Rename")).setSuppressedNotifications(true).queue();
+                        threadChannel.sendMessageEmbeds(b.build()).addActionRow(Button.secondary(event.getMember().getId() + "-refresh", Emoji.fromFormatted("U+1F501")), Button.success(event.getMember().getId() + "-food", Emoji.fromFormatted("U+1F356")), Button.primary(event.getMember().getId() + "-drink", Emoji.fromFormatted("U+1F6B0")), Button.secondary(event.getMember().getId() + "-rename", "Rename")).setSuppressedNotifications(true).queue(message -> {
+                            message.pin().queue();
+                        });
                     });
 
                     event.replyEmbeds(builder.build()).setEphemeral(true).queue();

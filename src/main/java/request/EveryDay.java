@@ -2,7 +2,6 @@ package request;
 
 import functions.GetInfos;
 import main.Main;
-import mysql.BotInfos;
 import mysql.GetAllTokens;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;

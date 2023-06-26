@@ -10,7 +10,7 @@ public class UserUpdateName extends ListenerAdapter {
     @Override
     public void onUserUpdateName(UserUpdateNameEvent event) {
         if(BotInfos.getBotInfos("syncSystem").equals("1")) {
-            String name = event.getUser().getAsTag();
+            String name = event.getUser().getName();
             PlayerInfos.updatePlayerInfos(event.getUser().getId(), "discord_username", name);
         }
     }

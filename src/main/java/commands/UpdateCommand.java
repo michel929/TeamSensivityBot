@@ -18,7 +18,6 @@ public class UpdateCommand implements ServerCommand {
 
             for (Member member: members) {
                 if(!member.isPending() && !member.getId().equals("917069851191816262")) {
-                    System.out.println(member.getEffectiveName());
                     User.Profile p = member.getUser().retrieveProfile().complete();
 
                     String banner = "";
@@ -33,7 +32,13 @@ public class UpdateCommand implements ServerCommand {
                         //TODO
                     } else {
 
-                        PlayerInfos.createAccount(member.getId(), member.getUser().getAsTag(), member.getEffectiveAvatarUrl(), banner);
+                        String name = member.getUser().getName();
+
+                        name = name.replace(">", "");
+                        name = name.replace("<", "");
+                        name = name.replace(";", "");
+
+                        PlayerInfos.createAccount(member.getId(), name, member.getEffectiveAvatarUrl(), banner);
 
                         for (Role role : member.getRoles()) {
                             if (!PlayerInfos.isExist(role.getId(), "discord_role", "user_role")) {

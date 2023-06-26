@@ -1,7 +1,6 @@
 package pets.mysql;
 
 import mysql.Connect;
-import pets.tiere.Animal;
 import pets.tiere.Tier;
 
 import java.sql.*;

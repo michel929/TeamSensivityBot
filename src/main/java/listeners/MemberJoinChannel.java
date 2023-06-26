@@ -7,6 +7,7 @@ import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
@@ -33,6 +34,7 @@ public class MemberJoinChannel extends ListenerAdapter {
     @Override
     public void onGuildVoiceUpdate(GuildVoiceUpdateEvent event) {
         Category c = event.getGuild().getCategoryById(BotInfos.getBotInfos("chill_cat"));
+        Role r = event.getGuild().getRoleById("1073170184820498505");
 
         if(event.getChannelLeft() != null) {
             //Create-Chill
@@ -104,7 +106,7 @@ public class MemberJoinChannel extends ListenerAdapter {
 
             //PointsSystem
             if (BotInfos.getBotInfos("punktesystem").equals("1")) {
-                if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
+                if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && event.getMember().getRoles().contains(r)) {
                     members.put(event.getMember(), LocalDateTime.now());
                 }
             }
@@ -115,7 +117,7 @@ public class MemberJoinChannel extends ListenerAdapter {
             BotInfos.removeOnlineUser();
 
             //PointSystem
-            if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && members.containsKey(event.getMember())) {
+            if (PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users") && members.containsKey(event.getMember()) && event.getMember().getRoles().contains(r)) {
                 LocalDateTime date = members.get(event.getMember());
                 Minutes m = Minutes.minutesBetween(date, LocalDateTime.now());
 
