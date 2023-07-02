@@ -48,7 +48,14 @@ public class OnStart extends ListenerAdapter {
         //Update Rollen in Datenbank
         String hex = "";
 
-        UploadRole.dropTable();
+        UploadRole.dropTable("discord_role");
+        UploadRole.dropTable("user_role");
+
+        for (Member m: g.getMembers()) {
+            for (Role r: m.getRoles()) {
+                PlayerInfos.insertRole(m.getId(), r.getId());
+            }
+        }
 
         for (Role r: rollen) {
 

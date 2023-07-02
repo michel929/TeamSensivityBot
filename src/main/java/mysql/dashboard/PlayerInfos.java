@@ -269,7 +269,38 @@ public class PlayerInfos {
             e.printStackTrace();
         }
     }
+
+    public static void updatePlayerInfos(String discord_id, String row){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET " + row + " = '" + null + "' WHERE discord_id = '" + discord_id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void updatePlayerInfos(String discord_id, String row, Date newInfos){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET " + row + " = '" + newInfos + "' WHERE discord_id = '" + discord_id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updatePlayerInfos(String discord_id, String row, LocalDate newInfos){
         try {
             Connection con = Connect.getConnection();
 
@@ -291,6 +322,21 @@ public class PlayerInfos {
             PreparedStatement posted = con.prepareStatement("INSERT INTO user_role (discord_id, discord_role) VALUES ('"+ id + "', '"+ role +"')");
 
             posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeRole(String id, String role, String table){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("DELETE FROM " + table + " WHERE 'discord_id' = '" + id +"' AND 'discord_role' = '" + role + "'");
+
+            posted.executeUpdate();
+
             con.close();
 
         } catch (SQLException e) {

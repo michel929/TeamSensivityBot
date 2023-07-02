@@ -49,11 +49,11 @@ public class UploadRole {
         }
     }
 
-    public static void dropTable() {
+    public static void dropTable(String table) {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("TRUNCATE TABLE discord_role");
+            PreparedStatement posted = con.prepareStatement("TRUNCATE TABLE " + table);
 
             posted.executeUpdate();
             con.close();

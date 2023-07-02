@@ -8,6 +8,8 @@ import geheim.Steam;
 import listeners.*;
 import listeners.dashboard.*;
 import listeners.dashboard.role.*;
+import listeners.dashboard.role.user.UserGetRole;
+import listeners.dashboard.role.user.UserRemoveRole;
 import listeners.dashboard.tag.TagRemove;
 import listeners.dashboard.tag.TagCreate;
 import listeners.dashboard.tag.TagUpdate;
@@ -102,6 +104,9 @@ public class Start {
         api.addEventListener(new RoleUpdateName());
         api.addEventListener(new RoleUpdateColor());
         api.addEventListener(new RoleUpdatePosition());
+
+        api.addEventListener(new UserGetRole());
+        api.addEventListener(new UserRemoveRole());
 
         api.addEventListener(new TagRemove());
         api.addEventListener(new TagCreate());

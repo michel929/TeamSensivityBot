@@ -28,6 +28,7 @@ public class CommandManager {
         commands.put("consen", new ConnectTeamSensivityAccount());
         commands.put("selgam", new SelectGames());
         commands.put("fetchleague", new CollectLeagueGames());
+        commands.put("admin", new ResetAdmin());
 
         commands.put("petshop", new Shop());
     }
