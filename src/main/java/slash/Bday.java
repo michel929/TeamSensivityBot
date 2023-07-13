@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import slash.types.ServerSlash;
 
 import java.awt.*;
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Bday implements ServerSlash {

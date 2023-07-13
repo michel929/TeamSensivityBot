@@ -21,86 +21,95 @@ public class Punkte implements ServerSlash {
     public void performCommand(SlashCommandInteractionEvent event) {
         if (BotInfos.getBotInfos("cmd_points_on").equals("1")) {
                 if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
-                    if (event.getSubcommandName().equals("add")) {
-                        Member m = event.getOption("member").getAsMember();
-                        PunkteSystem.uploadPoints(m.getId(), event.getOption("punkte").getAsInt());
+                    if(!event.getMember().getId().equals("181090908572221450")) {
+                        if (event.getSubcommandName().equals("add")) {
+                            Member m = event.getOption("member").getAsMember();
+                            PunkteSystem.uploadPoints(m.getId(), event.getOption("punkte").getAsInt());
 
-                        EmbedBuilder builder = new EmbedBuilder();
+                            EmbedBuilder builder = new EmbedBuilder();
 
-                        builder.setTitle(m.getEffectiveName() + "s Punkte");
-                        builder.setDescription("Du hast diesem User " + event.getOption("punkte").getAsInt() + " Punkte hinzugefügt.");
-                        builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
-                        builder.setColor(Color.decode("#2ecc71"));
+                            builder.setTitle(m.getEffectiveName() + "s Punkte");
+                            builder.setDescription("Du hast diesem User " + event.getOption("punkte").getAsInt() + " Punkte hinzugefügt.");
+                            builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
+                            builder.setColor(Color.decode("#2ecc71"));
 
-                        if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
-                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
-                            String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
-                            try {
-                                if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
-                                    GetInfos.streamBOT(new URL(url2));
+                            if (!PlayerInfos.getInfo(event.getMember().getId(), "discord_id", "discord_token", "users").equals("0")) {
+                                String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
+                                String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
+                                try {
+                                    if (GetInfos.getPoints(new URL(url)).contains("Unauthorized")) {
+                                        GetInfos.streamBOT(new URL(url2));
+                                    }
+                                } catch (MalformedURLException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (MalformedURLException e) {
-                                e.printStackTrace();
                             }
-                        }
 
-                        event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
-                    } else if (event.getSubcommandName().equals("remove")) {
-                        Member m = event.getOption("member").getAsMember();
-                        if (PunkteSystem.getPoints(m.getId()) - event.getOption("punkte").getAsInt() <= 0) {
-                            PunkteSystem.uploadPoints(m.getId(), -PunkteSystem.getPoints(m.getId()));
-                        } else {
-                            PunkteSystem.uploadPoints(m.getId(), -event.getOption("punkte").getAsInt());
-                        }
+                            event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
+                        } else if (event.getSubcommandName().equals("remove")) {
+                            Member m = event.getOption("member").getAsMember();
+                            if (PunkteSystem.getPoints(m.getId()) - event.getOption("punkte").getAsInt() <= 0) {
+                                PunkteSystem.uploadPoints(m.getId(), -PunkteSystem.getPoints(m.getId()));
+                            } else {
+                                PunkteSystem.uploadPoints(m.getId(), -event.getOption("punkte").getAsInt());
+                            }
 
-                        EmbedBuilder builder = new EmbedBuilder();
-                        builder.setTitle(m.getEffectiveName() + "s Punkte");
-                        builder.setDescription("Du hast diesem User " + event.getOption("punkte").getAsInt() + " Punkte abgezogen.");
-                        builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
-                        builder.setColor(Color.decode("#2ecc71"));
+                            EmbedBuilder builder = new EmbedBuilder();
+                            builder.setTitle(m.getEffectiveName() + "s Punkte");
+                            builder.setDescription("Du hast diesem User " + event.getOption("punkte").getAsInt() + " Punkte abgezogen.");
+                            builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
+                            builder.setColor(Color.decode("#2ecc71"));
 
-                        if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
-                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
-                            String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
-                            try {
-                                if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
-                                    GetInfos.streamBOT(new URL(url2));
+                            if (!PlayerInfos.getInfo(event.getMember().getId(), "discord_id", "discord_token", "users").equals("0")) {
+                                String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
+                                String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
+                                try {
+                                    if (GetInfos.getPoints(new URL(url)).contains("Unauthorized")) {
+                                        GetInfos.streamBOT(new URL(url2));
+                                    }
+                                } catch (MalformedURLException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (MalformedURLException e) {
-                                e.printStackTrace();
                             }
-                        }
 
-                        event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
+                            event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
 
 
-                    } else if (event.getSubcommandName().equals("set")) {
-                        Member m = event.getOption("member").getAsMember();
-                        if (event.getOption("punkte").getAsInt() <= 0) {
-                            PunkteSystem.uploadPoints(m.getId(), -PunkteSystem.getPoints(m.getId()));
-                        } else {
-                            PunkteSystem.uploadPoints(m.getId(), event.getOption("punkte").getAsInt() - PunkteSystem.getPoints(m.getId()));
-                        }
+                        } else if (event.getSubcommandName().equals("set")) {
+                            Member m = event.getOption("member").getAsMember();
+                            if (event.getOption("punkte").getAsInt() <= 0) {
+                                PunkteSystem.uploadPoints(m.getId(), -PunkteSystem.getPoints(m.getId()));
+                            } else {
+                                PunkteSystem.uploadPoints(m.getId(), event.getOption("punkte").getAsInt() - PunkteSystem.getPoints(m.getId()));
+                            }
 
-                        EmbedBuilder builder = new EmbedBuilder();
-                        builder.setTitle(m.getEffectiveName() + "s Punkte");
-                        builder.setDescription("Du hast dem User seinen Punktestand auf " + event.getOption("punkte").getAsInt() + " Punkte gesetzt.");
-                        builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
-                        builder.setColor(Color.decode("#2ecc71"));
+                            EmbedBuilder builder = new EmbedBuilder();
+                            builder.setTitle(m.getEffectiveName() + "s Punkte");
+                            builder.setDescription("Du hast dem User seinen Punktestand auf " + event.getOption("punkte").getAsInt() + " Punkte gesetzt.");
+                            builder.setThumbnail(PlayerInfos.getInfo(m.getId(), "discord_id", "discord_pb", "users"));
+                            builder.setColor(Color.decode("#2ecc71"));
 
-                        if(!PlayerInfos.getInfo(event.getMember().getId(),"discord_id", "discord_token", "users").equals("0")){
-                            String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
-                            String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
-                            try {
-                                if(GetInfos.getPoints(new URL(url)).contains("Unauthorized")){
-                                    GetInfos.streamBOT(new URL(url2));
+                            if (!PlayerInfos.getInfo(event.getMember().getId(), "discord_id", "discord_token", "users").equals("0")) {
+                                String url = "https://dashboard.sensivity.team/connect/discord/update-points.php?discord_id=" + m.getId();
+                                String url2 = "https://dashboard.sensivity.team/connect/discord/refresh.php?id=" + m.getId();
+                                try {
+                                    if (GetInfos.getPoints(new URL(url)).contains("Unauthorized")) {
+                                        GetInfos.streamBOT(new URL(url2));
+                                    }
+                                } catch (MalformedURLException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (MalformedURLException e) {
-                                e.printStackTrace();
                             }
+                            event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
                         }
-                        event.replyEmbeds(builder.build()).addActionRow(Button.link("https://sensivity.team/points.php", "PunkteSystem")).setEphemeral(true).queue();
+                    }else {
+                        EmbedBuilder embedBuilder = new EmbedBuilder();
+                        embedBuilder.setDescription("MAAAAX du Lump hören Sie auf zu Cheaten");
+                        embedBuilder.setColor(Color.RED);
+                        embedBuilder.setTitle("MAAAAX  STOOOPPPP!!!");
+                        embedBuilder.setThumbnail(BotInfos.getBotInfos("logo_url"));
 
+                        event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
                     }
                 }
                     if (event.getSubcommandName().equals("info")) {
