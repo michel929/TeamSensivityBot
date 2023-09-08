@@ -42,7 +42,7 @@ public class EveryDay extends TimerTask {
             }
         }
 
-        HashMap<String, String> league = PlayerInfos.getLeaguePuuids();
-        RiotAPI.getMatches(league);
+        //HashMap<String, String> league = PlayerInfos.getLeaguePuuids();
+        //RiotAPI.getMatches(league);
     }
 }

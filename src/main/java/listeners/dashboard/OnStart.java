@@ -1,12 +1,9 @@
 package listeners.dashboard;
 
 import functions.GetGameRoles;
-import functions.GetInfos;
 import listeners.MemberJoinChannel;
 import main.Main;
-import main.Start;
 import mysql.BotInfos;
-import mysql.GetAllTokens;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.Tag;
 import mysql.dashboard.UploadRole;
@@ -20,13 +17,9 @@ import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import pets.timer.EveryHour;
 import request.EveryDay;
-import request.OneMin;
 import request.TwentySec;
-import riot.RiotAPI;
+import unendlichkeit.listeners.MessageRecived;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 
@@ -38,7 +31,6 @@ public class OnStart extends ListenerAdapter {
         Main.INSTANCE.setGuild(g);
         Main.INSTANCE.setGameRoles(new GetGameRoles(g.getRoles()));
 
-        new Timer().schedule(new OneMin(), 0, 1000 * 60);
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
         new Timer().schedule(new EveryDay(), 0, 1000 * 60 * 60 * 24);
         new Timer().schedule(new EveryHour(), 0, 1000 * 60 * 60);
@@ -108,5 +100,31 @@ public class OnStart extends ListenerAdapter {
                 }
             }
         }
+
+        TextChannel textChannel = g.getTextChannelById("1144648374520402163");
+        textChannel.getHistory().retrievePast(1).queue(messages -> {
+            String message = messages.get(0).getContentDisplay();
+            System.out.println(message);
+            String newString = "";
+
+            for (int i = 0; i < message.length(); i++) {
+                char a = message.charAt(i);
+                int ascii = (int) a;
+
+                if(ascii > 47 && ascii < 58){
+                    newString = newString + a;
+                }
+            }
+
+            if(!newString.isEmpty()) {
+                MessageRecived.zahl = Long.parseLong(newString);
+                MessageRecived.userid = messages.get(0).getAuthor().getId();
+                MessageRecived.messageid = messages.get(0).getId();
+            }else {
+                MessageRecived.zahl = 0;
+            }
+
+            System.out.println("Die Aktuelle Zahl ist: " + MessageRecived.zahl);
+        });
     }
 }

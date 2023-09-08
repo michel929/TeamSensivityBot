@@ -19,6 +19,8 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageHistory;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -27,6 +29,9 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import pets.tiere.Pets;
 import templates.EmbedMessages;
+import unendlichkeit.listeners.MessageDelete;
+import unendlichkeit.listeners.MessageRecived;
+import unendlichkeit.listeners.MessageUpdate;
 
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
@@ -79,6 +84,7 @@ public class Start {
         this.pets = new Pets();
 
         api.setAutoReconnect(true);
+
     }
 
     private void listeners() {
@@ -114,6 +120,10 @@ public class Start {
 
         api.addEventListener(new OnStart());
         api.addEventListener(new OnShutdown());
+
+        api.addEventListener(new MessageRecived());
+        api.addEventListener(new MessageDelete());
+        api.addEventListener(new MessageUpdate());
 
         api.addEventListener(new MemberJoinChannel());
         // api.addEventListener(new PlayerMoved());
