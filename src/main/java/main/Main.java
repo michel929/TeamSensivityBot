@@ -1,7 +1,5 @@
 package main;
 
-import riot.RiotAPI;
-
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;

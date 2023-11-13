@@ -16,6 +16,6 @@ public class Overview implements ServerCommand {
         builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
         builder.setTitle("Unendlichkeit Score");
         builder.setColor(Color.decode("#9914fa"));
-        builder
+        //builder
     }
 }

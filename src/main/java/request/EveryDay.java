@@ -3,16 +3,13 @@ package request;
 import functions.GetInfos;
 import main.Main;
 import mysql.GetAllTokens;
-import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import riot.RiotAPI;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.TimerTask;
 
 public class EveryDay extends TimerTask {

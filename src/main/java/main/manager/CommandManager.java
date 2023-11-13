@@ -28,7 +28,6 @@ public class CommandManager {
         commands.put("emoji", new GetEmojis());
         commands.put("consen", new ConnectTeamSensivityAccount());
         commands.put("selgam", new SelectGames());
-        commands.put("fetchleague", new CollectLeagueGames());
         commands.put("admin", new ResetAdmin());
         commands.put("unendlichkeit", new Overview());
         commands.put("petshop", new Shop());

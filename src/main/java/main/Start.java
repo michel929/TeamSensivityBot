@@ -39,7 +39,7 @@ import java.util.Collection;
 
 public class Start {
 
-    public static String VERSION_ID = "2.5";
+    public static String VERSION_ID = "2.6";
 
     private JDA api;
     private Pets pets;
@@ -60,10 +60,10 @@ public class Start {
 
         if (!demo) {
             api = JDABuilder.create(BotToken.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
-            api.getPresence().setActivity(Activity.competing("Version " + VERSION_ID));
+            //api.getPresence().setActivity(Activity.customStatus("Version 2.6"));
         } else {
             api = JDABuilder.create(BotToken.demoToken, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
-            api.getPresence().setActivity(Activity.competing("DEMO " + VERSION_ID));
+            //api.getPresence().setActivity(Activity.customStatus("DEMO " + VERSION_ID));
         }
 
         api.getPresence().setStatus(OnlineStatus.ONLINE);
