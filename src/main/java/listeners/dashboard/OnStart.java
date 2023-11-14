@@ -15,7 +15,6 @@ import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import pets.timer.EveryHour;
 import request.EveryDay;
 import request.TwentySec;
 import unendlichkeit.listeners.MessageRecived;
@@ -33,7 +32,6 @@ public class OnStart extends ListenerAdapter {
 
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
         new Timer().schedule(new EveryDay(), 0, 1000 * 60 * 60 * 24);
-        new Timer().schedule(new EveryHour(), 0, 1000 * 60 * 60);
 
         List<Role> rollen = g.getRoles();
 

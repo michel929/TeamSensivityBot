@@ -2,7 +2,6 @@ package main;
 
 import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import functions.GetGameRoles;
-import games.lobby.SelectSave;
 import geheim.BotToken;
 import geheim.Steam;
 import listeners.*;
@@ -17,17 +16,13 @@ import main.manager.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.MessageHistory;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import pets.tiere.Pets;
 import templates.EmbedMessages;
 import unendlichkeit.listeners.MessageDelete;
 import unendlichkeit.listeners.MessageRecived;
@@ -42,7 +37,6 @@ public class Start {
     public static String VERSION_ID = "2.6";
 
     private JDA api;
-    private Pets pets;
     private CommandManager cmdMan;
     private UserContextInteractionManager userManager;
     private SlashManager slashMan;
@@ -50,7 +44,6 @@ public class Start {
     private ModalManager modalMan;
     private SteamWebApiClient steamApi;
     private EmbedMessages embedMessages;
-    private SelectSave selectSave;
     private Guild guild;
     private GetGameRoles gameRoles;
 
@@ -80,8 +73,6 @@ public class Start {
         this.embedMessages = new EmbedMessages();
         this.userManager = new UserContextInteractionManager();
         this.modalMan = new ModalManager();
-        this.selectSave = new SelectSave();
-        this.pets = new Pets();
 
         api.setAutoReconnect(true);
 
@@ -220,13 +211,5 @@ public class Start {
 
     public void setGuild(Guild guild) {
         this.guild = guild;
-    }
-
-    public SelectSave getSelectSave() {
-        return selectSave;
-    }
-
-    public Pets getPets() {
-        return pets;
     }
 }

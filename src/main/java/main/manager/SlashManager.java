@@ -5,7 +5,6 @@ import music.slash.Stop;
 import music.slash.Volume;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import slash.*;
-import dbd.swf.slash.SWF;
 import slash.dashboard.*;
 import slash.types.ServerSlash;
 
@@ -26,7 +25,6 @@ public class SlashManager {
             slashs.put("account", new Profil());
             slashs.put("minecraft", new ConnectMinecraft());
 
-            slashs.put("swf", new SWF());
             slashs.put("points", new Punkte());
             slashs.put("daily", new Daily());
 
