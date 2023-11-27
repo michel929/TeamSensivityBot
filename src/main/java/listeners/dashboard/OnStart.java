@@ -10,8 +10,11 @@ import mysql.dashboard.UploadRole;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.channel.concrete.ForumChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.forums.ForumPost;
 import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -19,6 +22,7 @@ import request.EveryDay;
 import request.TwentySec;
 import unendlichkeit.listeners.MessageRecived;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
@@ -34,6 +38,15 @@ public class OnStart extends ListenerAdapter {
         new Timer().schedule(new EveryDay(), 0, 1000 * 60 * 60 * 24);
 
         List<Role> rollen = g.getRoles();
+
+        ForumChannel forumChannel = g.getForumChannelById("1178340611540127826");
+
+        for (ThreadChannel post: forumChannel.getThreadChannels()) {
+            String id = post.getHistory().getRetrievedHistory().get(0).getEmbeds().get(0).getFooter().getText();
+            id = id.replace("ID: ", "");
+
+            Main.INSTANCE.addProductID(id);
+        }
 
         //Update Rollen in Datenbank
         String hex = "";

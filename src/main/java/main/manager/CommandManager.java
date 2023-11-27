@@ -1,6 +1,7 @@
 package main.manager;
 
 import commands.*;
+import commands.embeds.GameServerShop;
 import commands.embeds.PointsCommand;
 import commands.embeds.TicketCommand;
 import commands.embeds.anleitungen.ConnectTeamSensivityAccount;
@@ -29,6 +30,7 @@ public class CommandManager {
         commands.put("admin", new ResetAdmin());
         commands.put("unendlichkeit", new Overview());
         commands.put("ticket", new TicketCommand());
+        commands.put("shop", new GameServerShop());
     }
 
     public boolean perform(String command, MessageReceivedEvent event){

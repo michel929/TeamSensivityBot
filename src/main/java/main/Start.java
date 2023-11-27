@@ -46,6 +46,7 @@ public class Start {
     private EmbedMessages embedMessages;
     private Guild guild;
     private GetGameRoles gameRoles;
+    private ArrayList<String> ProductID;
 
     public Start(boolean demo) throws LoginException, IllegalArgumentException {
 
@@ -73,6 +74,7 @@ public class Start {
         this.embedMessages = new EmbedMessages();
         this.userManager = new UserContextInteractionManager();
         this.modalMan = new ModalManager();
+        this.ProductID = new ArrayList<>();
 
         api.setAutoReconnect(true);
 
@@ -212,4 +214,14 @@ public class Start {
     public void setGuild(Guild guild) {
         this.guild = guild;
     }
+
+    public ArrayList<String> getProductID() {
+        return ProductID;
+    }
+
+    public void addProductID(String id){
+        ProductID.add(id);
+    }
+
+
 }
