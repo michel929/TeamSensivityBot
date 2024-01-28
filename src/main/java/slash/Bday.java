@@ -5,9 +5,11 @@ import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import org.joda.time.LocalDateTime;
 import slash.types.ServerSlash;
 
 import java.awt.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Bday implements ServerSlash {
@@ -42,7 +44,30 @@ public class Bday implements ServerSlash {
 
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
 
-            }else if (event.getSubcommandName().equals("next")){
+            } else if(event.getSubcommandName().equals("info")){
+
+                System.out.println("test");
+
+                String datestring = PlayerInfos.getInfo(event.getMember().getId(), "discord_id","bday","users");
+
+                if(datestring != null) {
+
+                    LocalDateTime date = LocalDateTime.parse(datestring);
+                    Timestamp timestamp = new Timestamp(date.toDateTime().getMillis());
+
+                    EmbedBuilder builder = new EmbedBuilder();
+                    builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+                    builder.setTitle("Du hast am " + date.getDayOfMonth() + "." + date.getMonthOfYear() + "." + date.getYear() + "geburtstag");
+                    builder.setDescription("Du hast in <t:" + timestamp + ":R> geburtstag.");
+                }else {
+                    EmbedBuilder builder = new EmbedBuilder();
+                    builder.setColor(Color.RED);
+                    builder.setTitle("Noch kein Bday gesetzt!");
+                    builder.setDescription("Du hast uns noch nicht verraten wann du geburtstag hast. Bitte benutze den */bday add* Befehl um uns deinen Geburtstag zu verraten.");
+                    builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
+
+                    event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+                }
 
             }
         }else {

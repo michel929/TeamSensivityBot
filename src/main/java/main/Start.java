@@ -16,6 +16,7 @@ import main.manager.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
@@ -54,10 +55,10 @@ public class Start {
 
         if (!demo) {
             api = JDABuilder.create(BotToken.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
-            //api.getPresence().setActivity(Activity.customStatus("Version 2.6"));
+            api.getPresence().setPresence(Activity.customStatus("VERSION " + VERSION_ID), true);
         } else {
             api = JDABuilder.create(BotToken.demoToken, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
-            //api.getPresence().setActivity(Activity.customStatus("DEMO " + VERSION_ID));
+            api.getPresence().setActivity(Activity.customStatus("DEMO " + VERSION_ID));
         }
 
         api.getPresence().setStatus(OnlineStatus.ONLINE);
@@ -119,8 +120,7 @@ public class Start {
         api.addEventListener(new MessageUpdate());
 
         api.addEventListener(new MemberJoinChannel());
-        // api.addEventListener(new PlayerMoved());
-        //api.addEventListener(new PlayerMute());
+        api.addEventListener(new OnBotDisconnect());
     }
 
     private void commands() {
@@ -131,11 +131,10 @@ public class Start {
         api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
         api.upsertCommand("lock", "Sorgt dafür das keiner dich mehr umbenennen.").queue();
 
-
         api.upsertCommand("minecraft", "Hiermit kannst du deinen MinecraftAccount verbinden").queue();
 
         Collection<SubcommandData> bday = new ArrayList<>();
-        bday.add(new SubcommandData("info", "Zeigt dir eine Liste aller Geburtstage an."));
+        bday.add(new SubcommandData("info", "Zeigt dir deinen Bday an."));
         bday.add(new SubcommandData("add", "Füge deinen eigenen Bday hinzu.")
                 .addOption(OptionType.INTEGER, "tag", "Wähle einen Tag.", true)
                 .addOption(OptionType.INTEGER, "monat", "Wähle einen Monat", true)
@@ -173,10 +172,6 @@ public class Start {
 
     public Guild getGuild() {
         return guild;
-    }
-
-    public SteamWebApiClient getSteamApi() {
-        return steamApi;
     }
 
     public EmbedMessages getEmbedMessages() {

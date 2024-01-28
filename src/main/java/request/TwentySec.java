@@ -1,7 +1,6 @@
 package request;
 
 import main.Main;
-import main.Start;
 import minecraft.Hardcore;
 import mysql.Minecraft;
 import mysql.dashboard.PlayerInfos;
@@ -42,5 +41,8 @@ public class TwentySec extends TimerTask {
                 channel.sendMessageEmbeds(builder.build()).addActionRow(Button.success("revive" + m.getId(), "Spieler wiederbeleben")).queue();
             }
         }
+
+        //Status
+        Api.getAPI("https://status.sensivity.team/api/push/G6tfgGgM1q?status=up&msg=OK&ping=");
     }
 }

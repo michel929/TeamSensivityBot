@@ -54,6 +54,27 @@ public class Api {
         return null;
     }
 
+    public static void getAPI(String u){
+        try {
+
+            URL url = new URL(u);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+
+            //Getting the response code
+            int responsecode = conn.getResponseCode();
+
+            if (responsecode != 200) {
+                throw new RuntimeException("HttpResponseCode: " + responsecode);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static JSONObject getRequestO(String u){
         try {
 

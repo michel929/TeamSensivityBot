@@ -31,6 +31,7 @@ public class CommandManager {
         commands.put("unendlichkeit", new Overview());
         commands.put("ticket", new TicketCommand());
         commands.put("shop", new GameServerShop());
+        commands.put("shutdown", new Shutdown());
     }
 
     public boolean perform(String command, MessageReceivedEvent event){
