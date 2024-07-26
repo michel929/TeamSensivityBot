@@ -1,9 +1,6 @@
 package main.manager;
 
-import buttons.Revive;
-import buttons.WatchRoom;
-import buttons.WatchRoomAccept;
-import buttons.YourPoints;
+import buttons.*;
 import buttons.types.ServerButton;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import ticket.CreateTicket;
@@ -17,10 +14,10 @@ public class ButtonManager {
         this.buttons = new ConcurrentHashMap<>();
 
         buttons.put("showPoints", new YourPoints());
-        buttons.put("revive", new Revive());
         buttons.put("watch", new WatchRoom());
         buttons.put("verstanden", new WatchRoomAccept());
         buttons.put("createTicket", new CreateTicket());
+        buttons.put("reload-board", new ReloadBoard());
     }
 
     public boolean perform(String command, ButtonInteractionEvent event){

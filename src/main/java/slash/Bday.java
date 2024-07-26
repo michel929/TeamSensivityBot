@@ -9,7 +9,6 @@ import org.joda.time.LocalDateTime;
 import slash.types.ServerSlash;
 
 import java.awt.*;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Bday implements ServerSlash {
@@ -53,12 +52,13 @@ public class Bday implements ServerSlash {
                 if(datestring != null) {
 
                     LocalDateTime date = LocalDateTime.parse(datestring);
-                    Timestamp timestamp = new Timestamp(date.toDateTime().getMillis());
 
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
-                    builder.setTitle("Du hast am " + date.getDayOfMonth() + "." + date.getMonthOfYear() + "." + date.getYear() + "geburtstag");
-                    builder.setDescription("Du hast in <t:" + timestamp + ":R> geburtstag.");
+                    builder.setTitle("Du hast am " + date.getDayOfMonth() + "." + date.getMonthOfYear() + "." + date.getYear() + " geburtstag");
+                    builder.setDescription("Du hast in <t:" + date.plusYears(LocalDateTime.now().getYear() - date.getYear()).toDate().getTime() / 1000 + ":R> geburtstag.");
+
+                    event.replyEmbeds(builder.build()).setEphemeral(true).queue();
                 }else {
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setColor(Color.RED);

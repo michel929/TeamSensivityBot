@@ -1,5 +1,6 @@
 package main;
 
+import SchachAPI.Schach;
 import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import functions.GetGameRoles;
 import geheim.BotToken;
@@ -64,7 +65,6 @@ public class Start {
         api.getPresence().setStatus(OnlineStatus.ONLINE);
 
         listeners();
-        commands();
 
         System.out.println("Bot ist online!");
 
@@ -123,10 +123,9 @@ public class Start {
         api.addEventListener(new OnBotDisconnect());
     }
 
-    private void commands() {
+    public void commands() {
         api.upsertCommand("connect", "Hiermit verbindest du deinen DiscordAccount mit dem Dashboard.").queue();
         api.upsertCommand("login", "Hiermit kannst du dich im Dashboard anmelden.").queue();
-        api.upsertCommand("swf", "Hiermit kannst du eine SWF erstellen").addOption(OptionType.USER, "player2", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player3", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).addOption(OptionType.USER, "player4", "Hier kannst du einen Patz in der Gruppe für jemanden bestimmten reservieren.", false).queue();
         api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
         api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
         api.upsertCommand("lock", "Sorgt dafür das keiner dich mehr umbenennen.").queue();

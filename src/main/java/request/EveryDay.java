@@ -1,6 +1,7 @@
 package request;
 
 import functions.GetInfos;
+import functions.LolGuess;
 import main.Main;
 import mysql.GetAllTokens;
 import mysql.dashboard.PunkteSystem;
@@ -17,6 +18,8 @@ public class EveryDay extends TimerTask {
     public void run() {
 
         System.out.println("EveryDAy Request");
+
+        LolGuess.updateLOLGuess();
 
         String mostPoints = PunkteSystem.getMostPoints();
         Guild g = Main.INSTANCE.getGuild();
@@ -38,8 +41,5 @@ public class EveryDay extends TimerTask {
                 e.printStackTrace();
             }
         }
-
-        //HashMap<String, String> league = PlayerInfos.getLeaguePuuids();
-        //RiotAPI.getMatches(league);
     }
 }

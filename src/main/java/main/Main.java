@@ -53,6 +53,8 @@ public class Main {
                         } catch (LoginException e) {
                             e.printStackTrace();
                         }
+                    }else if(line.equalsIgnoreCase("slash")){
+                        INSTANCE.commands();
                     }
                 }
             }catch (IOException e){

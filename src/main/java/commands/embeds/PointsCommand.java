@@ -20,7 +20,7 @@ public class PointsCommand implements ServerCommand {
         if(event.getMember().hasPermission(Permission.ADMINISTRATOR)){
             EmbedBuilder builder = new EmbedBuilder();
 
-            builder.setColor(Color.decode("#2ecc71"));
+            builder.setColor(Color.decode("#9914fa"));
             builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
             builder.setTitle("PunkteSystem");
             builder.setDescription("Hier findest du alle Informationen zu deinem Punktestand, etc.");

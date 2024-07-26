@@ -3,6 +3,7 @@ package main.manager;
 import commands.*;
 import commands.embeds.GameServerShop;
 import commands.embeds.PointsCommand;
+import commands.embeds.SchachLeaderBoard;
 import commands.embeds.TicketCommand;
 import commands.embeds.anleitungen.ConnectTeamSensivityAccount;
 import commands.embeds.anleitungen.SelectGames;
@@ -20,7 +21,6 @@ public class CommandManager {
         this.commands = new ConcurrentHashMap<>();
 
         commands.put("update", new UpdateCommand());
-        commands.put("dbdp", new DBDProfile());
         commands.put("reset", new ResetCommand());
         commands.put("clear", new ClearCommand());
         commands.put("points", new PointsCommand());
@@ -32,6 +32,7 @@ public class CommandManager {
         commands.put("ticket", new TicketCommand());
         commands.put("shop", new GameServerShop());
         commands.put("shutdown", new Shutdown());
+        commands.put("board", new SchachLeaderBoard());
     }
 
     public boolean perform(String command, MessageReceivedEvent event){
