@@ -1,7 +1,6 @@
 package slash.dashboard;
 
 import main.Main;
-import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -9,7 +8,7 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;

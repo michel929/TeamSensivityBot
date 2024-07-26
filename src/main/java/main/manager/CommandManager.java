@@ -1,6 +1,10 @@
 package main.manager;
 
 import admin.commands.ClearCommand;
+import admin.commands.GetEmojis;
+import admin.commands.ResetCommand;
+import admin.commands.Shutdown;
+import admin.commands.UpdateCommand;
 import hosting.commands.GameServerShop;
 import commands.embeds.PointsCommand;
 import schachAPI.commands.SchachLeaderBoard;

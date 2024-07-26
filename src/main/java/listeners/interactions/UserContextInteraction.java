@@ -1,4 +1,4 @@
-package listeners;
+package listeners.interactions;
 
 import main.Main;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;

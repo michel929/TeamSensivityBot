@@ -1,12 +1,11 @@
 package slash;
 
 import main.Main;
-import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.awt.*;
 

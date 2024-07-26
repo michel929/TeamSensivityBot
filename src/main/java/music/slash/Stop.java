@@ -5,10 +5,9 @@ import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 public class Stop implements ServerSlash{
 

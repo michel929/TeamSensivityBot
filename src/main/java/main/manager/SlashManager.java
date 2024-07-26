@@ -4,9 +4,11 @@ import music.slash.Skip;
 import music.slash.Stop;
 import music.slash.Volume;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import pointsSystem.slash.Daily;
+import pointsSystem.slash.Punkte;
 import slash.*;
 import slash.dashboard.*;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,9 +23,6 @@ public class SlashManager {
             slashs.put("revoke", new Revoke());
             slashs.put("bday", new Bday());
             slashs.put("lock", new LockUsername());
-
-            slashs.put("account", new Profil());
-            slashs.put("minecraft", new ConnectMinecraft());
 
             slashs.put("points", new Punkte());
             slashs.put("daily", new Daily());

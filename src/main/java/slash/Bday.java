@@ -6,7 +6,7 @@ import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.joda.time.LocalDateTime;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.awt.*;
 import java.time.LocalDate;

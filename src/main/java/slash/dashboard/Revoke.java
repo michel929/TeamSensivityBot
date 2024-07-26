@@ -5,7 +5,7 @@ import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;

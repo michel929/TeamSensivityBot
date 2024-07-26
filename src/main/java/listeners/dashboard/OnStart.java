@@ -1,7 +1,7 @@
 package listeners.dashboard;
 
 import functions.GetGameRoles;
-import listeners.MemberJoinChannel;
+import createChill.listeners.MemberJoinChannel;
 import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
@@ -14,7 +14,6 @@ import net.dv8tion.jda.api.entities.channel.concrete.ForumChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import net.dv8tion.jda.api.entities.channel.forums.ForumPost;
 import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -22,7 +21,6 @@ import request.EveryDay;
 import request.TwentySec;
 import unendlichkeit.listeners.MessageRecived;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 

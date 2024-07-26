@@ -1,22 +1,19 @@
-package slash;
+package pointsSystem.slash;
 
 import logging.LogSystem;
 import main.Main;
-import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
-import static java.time.temporal.ChronoUnit.*;
 
 public class Daily implements ServerSlash {
     @Override

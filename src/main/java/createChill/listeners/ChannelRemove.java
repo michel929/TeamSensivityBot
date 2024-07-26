@@ -1,7 +1,6 @@
-package listeners;
+package createChill.listeners;
 
 import main.Main;
-import main.Start;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.events.channel.ChannelDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

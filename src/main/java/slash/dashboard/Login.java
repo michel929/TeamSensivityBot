@@ -5,7 +5,7 @@ import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.awt.*;
 public class Login implements ServerSlash {

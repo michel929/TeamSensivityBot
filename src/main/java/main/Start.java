@@ -1,6 +1,8 @@
 package main;
 
 import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
+import createChill.listeners.ChannelRemove;
+import createChill.listeners.MemberJoinChannel;
 import functions.GetGameRoles;
 import geheim.BotToken;
 import geheim.Steam;
@@ -12,6 +14,7 @@ import listeners.dashboard.role.user.UserRemoveRole;
 import listeners.dashboard.tag.TagRemove;
 import listeners.dashboard.tag.TagCreate;
 import listeners.dashboard.tag.TagUpdate;
+import listeners.interactions.*;
 import main.manager.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -24,6 +27,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import pointsSystem.listeners.onMessageReceived;
 import templates.EmbedMessages;
 import unendlichkeit.listeners.MessageDelete;
 import unendlichkeit.listeners.MessageRecived;
@@ -35,7 +39,7 @@ import java.util.Collection;
 
 public class Start {
 
-    public static String VERSION_ID = "2.6";
+    public static String VERSION_ID = "2.7";
 
     private JDA api;
     private CommandManager cmdMan;
@@ -98,6 +102,7 @@ public class Start {
         api.addEventListener(new StatusChange());
         api.addEventListener(new BannerChange());
 
+        //RoleManager
         api.addEventListener(new RoleCreate());
         api.addEventListener(new RoleDelete());
         api.addEventListener(new RoleUpdateName());
@@ -107,10 +112,12 @@ public class Start {
         api.addEventListener(new UserGetRole());
         api.addEventListener(new UserRemoveRole());
 
+        //TagSystem
         api.addEventListener(new TagRemove());
         api.addEventListener(new TagCreate());
         api.addEventListener(new TagUpdate());
 
+        //System
         api.addEventListener(new OnStart());
         api.addEventListener(new OnShutdown());
 
@@ -120,6 +127,14 @@ public class Start {
 
         api.addEventListener(new MemberJoinChannel());
         api.addEventListener(new OnBotDisconnect());
+
+        //Watchroom
+        api.addEventListener(new watchRoom.listeners.MemberJoinChannel());
+
+
+        //PointSystem
+        api.addEventListener(new pointsSystem.listeners.MemberJoinChannel());
+        api.addEventListener(new onMessageReceived());
     }
 
     public void commands() {
@@ -186,10 +201,6 @@ public class Start {
 
     public ButtonManager getButtonMan() {
         return buttonMan;
-    }
-
-    public GetGameRoles getGameRoles() {
-        return gameRoles;
     }
 
     public ModalManager getModalMan() {

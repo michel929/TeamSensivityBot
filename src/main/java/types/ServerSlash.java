@@ -1,4 +1,4 @@
-package slash.types;
+package types;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 

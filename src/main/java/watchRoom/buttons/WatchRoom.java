@@ -1,9 +1,9 @@
 package watchRoom.buttons;
 
 import types.ServerButton;
-import listeners.MemberJoinChannel;
 import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import watchRoom.listeners.MemberJoinChannel;
 
 public class WatchRoom implements ServerButton {
     @Override
@@ -16,7 +16,7 @@ public class WatchRoom implements ServerButton {
 
             while(finish == false) {
                 int w = 0;
-                for (Channel v : MemberJoinChannel.channel) {
+                for (Channel v : createChill.listeners.MemberJoinChannel.channel) {
                     if(v.getName().contains("" + x)){
                         x++;
                     }else {
@@ -24,7 +24,7 @@ public class WatchRoom implements ServerButton {
                     }
                 }
 
-                if(w == MemberJoinChannel.channel.size()){
+                if(w == createChill.listeners.MemberJoinChannel.channel.size()){
                     finish = true;
                 }
             }

@@ -1,14 +1,13 @@
 package music.slash;
 
 import main.Main;
-import main.Start;
 import music.PlayerManager;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
-import slash.types.ServerSlash;
+import types.ServerSlash;
 
 import java.awt.*;
 
