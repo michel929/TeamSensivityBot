@@ -15,6 +15,8 @@ public class Bday implements ServerSlash {
     @Override
     public void performCommand(SlashCommandInteractionEvent event) {
         if(PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
+
+            //ADD
             if (event.getSubcommandName().equals("add")) {
                 int day = event.getOption("tag").getAsInt();
                 int monat = event.getOption("monat").getAsInt();
@@ -31,6 +33,7 @@ public class Bday implements ServerSlash {
 
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
 
+            //REMOVE
             } else if (event.getSubcommandName().equals("remove")) {
 
                 PlayerInfos.updatePlayerInfos(event.getMember().getId(), "bday");
@@ -43,10 +46,8 @@ public class Bday implements ServerSlash {
 
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
 
+            //INFO
             } else if(event.getSubcommandName().equals("info")){
-
-                System.out.println("test");
-
                 String datestring = PlayerInfos.getInfo(event.getMember().getId(), "discord_id","bday","users");
 
                 if(datestring != null) {
@@ -69,6 +70,9 @@ public class Bday implements ServerSlash {
                     event.replyEmbeds(builder.build()).setEphemeral(true).queue();
                 }
 
+            //NEXT
+            }else if(event.getSubcommandName().equals("next")){
+                //TODO NEXT BDAY
             }
         }else {
             event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();

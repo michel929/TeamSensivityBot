@@ -34,8 +34,6 @@ public class Schach {
             usernames.add((String) time.get("username"));
         }
 
-        //usernames.add("11nils11");
-
         return usernames;
     }
 
