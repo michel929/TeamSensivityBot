@@ -1,6 +1,6 @@
 package commands.embeds.anleitungen;
 
-import commands.types.ServerCommand;
+import types.ServerCommand;
 import main.Main;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;

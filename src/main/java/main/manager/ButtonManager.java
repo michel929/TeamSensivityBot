@@ -1,9 +1,12 @@
 package main.manager;
 
-import buttons.*;
-import buttons.types.ServerButton;
+import pointsSystem.buttons.YourPoints;
+import schachAPI.buttons.ReloadBoard;
+import types.ServerButton;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import ticket.CreateTicket;
+import watchRoom.buttons.WatchRoom;
+import watchRoom.buttons.WatchRoomAccept;
 
 import java.util.concurrent.ConcurrentHashMap;
 

@@ -1,13 +1,13 @@
 package main.manager;
 
-import commands.*;
-import commands.embeds.GameServerShop;
+import admin.commands.ClearCommand;
+import hosting.commands.GameServerShop;
 import commands.embeds.PointsCommand;
-import commands.embeds.SchachLeaderBoard;
-import commands.embeds.TicketCommand;
+import schachAPI.commands.SchachLeaderBoard;
+import ticket.commands.TicketCommand;
 import commands.embeds.anleitungen.ConnectTeamSensivityAccount;
 import commands.embeds.anleitungen.SelectGames;
-import commands.types.ServerCommand;
+import types.ServerCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.simple.parser.ParseException;
 import unendlichkeit.commands.Overview;
@@ -27,7 +27,6 @@ public class CommandManager {
         commands.put("emoji", new GetEmojis());
         commands.put("consen", new ConnectTeamSensivityAccount());
         commands.put("selgam", new SelectGames());
-        commands.put("admin", new ResetAdmin());
         commands.put("unendlichkeit", new Overview());
         commands.put("ticket", new TicketCommand());
         commands.put("shop", new GameServerShop());

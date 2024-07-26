@@ -1,9 +1,9 @@
 package main.manager;
-import contextInteraction.KickUserForPoints;
-import contextInteraction.MuteUserForPoints;
-import contextInteraction.RenameUserForPoints;
-import contextInteraction.UpdateUser;
-import contextInteraction.type.UserContextInteraction;
+import pointsSystem.contextInteraction.KickUserForPoints;
+import pointsSystem.contextInteraction.MuteUserForPoints;
+import pointsSystem.contextInteraction.RenameUserForPoints;
+import admin.contextInteraction.UpdateUser;
+import types.UserContextInteraction;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 
 import java.util.concurrent.ConcurrentHashMap;

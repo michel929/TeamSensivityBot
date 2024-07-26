@@ -1,6 +1,6 @@
 package ticket;
 
-import buttons.types.ServerButton;
+import types.ServerButton;
 import hosting.Funktionen;
 import main.Main;
 import mysql.BotInfos;

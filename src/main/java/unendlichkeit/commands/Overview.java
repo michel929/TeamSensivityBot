@@ -1,6 +1,6 @@
 package unendlichkeit.commands;
 
-import commands.types.ServerCommand;
+import types.ServerCommand;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

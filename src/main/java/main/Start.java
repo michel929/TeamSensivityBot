@@ -1,6 +1,5 @@
 package main;
 
-import SchachAPI.Schach;
 import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import functions.GetGameRoles;
 import geheim.BotToken;
