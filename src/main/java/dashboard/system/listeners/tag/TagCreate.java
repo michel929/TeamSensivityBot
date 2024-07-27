@@ -1,4 +1,4 @@
-package listeners.dashboard.tag;
+package dashboard.system.listeners.tag;
 
 import mysql.dashboard.Tag;
 import net.dv8tion.jda.api.events.channel.forum.ForumTagAddEvent;

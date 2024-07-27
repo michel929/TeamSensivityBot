@@ -1,4 +1,4 @@
-package listeners.dashboard.role;
+package dashboard.system.listeners.role;
 
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.events.role.RoleDeleteEvent;

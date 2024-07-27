@@ -1,4 +1,4 @@
-package listeners.dashboard.role.user;
+package dashboard.system.listeners.role.user;
 
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.entities.Role;

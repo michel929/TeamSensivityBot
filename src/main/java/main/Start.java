@@ -3,18 +3,19 @@ package main;
 import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import createChill.listeners.ChannelRemove;
 import createChill.listeners.MemberJoinChannel;
+import dashboard.system.listeners.*;
 import functions.GetGameRoles;
 import geheim.BotToken;
 import geheim.Steam;
 import listeners.*;
-import listeners.dashboard.*;
-import listeners.dashboard.role.*;
-import listeners.dashboard.role.user.UserGetRole;
-import listeners.dashboard.role.user.UserRemoveRole;
-import listeners.dashboard.tag.TagRemove;
-import listeners.dashboard.tag.TagCreate;
-import listeners.dashboard.tag.TagUpdate;
+import dashboard.system.listeners.role.*;
+import dashboard.system.listeners.role.user.UserGetRole;
+import dashboard.system.listeners.role.user.UserRemoveRole;
+import dashboard.system.listeners.tag.TagRemove;
+import dashboard.system.listeners.tag.TagCreate;
+import dashboard.system.listeners.tag.TagUpdate;
 import listeners.interactions.*;
+import listeners.system.OnStart;
 import main.manager.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -138,14 +139,19 @@ public class Start {
     }
 
     public void commands() {
-        api.upsertCommand("connect", "Hiermit verbindest du deinen DiscordAccount mit dem Dashboard.").queue();
+
         api.upsertCommand("login", "Hiermit kannst du dich im Dashboard anmelden.").queue();
         api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
         api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
         api.upsertCommand("lock", "Sorgt dafür das keiner dich mehr umbenennen.").queue();
 
-        api.upsertCommand("minecraft", "Hiermit kannst du deinen MinecraftAccount verbinden").queue();
+        //Connect
+        Collection<SubcommandData> connect = new ArrayList<>();
+        connect.add(new SubcommandData("steam", "Verbindet deinen Steam Account mit deinem TeamSensivity Account."));
+        connect.add(new SubcommandData("riot", "Verbindet deinen Riot Account mit deinem TeamSensivity Account."));
+        api.upsertCommand("connect", "Hiermit verbindest du deine Socials mit deinem Account.").addSubcommands(connect).queue();
 
+        //BDAY
         Collection<SubcommandData> bday = new ArrayList<>();
         bday.add(new SubcommandData("info", "Zeigt dir deinen Bday an."));
         bday.add(new SubcommandData("add", "Füge deinen eigenen Bday hinzu.")
@@ -156,6 +162,7 @@ public class Start {
         bday.add(new SubcommandData("next", "Zeigt dir an wer als nächstes Geburtstag hat."));
         api.upsertCommand("bday", "Hiermit kannst du das Geburtstag Feature benutzen.").addSubcommands(bday).queue();
 
+        //PunkteSystem
         Collection<SubcommandData> subcommands = new ArrayList<>();
         subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
         subcommands.add(new SubcommandData("remove", "Entfernt dem User Punkte.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
@@ -165,6 +172,7 @@ public class Start {
 
         api.upsertCommand("daily", "Hiermit sammelst du die Tägliche belohnung ein.").queue();
 
+        //MusikBot
         api.upsertCommand("play", "Hiermit kannst du Musik abspielen.").addOption(OptionType.STRING, "song", "Damit der Bot weiß was für ein Lied du hören möchtest...", true).queue();
         api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
         api.upsertCommand("stop", "Hiermit kannst du den aktuellen Song stoppen.").queue();

@@ -1,4 +1,4 @@
-package modals.type;
+package types;
 
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 

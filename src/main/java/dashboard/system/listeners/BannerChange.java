@@ -1,4 +1,4 @@
-package listeners.dashboard;
+package dashboard.system.listeners;
 
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;

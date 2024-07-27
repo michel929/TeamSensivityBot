@@ -1,8 +1,7 @@
 package main.manager;
 
-import modals.ConnectMinecraft;
-import modals.RenameUser;
-import modals.type.ServerModal;
+import pointsSystem.modals.RenameUser;
+import types.ServerModal;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,7 +13,6 @@ public class ModalManager {
         this.modals = new ConcurrentHashMap<>();
 
         modals.put("rename", new RenameUser());
-        modals.put("minecraft", new ConnectMinecraft());
     }
 
     public boolean perform(String command, ModalInteractionEvent event){

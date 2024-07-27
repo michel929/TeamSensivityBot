@@ -169,32 +169,6 @@ public class PlayerInfos {
         return y;
     }
 
-    public static boolean isMatchFromUser(String id, String vergleich_row){
-        String y = null;
-
-        try {
-            Connection con = Connect.getConnection();
-            String sql = "SELECT * FROM league_games";
-            Statement stmt  = con.createStatement();
-            ResultSet rs    = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                if(id.equals(rs.getString("discord_id"))){
-                    if(vergleich_row.equals(rs.getString("match_id"))){
-                        return true;
-                    }
-                }
-
-            }
-
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
     public static ArrayList<String> getConnectionFromType(String type){
         ArrayList<String> s = new ArrayList<>();
 

@@ -1,8 +1,8 @@
-package modals;
+package pointsSystem.modals;
 
 import functions.GetInfos;
 import logging.LogSystem;
-import modals.type.ServerModal;
+import types.ServerModal;
 import mysql.BotInfos;
 import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.EmbedBuilder;

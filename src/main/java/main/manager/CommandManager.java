@@ -6,7 +6,7 @@ import admin.commands.ResetCommand;
 import admin.commands.Shutdown;
 import admin.commands.UpdateCommand;
 import hosting.commands.GameServerShop;
-import commands.embeds.PointsCommand;
+import pointsSystem.commands.PointsCommand;
 import schachAPI.commands.SchachLeaderBoard;
 import ticket.commands.TicketCommand;
 import commands.embeds.anleitungen.ConnectTeamSensivityAccount;

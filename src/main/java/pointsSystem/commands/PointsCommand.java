@@ -1,4 +1,4 @@
-package commands.embeds;
+package pointsSystem.commands;
 
 import types.ServerCommand;
 import main.Main;
