@@ -1,8 +1,10 @@
 package listeners.system;
 
+import dashboard.system.listeners.StatusChange;
 import functions.GetGameRoles;
 import createChill.listeners.MemberJoinChannel;
 import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.Tag;
@@ -17,6 +19,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.joda.time.LocalDateTime;
 import request.EveryDay;
 import request.TwentySec;
 import unendlichkeit.listeners.MessageRecived;
@@ -135,5 +138,10 @@ public class OnStart extends ListenerAdapter {
 
             System.out.println("Die Aktuelle Zahl ist: " + MessageRecived.zahl);
         });
+
+        //Status Change Add all
+        for(Member member : g.getMembers()) {
+            StatusChange.status.put(member.getId(), LocalDateTime.now());
+        }
     }
 }

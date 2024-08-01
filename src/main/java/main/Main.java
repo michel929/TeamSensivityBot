@@ -4,7 +4,10 @@ import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class Main {
 
@@ -18,6 +21,10 @@ public class Main {
         System.out.println("Normale Bot wird gestartet!");
         DATABASE = "TeamSensivity";
         GUILD_ID = "773995277840941067";
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
+        Calendar now = Calendar.getInstance();
+        System.out.println(now.getTimeZone());
+        System.out.println(now.getTime());
         try {
             INSTANCE = new Start(false);
         } catch (LoginException e) {

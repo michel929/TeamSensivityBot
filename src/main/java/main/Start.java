@@ -22,12 +22,15 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.joda.time.LocalDateTime;
 import pointsSystem.listeners.onMessageReceived;
 import templates.EmbedMessages;
 import unendlichkeit.listeners.MessageDelete;
@@ -82,7 +85,6 @@ public class Start {
         this.ProductID = new ArrayList<>();
 
         api.setAutoReconnect(true);
-
     }
 
     private void listeners() {

@@ -1,6 +1,7 @@
 package mysql.dashboard;
 
 import mysql.Connect;
+import org.joda.time.LocalDateTime;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -193,27 +194,6 @@ public class PlayerInfos {
         return s;
     }
 
-    public static HashMap<String, String> getLeaguePuuids(){
-        HashMap<String, String> s = new HashMap<>();
-
-        try {
-            Connection con = Connect.getConnection();
-            String sql = "SELECT * FROM riot_ids";
-            Statement stmt  = con.createStatement();
-            ResultSet rs    = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                s.put(rs.getString("discord_id"), rs.getString("puuid_old"));
-            }
-
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return s;
-    }
-
     public static void deleteInfo(String id, String row, String table){
         try {
             Connection con = Connect.getConnection();
@@ -240,6 +220,20 @@ public class PlayerInfos {
 
         } catch (
                 SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void uploadStatus(String status, LocalDateTime first, LocalDateTime second, String id, int diff){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO status (discord_id, status, firstDate, secondDate, minuten) VALUES ('"+ id + "', '"+ status + "', '"+ first +"' , '"+ second +"', '"+ diff +"')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
