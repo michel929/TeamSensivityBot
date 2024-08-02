@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.joda.time.LocalDateTime;
+import org.joda.time.Minutes;
 import request.EveryDay;
 import request.TwentySec;
 import unendlichkeit.listeners.MessageRecived;
@@ -135,13 +136,23 @@ public class OnStart extends ListenerAdapter {
             }else {
                 MessageRecived.zahl = 0;
             }
-
-            System.out.println("Die Aktuelle Zahl ist: " + MessageRecived.zahl);
         });
 
         //Status Change Add all
         for(Member member : g.getMembers()) {
-            StatusChange.status.put(member.getId(), LocalDateTime.now());
+
+            if(PlayerInfos.isExist(member.getId(), "discord_id", "users")){
+
+                LocalDateTime last = PlayerInfos.getLastStatus(member.getId());
+
+                if(last != null) {
+                    Minutes m = Minutes.minutesBetween(last, LocalDateTime.now());
+
+                   PlayerInfos.uploadStatus(member.getOnlineStatus().toString(), last, LocalDateTime.now(), member.getId(), m.getMinutes());
+                }
+
+                StatusChange.status.put(member.getId(), LocalDateTime.now());
+            }
         }
     }
 }

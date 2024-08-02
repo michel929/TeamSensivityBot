@@ -238,6 +238,27 @@ public class PlayerInfos {
         }
     }
 
+    public static LocalDateTime getLastStatus(String discord_id){
+        LocalDateTime last = null;
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM status WHERE discord_id = '" + discord_id + "' ORDER BY secondDate DESC LIMIT 1";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                last = LocalDateTime.fromDateFields(rs.getTimestamp("secondDate"));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return last;
+    }
+
     public static void updatePlayerInfos(String discord_id, String row){
         try {
             Connection con = Connect.getConnection();

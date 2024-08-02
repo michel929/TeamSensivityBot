@@ -18,7 +18,7 @@ public class StatusChange extends ListenerAdapter {
     @Override
     public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
 
-        if(PlayerInfos.isExist(event.getUser().getId(), "discord_id", "users") &&BotInfos.getBotInfos("syncSystem").equals("1")) {
+        if(PlayerInfos.isExist(event.getUser().getId(), "discord_id", "users") && BotInfos.getBotInfos("syncSystem").equals("1")) {
             String status2 = event.getNewOnlineStatus().toString();
             String status_old = event.getOldOnlineStatus().toString();
 
