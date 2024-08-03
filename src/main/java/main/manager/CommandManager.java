@@ -5,6 +5,7 @@ import admin.commands.GetEmojis;
 import admin.commands.ResetCommand;
 import admin.commands.Shutdown;
 import admin.commands.UpdateCommand;
+import games.luck.commands.WheelCommand;
 import hosting.commands.GameServerShop;
 import pointsSystem.commands.PointsCommand;
 import schachAPI.commands.SchachLeaderBoard;
@@ -36,6 +37,8 @@ public class CommandManager {
         commands.put("shop", new GameServerShop());
         commands.put("shutdown", new Shutdown());
         commands.put("board", new SchachLeaderBoard());
+
+        commands.put("wheel", new WheelCommand());
     }
 
     public boolean perform(String command, MessageReceivedEvent event){

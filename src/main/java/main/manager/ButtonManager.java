@@ -1,5 +1,6 @@
 package main.manager;
 
+import games.luck.buttons.SpinButton;
 import pointsSystem.buttons.YourPoints;
 import schachAPI.buttons.ReloadBoard;
 import types.ServerButton;
@@ -21,6 +22,8 @@ public class ButtonManager {
         buttons.put("verstanden", new WatchRoomAccept());
         buttons.put("createTicket", new CreateTicket());
         buttons.put("reload-board", new ReloadBoard());
+
+        buttons.put("spin", new SpinButton());
     }
 
     public boolean perform(String command, ButtonInteractionEvent event){

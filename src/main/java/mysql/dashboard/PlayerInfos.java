@@ -7,8 +7,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerInfos {
     public static void createAccount(String id, String username, String pb, String banner){
@@ -210,6 +208,21 @@ public class PlayerInfos {
     }
 
     public static void updatePlayerInfos(String discord_id, String row, String newInfos){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET " + row + " = '" + newInfos + "' WHERE discord_id = '" + discord_id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updatePlayerInfos(String discord_id, String row, int newInfos){
         try {
             Connection con = Connect.getConnection();
 

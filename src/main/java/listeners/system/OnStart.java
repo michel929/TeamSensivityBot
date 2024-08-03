@@ -4,7 +4,6 @@ import dashboard.system.listeners.StatusChange;
 import functions.GetGameRoles;
 import createChill.listeners.MemberJoinChannel;
 import main.Main;
-import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.Tag;
