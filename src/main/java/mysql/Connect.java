@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connect {
-    static String url = "jdbc:mysql://192.168.178.200:3306/" + Main.DATABASE;
+    static String url = "jdbc:mysql://10.10.1.2:3306/" + Main.DATABASE;
     static String user = "discord";
     static String pass = Passwort.getDataPasswort();
 
@@ -24,7 +24,7 @@ public class Connect {
     }
 
     public static Connection getConnectionWithName(String db_name){
-        String url = "jdbc:mysql://192.168.178.200:3306/" + db_name;
+        String url = "jdbc:mysql://10.10.1.2:3306/" + db_name;
 
         try {
             Connection con = DriverManager.getConnection(url, user, pass);

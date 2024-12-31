@@ -29,7 +29,13 @@ public class UpdateCommand implements ServerCommand {
                     }
 
                     if (PlayerInfos.isExist(member.getId(), "discord_id", "users")) {
-                        //TODO
+                        if(!PlayerInfos.isExist(member.getId(), "discord_id", "profile")) {
+                            PlayerInfos.createProfile(member.getId());
+                        }
+
+                        PlayerInfos.updateAccount(member.getId(), member.getUser().getEffectiveName(), member.getEffectiveAvatarUrl(), banner, member.getTimeJoined());
+
+                        System.out.println("Updated Discord ID: " + member.getId());
                     } else {
 
                         String name = member.getUser().getName();

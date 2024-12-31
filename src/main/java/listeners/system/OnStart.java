@@ -21,6 +21,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Minutes;
 import request.EveryDay;
+import request.EveryFifeMin;
 import request.TwentySec;
 import unendlichkeit.listeners.MessageRecived;
 
@@ -37,6 +38,11 @@ public class OnStart extends ListenerAdapter {
 
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
         new Timer().schedule(new EveryDay(), 0, 1000 * 60 * 60 * 24);
+        new Timer().schedule(new EveryFifeMin() , 0, 1000 * 60 * 5);
+
+        EveryFifeMin.steam_role = Main.INSTANCE.getGuild().getRoleById("1124250023526408293");
+        EveryFifeMin.riot_role = Main.INSTANCE.getGuild().getRoleById("1124248677465198614");
+        EveryFifeMin.connect_role = Main.INSTANCE.getGuild().getRoleById("1124248473483616296");
 
         List<Role> rollen = g.getRoles();
 

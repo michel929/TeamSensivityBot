@@ -28,7 +28,14 @@ public class UpdateUser implements UserContextInteraction {
             }
 
             if (PlayerInfos.isExist(m.getId(), "discord_id", "users")) {
-                //TODO Player Update
+
+
+                if(!PlayerInfos.isExist(m.getId(), "discord_id", "profile")) {
+                    PlayerInfos.createProfile(m.getId());
+                }
+
+                PlayerInfos.updateAccount(m.getId(), m.getUser().getEffectiveName(), m.getEffectiveAvatarUrl(), banner, m.getTimeJoined());
+
                 event.reply("Alle Einträge wurden aktualisiert.").setEphemeral(true).queue();
             } else {
                 PlayerInfos.createAccount(m.getId(), m.getUser().getAsTag(), m.getEffectiveAvatarUrl(), banner);

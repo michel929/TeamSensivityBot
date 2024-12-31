@@ -30,6 +30,7 @@ public class SpinButton implements ServerButton {
         zahlen.add(4);
         zahlen.add(4);
         zahlen.add(4);
+        zahlen.add(4);
 
         //100XP
         zahlen.add(7);
@@ -38,7 +39,6 @@ public class SpinButton implements ServerButton {
         zahlen.add(7);
 
         //500 TSP
-        zahlen.add(8);
         zahlen.add(8);
         zahlen.add(8);
         zahlen.add(8);

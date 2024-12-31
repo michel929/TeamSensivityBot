@@ -10,10 +10,12 @@ import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,6 +43,10 @@ public class MemberJoinChannel extends ListenerAdapter {
         }
 
         if(event.getChannelJoined() != null) {
+            //Infos Anpassen
+            PlayerInfos.updatePlayerInfos(event.getMember().getId(), "channel", event.getChannelJoined().getName());
+            PlayerInfos.updatePlayerInfos(event.getMember().getId(), "channel_url", event.getChannelJoined().getJumpUrl());
+
             //Create-Chill
             if (BotInfos.getBotInfos("chill_create").equals("1")) {
                 if (event.getChannelJoined().getId().equals(BotInfos.getBotInfos("chill_channel"))) {
@@ -81,11 +87,17 @@ public class MemberJoinChannel extends ListenerAdapter {
         if(event.getChannelLeft() == null){
             //OnlineUser
             BotInfos.addOnlineUser();
+            PlayerInfos.updatePlayerInfos(event.getMember().getId(), "in_channel", 1);
+
+            DateTime t = DateTime.now();
+            String time = t.toString("yyyy-MM-dd HH:mm:ss");
+            PlayerInfos.updatePlayerInfos(event.getMember().getId(), "channel_time", time);
         }
 
         if(event.getChannelJoined() == null){
             //OnlineUser
             BotInfos.removeOnlineUser();
+            PlayerInfos.updatePlayerInfos(event.getMember().getId(), "in_channel", 0);
         }
     }
 

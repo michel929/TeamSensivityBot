@@ -1,10 +1,13 @@
 package mysql.dashboard;
 
 import mysql.Connect;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,6 +21,34 @@ public class PlayerInfos {
             posted.executeUpdate();
 
             posted = con.prepareStatement("INSERT INTO profile (discord_id) VALUES ('"+ id + "')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateAccount(String id, String username, String pb, String banner, OffsetDateTime timeJoined){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET discord_username = '" + username + "', discord_pb = '" + pb + "', discord_banner = '" + banner + "', created_at = '" + timeJoined.format(DateTimeFormatter.ISO_DATE_TIME).replace("T", " ").replace("Z", "") + "' WHERE discord_id = '" + id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createProfile(String id){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO profile (discord_id) VALUES ('"+ id + "')");
 
             posted.executeUpdate();
             con.close();
@@ -192,6 +223,30 @@ public class PlayerInfos {
         return s;
     }
 
+    public static ArrayList<String> getUserFromConnectonTyp(String type){
+        ArrayList<String> s = new ArrayList<>();
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM connections";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                if(type.equals(rs.getString("type"))){
+                    s.add(rs.getString("discord_id"));
+                }
+
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
     public static void deleteInfo(String id, String row, String table){
         try {
             Connection con = Connect.getConnection();
@@ -208,6 +263,21 @@ public class PlayerInfos {
     }
 
     public static void updatePlayerInfos(String discord_id, String row, String newInfos){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET " + row + " = '" + newInfos + "' WHERE discord_id = '" + discord_id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updatePlayerInfos(String discord_id, String row, DateTime newInfos){
         try {
             Connection con = Connect.getConnection();
 

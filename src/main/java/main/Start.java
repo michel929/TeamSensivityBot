@@ -129,7 +129,7 @@ public class Start {
         api.addEventListener(new MessageUpdate());
 
         api.addEventListener(new MemberJoinChannel());
-        api.addEventListener(new OnBotDisconnect());
+        //api.addEventListener(new OnBotDisconnect());
 
         //Watchroom
         api.addEventListener(new watchRoom.listeners.MemberJoinChannel());
