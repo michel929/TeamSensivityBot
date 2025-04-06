@@ -1,6 +1,6 @@
 package games.luck.commands;
 
-import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -25,7 +25,7 @@ public class WheelCommand implements ServerCommand {
         event.getChannel().sendMessageEmbeds(wheel.build()).addActionRow(Button.success("spin", "Drehen (500 Punkte)")).queue();
 
         }else {
-            event.getChannel().sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
+            event.getChannel().sendMessageEmbeds(Start.INSTANCE.getEmbedMessages().getNoPermission()).queue();
         }
     }
 }

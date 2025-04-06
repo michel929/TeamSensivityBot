@@ -1,7 +1,7 @@
 package pointsSystem.slash;
 
 import functions.GetInfos;
-import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
@@ -172,7 +172,7 @@ public class Punkte implements ServerSlash {
                         }
                     }
         }else {
-            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
+            event.replyEmbeds(Start.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
         }
     }
 }

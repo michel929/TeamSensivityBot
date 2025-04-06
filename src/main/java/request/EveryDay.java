@@ -2,7 +2,7 @@ package request;
 
 import functions.GetInfos;
 import functions.LolGuess;
-import main.Main;
+import main.Start;
 import mysql.GetAllTokens;
 import mysql.dashboard.PunkteSystem;
 import net.dv8tion.jda.api.entities.Guild;
@@ -22,7 +22,7 @@ public class EveryDay extends TimerTask {
         LolGuess.updateLOLGuess();
 
         String mostPoints = PunkteSystem.getMostPoints();
-        Guild g = Main.INSTANCE.getGuild();
+        Guild g = Start.INSTANCE.getGuild();
 
         Role r = g.getRoleById("1108320006921527296");
         g.addRoleToMember(g.getMemberById(mostPoints), r).queue();

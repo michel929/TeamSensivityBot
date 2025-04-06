@@ -1,8 +1,8 @@
 package hosting.commands;
 
+import main.Start;
 import types.ServerCommand;
 import gameserver.Produkt;
-import main.Main;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -25,7 +25,7 @@ public class GameServerShop implements ServerCommand {
 
             for (Produkt p: gameserver.mysql.getProduktList()) {
 
-                if(!Main.INSTANCE.getProductID().contains(p.getId())) {
+                if(!Start.INSTANCE.getProductID().contains(p.getId())) {
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setTitle(p.getName());
                     builder.setDescription(p.getDescription());

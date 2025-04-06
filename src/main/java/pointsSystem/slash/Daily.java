@@ -1,7 +1,7 @@
 package pointsSystem.slash;
 
 import logging.LogSystem;
-import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
@@ -55,7 +55,7 @@ public class Daily implements ServerSlash {
                 }
             }
         }else {
-            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
+            event.replyEmbeds(Start.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
 
             LogSystem.logGeneral(event.getMember().getId(), "Der User hat den /daily Command ausgeführt jedoch war der Command disabled.", event.getUser().getAsTag());
 

@@ -1,7 +1,7 @@
 package admin.commands;
 
+import main.Start;
 import types.ServerCommand;
-import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -16,7 +16,7 @@ public class ResetCommand implements ServerCommand {
     @Override
     public void performCommand(MessageReceivedEvent event) throws ParseException {
         if (event.getMember().getId().equals("422148236875137059")){
-            List<Member> members = Main.INSTANCE.getGuild().getMembers();
+            List<Member> members = Start.INSTANCE.getGuild().getMembers();
             int i = 1;
             for (Member member: members) {
                 if(!member.getId().equals("422148236875137059")) {

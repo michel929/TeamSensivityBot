@@ -1,7 +1,7 @@
 package admin.commands;
 
+import main.Start;
 import types.ServerCommand;
-import main.Main;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
@@ -22,7 +22,7 @@ public class GetEmojis implements ServerCommand {
                 event.getChannel().sendMessage(e + "").setSuppressedNotifications(true).queue();
             }
         } else{
-            event.getChannel().sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
+            event.getChannel().sendMessageEmbeds(Start.INSTANCE.getEmbedMessages().getNoPermission()).queue();
         }
     }
 }

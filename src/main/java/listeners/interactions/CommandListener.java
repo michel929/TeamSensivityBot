@@ -1,10 +1,6 @@
 package listeners.interactions;
 
-import main.Main;
-import mysql.BotInfos;
-import mysql.dashboard.PlayerInfos;
-import mysql.dashboard.PunkteSystem;
-import net.dv8tion.jda.api.entities.Role;
+import main.Start;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -21,7 +17,7 @@ public class CommandListener extends ListenerAdapter {
                     String[] args = message.substring(1).split(" ");
 
                     if (args.length > 0) {
-                        if (!Main.INSTANCE.getCmdMan().perform(args[0], event)) {
+                        if (!Start.INSTANCE.getCmdMan().perform(args[0], event)) {
                             event.getChannel().sendMessage("Unbekannter Command").queue();
                         }
                     }

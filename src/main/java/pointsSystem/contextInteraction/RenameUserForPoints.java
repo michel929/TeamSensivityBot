@@ -1,7 +1,7 @@
 package pointsSystem.contextInteraction;
 
+import main.Start;
 import types.UserContextInteraction;
-import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
@@ -30,7 +30,7 @@ public class RenameUserForPoints implements UserContextInteraction {
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
             }
         }else {
-            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
+            event.replyEmbeds(Start.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
         }
     }
 

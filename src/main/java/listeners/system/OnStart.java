@@ -3,19 +3,16 @@ package listeners.system;
 import dashboard.system.listeners.StatusChange;
 import functions.GetGameRoles;
 import createChill.listeners.MemberJoinChannel;
-import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
-import mysql.dashboard.Tag;
 import mysql.dashboard.UploadRole;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.channel.concrete.ForumChannel;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import net.dv8tion.jda.api.entities.channel.forums.ForumTag;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.joda.time.LocalDateTime;
@@ -23,37 +20,29 @@ import org.joda.time.Minutes;
 import request.EveryDay;
 import request.EveryFifeMin;
 import request.TwentySec;
-import unendlichkeit.listeners.MessageRecived;
 
 import java.util.List;
 import java.util.Timer;
+
+import static main.Start.VERSION_ID;
 
 public class OnStart extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
 
-        Guild g = event.getJDA().getGuildById(Main.GUILD_ID);
-        Main.INSTANCE.setGuild(g);
-        Main.INSTANCE.setGameRoles(new GetGameRoles(g.getRoles()));
+        Guild g = event.getJDA().getGuildById(Start.GUILD_ID);
+        Start.INSTANCE.setGuild(g);
+        Start.INSTANCE.setGameRoles(new GetGameRoles(g.getRoles()));
 
         new Timer().schedule(new TwentySec(), 0, 1000 * 20);
         new Timer().schedule(new EveryDay(), 0, 1000 * 60 * 60 * 24);
         new Timer().schedule(new EveryFifeMin() , 0, 1000 * 60 * 5);
 
-        EveryFifeMin.steam_role = Main.INSTANCE.getGuild().getRoleById("1124250023526408293");
-        EveryFifeMin.riot_role = Main.INSTANCE.getGuild().getRoleById("1124248677465198614");
-        EveryFifeMin.connect_role = Main.INSTANCE.getGuild().getRoleById("1124248473483616296");
+        EveryFifeMin.steam_role = Start.INSTANCE.getGuild().getRoleById("1124250023526408293");
+        EveryFifeMin.riot_role = Start.INSTANCE.getGuild().getRoleById("1124248677465198614");
+        EveryFifeMin.connect_role = Start.INSTANCE.getGuild().getRoleById("1124248473483616296");
 
         List<Role> rollen = g.getRoles();
-
-        ForumChannel forumChannel = g.getForumChannelById("1178340611540127826");
-
-        for (ThreadChannel post: forumChannel.getThreadChannels()) {
-            String id = post.getHistory().getRetrievedHistory().get(0).getEmbeds().get(0).getFooter().getText();
-            id = id.replace("ID: ", "");
-
-            Main.INSTANCE.addProductID(id);
-        }
 
         //Update Rollen in Datenbank
         String hex = "";
@@ -64,6 +53,20 @@ public class OnStart extends ListenerAdapter {
         for (Member m: g.getMembers()) {
             for (Role r: m.getRoles()) {
                 PlayerInfos.insertRole(m.getId(), r.getId());
+            }
+
+            //Status Change Add all
+            if(PlayerInfos.isExist(m.getId(), "discord_id", "users")){
+
+                LocalDateTime last = PlayerInfos.getLastStatus(m.getId());
+
+                if(last != null) {
+                    Minutes min = Minutes.minutesBetween(last, LocalDateTime.now());
+
+                    PlayerInfos.uploadStatus(m.getOnlineStatus().toString(), last, LocalDateTime.now(), m.getId(), min.getMinutes());
+                }
+
+                StatusChange.status.put(m.getId(), LocalDateTime.now());
             }
         }
 
@@ -108,56 +111,7 @@ public class OnStart extends ListenerAdapter {
         //UserCount
         BotInfos.updateInfoInt("user_count", g.getMemberCount());
 
-
-        if(g.getForumChannels().size() > 0) {
-            for (ForumTag tag : g.getForumChannels().get(0).getAvailableTags()) {
-                if (Tag.isExist(tag)) {
-                    Tag.updateTag(tag);
-                } else {
-                    Tag.insertTag(tag);
-                }
-            }
-        }
-
-        TextChannel textChannel = g.getTextChannelById("1144648374520402163");
-        textChannel.getHistory().retrievePast(1).queue(messages -> {
-            String message = messages.get(0).getContentDisplay();
-            System.out.println(message);
-            String newString = "";
-
-            for (int i = 0; i < message.length(); i++) {
-                char a = message.charAt(i);
-                int ascii = (int) a;
-
-                if(ascii > 47 && ascii < 58){
-                    newString = newString + a;
-                }
-            }
-
-            if(!newString.isEmpty()) {
-                MessageRecived.zahl = Long.parseLong(newString);
-                MessageRecived.userid = messages.get(0).getAuthor().getId();
-                MessageRecived.messageid = messages.get(0).getId();
-            }else {
-                MessageRecived.zahl = 0;
-            }
-        });
-
-        //Status Change Add all
-        for(Member member : g.getMembers()) {
-
-            if(PlayerInfos.isExist(member.getId(), "discord_id", "users")){
-
-                LocalDateTime last = PlayerInfos.getLastStatus(member.getId());
-
-                if(last != null) {
-                    Minutes m = Minutes.minutesBetween(last, LocalDateTime.now());
-
-                   PlayerInfos.uploadStatus(member.getOnlineStatus().toString(), last, LocalDateTime.now(), member.getId(), m.getMinutes());
-                }
-
-                StatusChange.status.put(member.getId(), LocalDateTime.now());
-            }
-        }
+        Start.api.getPresence().setStatus(OnlineStatus.ONLINE);
+        Start.api.getPresence().setPresence(Activity.customStatus("VERSION " + VERSION_ID), true);
     }
 }

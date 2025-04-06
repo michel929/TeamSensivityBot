@@ -1,8 +1,8 @@
 package ticket;
 
+import main.Start;
 import types.ServerButton;
 import hosting.Funktionen;
-import main.Main;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -64,7 +64,7 @@ public class CreateTicket implements ServerButton {
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
             }
         }else {
-            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
+            event.replyEmbeds(Start.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
         }
     }
 }

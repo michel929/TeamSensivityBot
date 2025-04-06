@@ -1,9 +1,9 @@
 package pointsSystem.contextInteraction;
 
+import main.Start;
 import types.UserContextInteraction;
 import functions.GetInfos;
 import logging.LogSystem;
-import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import mysql.dashboard.PunkteSystem;
@@ -64,7 +64,7 @@ public class MuteUserForPoints implements UserContextInteraction {
                 event.replyEmbeds(builder.build()).setEphemeral(true).queue();
             }
         }else {
-            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
+            event.replyEmbeds(Start.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
         }
     }
 }

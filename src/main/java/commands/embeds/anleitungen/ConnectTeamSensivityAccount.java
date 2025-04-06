@@ -1,7 +1,7 @@
 package commands.embeds.anleitungen;
 
+import main.Start;
 import types.ServerCommand;
-import main.Main;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -55,7 +55,7 @@ public class ConnectTeamSensivityAccount implements ServerCommand {
             event.getChannel().sendMessageEmbeds(schritt4.build()).queue();
             event.getChannel().sendMessageEmbeds(schritt5.build()).queue();
         }else {
-            event.getChannel().sendMessageEmbeds(Main.INSTANCE.getEmbedMessages().getNoPermission()).queue();
+            event.getChannel().sendMessageEmbeds(Start.INSTANCE.getEmbedMessages().getNoPermission()).queue();
         }
     }
 }

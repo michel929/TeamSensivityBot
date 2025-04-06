@@ -1,19 +1,14 @@
 package main;
 
-import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import createChill.listeners.ChannelRemove;
 import createChill.listeners.MemberJoinChannel;
 import dashboard.system.listeners.*;
 import functions.GetGameRoles;
 import geheim.BotToken;
-import geheim.Steam;
 import listeners.*;
 import dashboard.system.listeners.role.*;
 import dashboard.system.listeners.role.user.UserGetRole;
 import dashboard.system.listeners.role.user.UserRemoveRole;
-import dashboard.system.listeners.tag.TagRemove;
-import dashboard.system.listeners.tag.TagCreate;
-import dashboard.system.listeners.tag.TagUpdate;
 import listeners.interactions.*;
 import listeners.system.OnStart;
 import main.manager.*;
@@ -22,72 +17,69 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import org.joda.time.LocalDateTime;
 import pointsSystem.listeners.onMessageReceived;
 import templates.EmbedMessages;
-import unendlichkeit.listeners.MessageDelete;
-import unendlichkeit.listeners.MessageRecived;
-import unendlichkeit.listeners.MessageUpdate;
 
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.TimeZone;
 
 public class Start {
 
-    public static String VERSION_ID = "2.7";
+    public static String VERSION_ID = "3.0";
+    public static Start INSTANCE;
+    public static String DATABASE;
+    public static String GUILD_ID;
+    public static JDA api;
 
-    private JDA api;
     private CommandManager cmdMan;
     private UserContextInteractionManager userManager;
     private SlashManager slashMan;
     private ButtonManager buttonMan;
     private ModalManager modalMan;
-    private SteamWebApiClient steamApi;
     private EmbedMessages embedMessages;
     private Guild guild;
     private GetGameRoles gameRoles;
     private ArrayList<String> ProductID;
 
-    public Start(boolean demo) throws LoginException, IllegalArgumentException {
+    public static void main(String[] args) {
+        DATABASE = "TeamSensivity";
+        GUILD_ID = "773995277840941067";
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
 
-        Main.INSTANCE = this;
+        INSTANCE = new Start();
+    }
 
-        if (!demo) {
-            api = JDABuilder.create(BotToken.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
-            api.getPresence().setPresence(Activity.customStatus("VERSION " + VERSION_ID), true);
-        } else {
-            api = JDABuilder.create(BotToken.demoToken, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
-            api.getPresence().setActivity(Activity.customStatus("DEMO " + VERSION_ID));
-        }
+    public Start() {
 
-        api.getPresence().setStatus(OnlineStatus.ONLINE);
+        api = JDABuilder.create(BotToken.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
+        api.getPresence().setPresence(Activity.customStatus("STARTE BOT"), true);
 
-        listeners();
+        api.getPresence().setStatus(OnlineStatus.IDLE);
 
         System.out.println("Bot ist online!");
 
         this.cmdMan = new CommandManager();
         this.slashMan = new SlashManager();
         this.buttonMan = new ButtonManager();
-        this.steamApi = new SteamWebApiClient.SteamWebApiClientBuilder(Steam.apiKey).build();
         this.embedMessages = new EmbedMessages();
         this.userManager = new UserContextInteractionManager();
         this.modalMan = new ModalManager();
         this.ProductID = new ArrayList<>();
 
         api.setAutoReconnect(true);
+
+        listeners();
     }
 
-    private void listeners() {
+    private static void listeners() {
         api.addEventListener(new SlashCommand());
         api.addEventListener(new CommandListener());
         api.addEventListener(new SelectionMenu());
@@ -115,18 +107,9 @@ public class Start {
         api.addEventListener(new UserGetRole());
         api.addEventListener(new UserRemoveRole());
 
-        //TagSystem
-        api.addEventListener(new TagRemove());
-        api.addEventListener(new TagCreate());
-        api.addEventListener(new TagUpdate());
-
         //System
         api.addEventListener(new OnStart());
         api.addEventListener(new OnShutdown());
-
-        api.addEventListener(new MessageRecived());
-        api.addEventListener(new MessageDelete());
-        api.addEventListener(new MessageUpdate());
 
         api.addEventListener(new MemberJoinChannel());
         //api.addEventListener(new OnBotDisconnect());

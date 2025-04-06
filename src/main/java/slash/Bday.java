@@ -1,6 +1,6 @@
 package slash;
 
-import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -75,7 +75,7 @@ public class Bday implements ServerSlash {
                 //TODO NEXT BDAY
             }
         }else {
-            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
+            event.replyEmbeds(Start.INSTANCE.getEmbedMessages().getNoAccount()).setEphemeral(true).queue();
         }
     }
 }

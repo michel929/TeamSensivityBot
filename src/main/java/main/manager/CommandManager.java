@@ -15,7 +15,6 @@ import commands.embeds.anleitungen.SelectGames;
 import types.ServerCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.simple.parser.ParseException;
-import unendlichkeit.commands.Overview;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,7 +31,6 @@ public class CommandManager {
         commands.put("emoji", new GetEmojis());
         commands.put("consen", new ConnectTeamSensivityAccount());
         commands.put("selgam", new SelectGames());
-        commands.put("unendlichkeit", new Overview());
         commands.put("ticket", new TicketCommand());
         commands.put("shop", new GameServerShop());
         commands.put("shutdown", new Shutdown());

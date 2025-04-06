@@ -1,6 +1,6 @@
 package slash.dashboard;
 
-import main.Main;
+import main.Start;
 import mysql.BotInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -20,7 +20,7 @@ public class Login implements ServerSlash {
             builder.setDescription("Benutze den Button um dich im Team Sensivity Dashboard anzumelden.");
             event.replyEmbeds(builder.build()).setEphemeral(true).setActionRow(Button.link("https://discord.com/api/oauth2/authorize?client_id=917069851191816262&redirect_uri=https%3A%2F%2Fdashboard.sensivity.team%2Fconnect%2Fregister.php&response_type=code&scope=identify%20connections", "Zum Login")).queue();
         }else {
-            event.replyEmbeds(Main.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
+            event.replyEmbeds(Start.INSTANCE.getEmbedMessages().getNotActive()).setEphemeral(true).queue();
         }
     }
 }

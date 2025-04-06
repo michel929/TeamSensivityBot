@@ -1,6 +1,6 @@
 package request;
 
-import main.Main;
+import main.Start;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -17,7 +17,7 @@ public class EveryFifeMin extends TimerTask {
 
     @Override
     public void run() {
-        Guild g = Main.INSTANCE.getGuild();
+        Guild g = Start.INSTANCE.getGuild();
 
         //Connections Steam
         ArrayList<String> steam = PlayerInfos.getUserFromConnectonTyp("steam");

@@ -1,7 +1,7 @@
 package admin.commands;
 
+import main.Start;
 import types.ServerCommand;
-import main.Main;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.entities.*;
@@ -13,7 +13,7 @@ public class UpdateCommand implements ServerCommand {
     @Override
     public void performCommand(MessageReceivedEvent event) {
         if (event.getMember().getId().equals("422148236875137059")){
-            Guild g = Main.INSTANCE.getGuild();
+            Guild g = Start.INSTANCE.getGuild();
             List<Member> members = g.getMembers();
 
             for (Member member: members) {
@@ -52,8 +52,8 @@ public class UpdateCommand implements ServerCommand {
                             }
                         }
 
-                        Role re = Main.INSTANCE.getGuild().getRoleById(BotInfos.getBotInfos("dashboard_role"));
-                        Main.INSTANCE.getGuild().addRoleToMember(member, re).queue();
+                        Role re = Start.INSTANCE.getGuild().getRoleById(BotInfos.getBotInfos("dashboard_role"));
+                        Start.INSTANCE.getGuild().addRoleToMember(member, re).queue();
                     }
                 }
             }
