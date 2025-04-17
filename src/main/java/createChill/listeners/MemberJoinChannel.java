@@ -1,5 +1,6 @@
 package createChill.listeners;
 
+import main.Start;
 import mysql.BotInfos;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -37,6 +38,7 @@ public class MemberJoinChannel extends ListenerAdapter {
                 if (event.getChannelLeft().getMembers().size() == 0) {
                     event.getChannelLeft().delete().queue();
                     channel.remove(event.getChannelLeft());
+                    Start.INSTANCE.getVoiceChannels().remove(event.getChannelLeft());
                     watchRoom.listeners.MemberJoinChannel.watch.remove(event.getChannelLeft());
                 }
             }
@@ -71,7 +73,7 @@ public class MemberJoinChannel extends ListenerAdapter {
                     c.createVoiceChannel("Chill | " + x).addPermissionOverride(event.getMember(), permission, null).queue(voiceChannel -> {
                         event.getGuild().moveVoiceMember(event.getMember(), voiceChannel).queue();
                         channel.add(voiceChannel);
-
+                        Start.INSTANCE.getVoiceChannels().add(voiceChannel);
                         EmbedBuilder builder = new EmbedBuilder();
                         builder.setThumbnail(BotInfos.getBotInfos("logo_url"));
                         builder.setColor(Color.decode("#9914fa"));

@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -48,6 +49,7 @@ public class Start {
     private Guild guild;
     private GetGameRoles gameRoles;
     private ArrayList<String> ProductID;
+    private Collection<VoiceChannel> voiceChannels;
 
     public static void main(String[] args) {
         DATABASE = "TeamSensivity";
@@ -73,6 +75,7 @@ public class Start {
         this.userManager = new UserContextInteractionManager();
         this.modalMan = new ModalManager();
         this.ProductID = new ArrayList<>();
+        this.voiceChannels = new ArrayList<>();
 
         api.setAutoReconnect(true);
 
@@ -82,7 +85,6 @@ public class Start {
     private static void listeners() {
         api.addEventListener(new SlashCommand());
         api.addEventListener(new CommandListener());
-        api.addEventListener(new SelectionMenu());
         api.addEventListener(new ButtonListener());
         api.addEventListener(new ChannelRemove());
         api.addEventListener(new ModalInteraction());
@@ -123,18 +125,14 @@ public class Start {
         api.addEventListener(new onMessageReceived());
     }
 
-    public void commands() {
+    public void commands(Guild server) {
 
-        api.upsertCommand("login", "Hiermit kannst du dich im Dashboard anmelden.").queue();
-        api.upsertCommand("token", "Hiermit kannst du ein Token für den Login beantragen.").queue();
-        api.upsertCommand("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen.").queue();
-        api.upsertCommand("lock", "Sorgt dafür das keiner dich mehr umbenennen.").queue();
+        System.out.println("Initialisiere Commands");
 
-        //Connect
+        //CONNECT
         Collection<SubcommandData> connect = new ArrayList<>();
         connect.add(new SubcommandData("steam", "Verbindet deinen Steam Account mit deinem TeamSensivity Account."));
         connect.add(new SubcommandData("riot", "Verbindet deinen Riot Account mit deinem TeamSensivity Account."));
-        api.upsertCommand("connect", "Hiermit verbindest du deine Socials mit deinem Account.").addSubcommands(connect).queue();
 
         //BDAY
         Collection<SubcommandData> bday = new ArrayList<>();
@@ -145,32 +143,34 @@ public class Start {
                 .addOption(OptionType.INTEGER, "jahr", "Wähle ein Jahr", true));
         bday.add(new SubcommandData("remove", "Entferne deinen Geburtstag."));
         bday.add(new SubcommandData("next", "Zeigt dir an wer als nächstes Geburtstag hat."));
-        api.upsertCommand("bday", "Hiermit kannst du das Geburtstag Feature benutzen.").addSubcommands(bday).queue();
 
-        //PunkteSystem
+
+        //PUNKTESYSTEM
         Collection<SubcommandData> subcommands = new ArrayList<>();
         subcommands.add(new SubcommandData("add", "Fügt dem User Punkte dazu.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
         subcommands.add(new SubcommandData("remove", "Entfernt dem User Punkte.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
         subcommands.add(new SubcommandData("set", "Setze eine bestimmte anzahl an Punktem einem User.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", true).addOption(OptionType.INTEGER, "punkte", "Die Anzahl an Punkten.", true));
         subcommands.add(new SubcommandData("info", "Finde heraus wie viele Punkte du hast.").addOption(OptionType.USER, "member", "Wähle hiermit einen anderen User aus.", false));
-        api.upsertCommand("points", "Hiermit kannst du deine Punkte einsehen.").addSubcommands(subcommands).queue();
 
-        api.upsertCommand("daily", "Hiermit sammelst du die Tägliche belohnung ein.").queue();
+        server.updateCommands().addCommands(
+             Commands.slash("login", "Hiermit kannst du dich im Dashboard anmelden."),
+             Commands.slash("token", "Hiermit kannst du ein Token für den Login beantragen."),
+             Commands.slash("revoke", "Hiermit kannst du deinen TeamSensivityAccount löschen."),
+             Commands.slash("lock", "Sorgt dafür das keiner dich mehr umbenennen."),
+             Commands.slash("daily", "Hiermit sammelst du die Tägliche belohnung ein."),
 
-        //MusikBot
-        api.upsertCommand("play", "Hiermit kannst du Musik abspielen.").addOption(OptionType.STRING, "song", "Damit der Bot weiß was für ein Lied du hören möchtest...", true).queue();
-        api.upsertCommand("volume", "Hiermit kannst du die Lautstärke einstellen.").addOption(OptionType.INTEGER, "volume", "z.B. 100, 10, 0", true).queue();
-        api.upsertCommand("stop", "Hiermit kannst du den aktuellen Song stoppen.").queue();
-        api.upsertCommand("skip", "Hiermit kannst du den aktuellen Song skippen.").queue();
+             Commands.slash("connect", "Verbindet deinen Steam Account mit deinem TeamSensivity Account.").addSubcommands(connect),
+             Commands.slash("bday", "Hiermit kannst du das Geburtstag Feature benutzen.").addSubcommands(bday),
+             Commands.slash("points", "Hiermit kannst du deine Punkte einsehen.").addSubcommands(subcommands),
 
-        //UserCommands
-        api.updateCommands().addCommands(
-                Commands.context(Command.Type.USER, "Muten (1000 Points)"),
-                Commands.context(Command.Type.USER, "Kick (1000 Points)"),
-                Commands.context(Command.Type.USER, "Rename (500 Points)"),
-                Commands.context(Command.Type.USER, "Create TeamSensivity Account").setDefaultPermissions(DefaultMemberPermissions.DISABLED)
+             Commands.context(Command.Type.USER, "Muten (1000 Points)"),
+             Commands.context(Command.Type.USER, "Kick (1000 Points)"),
+             //Commands.context(Command.Type.USER, "Move (1000 Points)"),
+             Commands.context(Command.Type.USER, "Rename (500 Points)"),
+             Commands.context(Command.Type.USER, "Create TeamSensivity Account").setDefaultPermissions(DefaultMemberPermissions.DISABLED)
         ).queue();
     }
+
 
     public JDA getApi() {
         return api;
@@ -221,4 +221,11 @@ public class Start {
     }
 
 
+    public Collection<VoiceChannel> getVoiceChannels() {
+        return voiceChannels;
+    }
+
+    public void setVoiceChannels(Collection<VoiceChannel> voiceChannels) {
+        this.voiceChannels = voiceChannels;
+    }
 }

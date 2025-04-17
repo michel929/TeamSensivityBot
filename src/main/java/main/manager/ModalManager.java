@@ -1,5 +1,6 @@
 package main.manager;
 
+import pointsSystem.modals.MoveUser;
 import pointsSystem.modals.RenameUser;
 import types.ServerModal;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
@@ -13,6 +14,7 @@ public class ModalManager {
         this.modals = new ConcurrentHashMap<>();
 
         modals.put("rename", new RenameUser());
+        modals.put("move", new MoveUser());
     }
 
     public boolean perform(String command, ModalInteractionEvent event){

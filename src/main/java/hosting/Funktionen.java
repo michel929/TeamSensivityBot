@@ -1,9 +1,6 @@
 package hosting;
 
 import geheim.Hosting;
-import net.dv8tion.jda.api.interactions.commands.Command;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.components.selections.SelectOption;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,7 +17,7 @@ public class Funktionen {
     public static void deleteUser(int id) throws IOException {
         URL url = null;
         try {
-            url = new URL("http://192.168.178.202/api/application/users/" + id);
+            url = new URL("http://10.10.3.2/api/application/users/" + id);
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setDoOutput(true);
             httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -36,7 +33,7 @@ public class Funktionen {
     public static int userExist(String id){
         URL url = null;
         try {
-            url = new URL("http://192.168.178.202/api/application/users/external/" + id);
+            url = new URL("http://10.10.3.2/api/application/users/external/" + id);
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpCon.setRequestProperty("Authorization", "Bearer " + Hosting.HostingToken);
@@ -71,7 +68,7 @@ public class Funktionen {
 
         URL url = null;
         try {
-            url = new URL("http://192.168.178.202/api/application/servers");
+            url = new URL("http://10.10.3.2/api/application/servers");
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpCon.setRequestProperty("Authorization", "Bearer " + Hosting.HostingToken);

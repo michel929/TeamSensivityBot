@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -105,11 +106,18 @@ public class OnStart extends ListenerAdapter {
             }
         }
 
+        //Add to all VoiceChannel
+        for (Channel chan: MemberJoinChannel.channel) {
+            Start.INSTANCE.getVoiceChannels().add((VoiceChannel) chan);
+        }
+
         //OnlinePlayer
         BotInfos.updateInfoInt("user_online", OnlineUser);
 
         //UserCount
         BotInfos.updateInfoInt("user_count", g.getMemberCount());
+
+        Start.INSTANCE.commands(g);
 
         Start.api.getPresence().setStatus(OnlineStatus.ONLINE);
         Start.api.getPresence().setPresence(Activity.customStatus("VERSION " + VERSION_ID), true);
